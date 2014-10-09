@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09.10.2014 13:21:52 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Contract" table="Contract" catalog="ECareDB" optimistic-lock="version">
+        <id name="number" type="java.lang.Integer">
+            <column name="Number" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="customer" class="Customer" fetch="select">
+            <column name="CustomerId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tariff" class="Tariff" fetch="select">
+            <column name="TariffId" not-null="true" />
+        </many-to-one>
+        <set name="options" table="ContractOption" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="ContractNumber" not-null="true" />
+            </key>
+            <many-to-many entity-name="Option">
+                <column name="OptionId" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

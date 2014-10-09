@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 09.10.2014 13:21:52 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Option" table="Option" catalog="ECareDB" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="optionName" type="string">
+            <column name="OptionName" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="rate" type="float">
+            <column name="Rate" precision="12" scale="0" not-null="true" />
+        </property>
+        <set name="optionsForId" table="RelatedOption" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RelatedId" not-null="true" />
+            </key>
+            <many-to-many entity-name="Option">
+                <column name="id" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="optionsForIncompatibleId" table="IncompatibleOption" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id" not-null="true" />
+            </key>
+            <many-to-many entity-name="Option">
+                <column name="IncompatibleId" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="tariffs" table="TariffOption" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="OptionId" not-null="true" />
+            </key>
+            <many-to-many entity-name="Tariff">
+                <column name="TariffId" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="optionsForRelatedId" table="RelatedOption" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id" not-null="true" />
+            </key>
+            <many-to-many entity-name="Option">
+                <column name="RelatedId" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="optionsForId_1" table="IncompatibleOption" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IncompatibleId" not-null="true" />
+            </key>
+            <many-to-many entity-name="Option">
+                <column name="id" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="contracts" table="ContractOption" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="OptionId" not-null="true" />
+            </key>
+            <many-to-many entity-name="Contract">
+                <column name="ContractNumber" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

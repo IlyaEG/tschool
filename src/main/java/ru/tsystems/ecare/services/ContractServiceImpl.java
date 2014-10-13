@@ -1,7 +1,6 @@
-package ru.tsystems.ecare.services.impl;
+package ru.tsystems.ecare.services;
 
 import ru.tsystems.ecare.persistence.entities.Contract;
-import ru.tsystems.ecare.services.ContractService;
 
 public class ContractServiceImpl implements ContractService {
 
@@ -22,7 +21,6 @@ public class ContractServiceImpl implements ContractService {
 		return false;
 	}
 
-	@Override
 	public Contract showContract() {
 		// TODO Auto-generated method stub
 		return null;

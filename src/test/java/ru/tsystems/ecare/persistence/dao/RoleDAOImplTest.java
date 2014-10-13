@@ -2,9 +2,12 @@ package ru.tsystems.ecare.persistence.dao;
 
 import static org.junit.Assert.*;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.junit.Test;
 
 import ru.tsystems.ecare.persistence.entities.Role;
+import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class RoleDAOImplTest {
 
@@ -30,12 +33,19 @@ public class RoleDAOImplTest {
 	}
 	
 	@Test
-	public void testFinfByName() {
-		Role r1 = new Role("customer");
+	public void testFindByName() {
+        try{
+        RoleDAO rDAO = new RoleDAOImpl();
+        
+        Role roleFromDAO = rDAO.findByName("employee");
 		
-		RoleDAO rd = new RoleDAOImpl();
-		Role r2 = rd.findByName("customer");
-		assertEquals(r1,r2);
+		Role test = new Role("employee");
+	
+		assertEquals(test,roleFromDAO);
+        } catch (Throwable e) {
+        	e.printStackTrace();
+        	fail("fail with exception");
+        }
 	}
 
 }

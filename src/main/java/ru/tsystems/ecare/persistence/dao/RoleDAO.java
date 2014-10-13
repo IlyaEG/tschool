@@ -4,5 +4,4 @@ import ru.tsystems.ecare.persistence.entities.Role;
 
 public interface RoleDAO extends GenericDAO<Role, Integer> {
 
-	Role findByName(String name);
 }

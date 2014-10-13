@@ -11,12 +11,9 @@ public class RoleDAOImpl extends GenericDAOImpl<Role, Integer> implements
 
 	@Override
 	public Role findByName(String name) {
-		Session session = HibernateUtil.getSession();
-		session.beginTransaction();
-		Query query = session.getNamedQuery("findRoleByName");
-		query.setString("roleName", "employee");
-		Role r = (Role)query.uniqueResult();
-		return r; 
+		Query query = HibernateUtil.getSession()
+				.getNamedQuery("findRoleByName").setString("roleName", name);
+		return (Role) query.uniqueResult();
 	}
 
 }

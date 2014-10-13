@@ -6,8 +6,12 @@ public interface ContractService {
 
 	Contract showContract();
 	
-	boolean lockNumber();
+	void lockNumber();
 	
-	boolean unlockNumber();	
+	void unlockNumber();
+	
+	Contract newContract(Contract newContract);
+	
+	void setNumber(Integer number);
 	
 }

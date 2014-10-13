@@ -4,7 +4,7 @@ import ru.tsystems.ecare.persistence.entities.Contract;
 
 public class ContractServiceImpl implements ContractService {
 
-	public boolean lockNumber() {
+	public void lockNumber() {
 		// dao
 		
 		// dao.lockNumber
@@ -13,17 +13,29 @@ public class ContractServiceImpl implements ContractService {
 		
 		
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
-	public boolean unlockNumber() {
+	public void unlockNumber() {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	public Contract showContract() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Contract newContract(Contract newContract) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setNumber(Integer number) {
+		// TODO Auto-generated method stub
+		return;
 	}
 
 }

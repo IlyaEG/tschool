@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="MobileOperator">
+		<class>ru.tsystems.ecare.persistence.entities.Contract</class>
+		<class>ru.tsystems.ecare.persistence.entities.Customer</class>
+		<class>ru.tsystems.ecare.persistence.entities.Employee</class>
+		<class>ru.tsystems.ecare.persistence.entities.Option</class>
+		<class>ru.tsystems.ecare.persistence.entities.Person</class>
+		<class>ru.tsystems.ecare.persistence.entities.Role</class>
+		<class>ru.tsystems.ecare.persistence.entities.Tariff</class>
+	</persistence-unit>
+</persistence>

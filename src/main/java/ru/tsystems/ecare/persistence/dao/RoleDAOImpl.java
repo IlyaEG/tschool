@@ -1,7 +1,6 @@
 package ru.tsystems.ecare.persistence.dao;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;

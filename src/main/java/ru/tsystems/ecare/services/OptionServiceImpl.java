@@ -2,27 +2,53 @@ package ru.tsystems.ecare.services;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
+import ru.tsystems.ecare.persistence.dao.OptionDAO;
+import ru.tsystems.ecare.persistence.dao.OptionDAOImpl;
 import ru.tsystems.ecare.persistence.entities.Option;
+import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class OptionServiceImpl implements OptionService {
-	
-	OptionDAO optionDAO = new OptionDAOImpl();
+
+	private OptionDAO optionDAO;
+
+	public OptionServiceImpl() {
+		optionDAO = new OptionDAOImpl();
+	}
 
 	@Override
 	public List<Option> getAllOptions() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Option> allOptions;
+		HibernateUtil.beginTransaction();
+		allOptions = optionDAO.findAll(Option.class);
+		HibernateUtil.commitTransaction();
+		return allOptions;
 	}
 
 	@Override
 	public void createOption(Option newOption) {
-		// TODO Auto-generated method stub
+		try {
+			HibernateUtil.beginTransaction();
+			optionDAO.save(newOption);
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException ex) {
+			HibernateUtil.rollbackTransaction();
+			throw ex;
+		}
 
 	}
 
 	@Override
 	public void deleteOption(Option oldOption) {
-		// TODO Auto-generated method stub
+		try {
+			HibernateUtil.beginTransaction();
+			optionDAO.delete(oldOption);
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException ex) {
+			HibernateUtil.rollbackTransaction();
+			throw ex;
+		}
 
 	}
 

@@ -5,31 +5,21 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 		GenericDAO<T, ID> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(GenericDAOImpl.class);
+	
 
 	protected Session getSession() {
 		return HibernateUtil.getSession();
 	}
 
 	public void save(T entity) {
-		logger.debug("saving entity " + this.toString());
-		try {
 			Session hibernateSession = this.getSession();
 			hibernateSession.saveOrUpdate(entity);
-			logger.error("saving successful");
-		} catch (RuntimeException re) {
-			logger.error("saving failed", re);
-			throw re;
-		}
 	}
 
 	public void merge(T entity) {

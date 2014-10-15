@@ -36,12 +36,12 @@ public class OptionServiceImplTest {
 			fail("fail to get option");
 		}
 		//delete option
-//		try {
-//			optionService.deleteOption(option);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			fail("fail to delete option");
-//		}
+		try {
+			optionService.deleteOption(option);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("fail to delete option");
+		}
 	}
 
 	@Test

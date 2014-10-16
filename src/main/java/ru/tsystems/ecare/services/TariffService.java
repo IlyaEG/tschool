@@ -22,6 +22,4 @@ public interface TariffService {
 	
 	void deleteTariff(Tariff oldTariff);
 	
-	
-
 }

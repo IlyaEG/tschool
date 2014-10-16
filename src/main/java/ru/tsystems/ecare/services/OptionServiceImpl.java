@@ -1,6 +1,7 @@
 package ru.tsystems.ecare.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 
@@ -36,7 +37,6 @@ public class OptionServiceImpl implements OptionService {
 			HibernateUtil.rollbackTransaction();
 			throw ex;
 		}
-
 	}
 
 	@Override
@@ -53,15 +53,57 @@ public class OptionServiceImpl implements OptionService {
 	}
 
 	@Override
-	public void setIncompatibility(Option mainOption, Option incompatiobleOption) {
-		// TODO Auto-generated method stub
+	public void setIncompatibility(String mainOption, String incompatibleOption) {
+		try {
+			HibernateUtil.beginTransaction();
+			optionDAO.findByName(mainOption).getOptionsForIncompId2()
+					.add(optionDAO.findByName(incompatibleOption));
+			optionDAO.merge(optionDAO.findByName(mainOption));
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException ex) {
+			HibernateUtil.rollbackTransaction();
+			throw ex;
+		}
 
 	}
 
 	@Override
-	public void setRelatedness(Option mainOption, Option relatedOption) {
-		// TODO Auto-generated method stub
+	public void setRelatedness(String mainOption, String relatedOption) {
+		try {
+			HibernateUtil.beginTransaction();
+			optionDAO.findByName(mainOption).getOptionsForRelId2()
+					.add(optionDAO.findByName(relatedOption));
+			optionDAO.merge(optionDAO.findByName(mainOption));
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException ex) {
+			HibernateUtil.rollbackTransaction();
+			throw ex;
+		}
+	}
 
+	@Override
+	public Set<Option> getIncompatibile(String option) {
+		HibernateUtil.beginTransaction();
+		Set<Option> incompOptions = optionDAO.findByName(option).getOptionsForIncompId2();
+		HibernateUtil.commitTransaction();
+		return incompOptions;
+	}
+
+	@Override
+	public Set<Option> getRelated(String option) {
+		HibernateUtil.beginTransaction();
+		Set<Option> relOptions = optionDAO.findByName(option).getOptionsForRelId2();
+		HibernateUtil.commitTransaction();
+		return relOptions;
+	}
+
+	@Override
+	public Option findByName(String name) {
+		Option finded;
+		HibernateUtil.beginTransaction();
+		finded = optionDAO.findByName(name);
+		HibernateUtil.commitTransaction();
+		return finded;
 	}
 
 }

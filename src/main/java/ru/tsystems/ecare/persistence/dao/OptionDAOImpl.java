@@ -1,5 +1,7 @@
 package ru.tsystems.ecare.persistence.dao;
 
+import java.util.Set;
+
 import org.hibernate.Query;
 
 import ru.tsystems.ecare.persistence.entities.Option;
@@ -11,8 +13,14 @@ public class OptionDAOImpl extends GenericDAOImpl<Option, Integer> implements
 	@Override
 	public Option findByName(String name) {
 		Query query = HibernateUtil.getSession()
-				.getNamedQuery("findOptionByName").setString("roleName", name);
+				.getNamedQuery("findOptionByName").setString("optionName", name);
 		return (Option) query.uniqueResult();
+	}
+
+	@Override
+	public void setIncompatibility(Option mainOption, Option incompatiobleOption) {
+		//TODO
+		
 	}
 	
 	

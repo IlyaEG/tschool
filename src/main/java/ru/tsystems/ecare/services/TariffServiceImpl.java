@@ -1,9 +1,12 @@
 package ru.tsystems.ecare.services;
 
 import java.util.List;
+import java.util.Set;
 
+import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.dao.TariffDAOImpl;
+import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
@@ -11,6 +14,7 @@ import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 public class TariffServiceImpl implements TariffService {
 	
 	private TariffDAO tariffDAO;
+	private ContractDAO contractDAO;
 	
 	public TariffServiceImpl() {
 		tariffDAO = new TariffDAOImpl();
@@ -26,19 +30,22 @@ public class TariffServiceImpl implements TariffService {
 	}
 
 	@Override
-	public void changeTariff(Tariff aim) {
+	public void changeTariff(Customer customer, Tariff newTariff) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<Option> getAvailableOptions() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Option> getAvailableOptions(Tariff tariff) {
+		HibernateUtil.beginTransaction();
+		Tariff fromDAO = tariffDAO.findByID(Tariff.class, tariff.getId());
+		//TODO if null throw exception
+		HibernateUtil.commitTransaction();
+		return fromDAO.getOptions();
 	}
 
 	@Override
-	public List<Option> getActiveOptions(Tariff tariff) {
+	public Set<Option> getActiveOptions(Tariff tariff) {
 		// TODO Auto-generated method stub
 		return null;
 	}

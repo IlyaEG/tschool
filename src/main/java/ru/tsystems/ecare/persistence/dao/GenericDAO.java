@@ -16,8 +16,6 @@ public interface GenericDAO<T, ID extends Serializable> {
     List<T> findMany(Query query);
  
     T findOne(Query query);
-    
-    T findByName(String name);
  
     List<T> findAll(Class<?> clazz);
  

@@ -99,9 +99,8 @@ public class OptionServiceImpl implements OptionService {
 
 	@Override
 	public Option findByName(String name) {
-		Option finded;
 		HibernateUtil.beginTransaction();
-		finded = optionDAO.findByName(name);
+		Option finded = optionDAO.findByName(name);
 		HibernateUtil.commitTransaction();
 		return finded;
 	}

@@ -22,9 +22,8 @@ public class TariffServiceImpl implements TariffService {
 
 	@Override
 	public List<Tariff> getAvailableTariffs() {
-		List<Tariff> availableTariffs;
 		HibernateUtil.beginTransaction();
-		availableTariffs = tariffDAO.findAll(Tariff.class);
+		List<Tariff> availableTariffs = tariffDAO.findAll(Tariff.class);
 		HibernateUtil.commitTransaction();
 		return availableTariffs;
 	}

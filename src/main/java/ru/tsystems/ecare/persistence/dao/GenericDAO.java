@@ -7,7 +7,9 @@ import org.hibernate.Query;
 
 public interface GenericDAO<T, ID extends Serializable> {
  
-    void save(T entity);
+    T getInstance();
+    
+	void save(T entity);
  
     void merge(T entity);
  

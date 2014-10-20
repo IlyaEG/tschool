@@ -10,7 +10,7 @@ import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class RoleDAOImplTest {
-
+/*
 	@Test
 	public void test() {
 		fail("Not yet implemented");
@@ -47,5 +47,5 @@ public class RoleDAOImplTest {
         	fail("fail with exception");
         }
 	}
-
+//*/
 }

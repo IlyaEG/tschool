@@ -15,4 +15,10 @@ public class RoleDAOImpl extends GenericDAOImpl<Role, Integer> implements
 		return (Role) query.uniqueResult();
 	}
 
+	@Override
+	public Role getInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

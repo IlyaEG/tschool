@@ -22,6 +22,12 @@ public class OptionDAOImpl extends GenericDAOImpl<Option, Integer> implements
 		//TODO
 		
 	}
+
+	@Override
+	public Option getInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	/*

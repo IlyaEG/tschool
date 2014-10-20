@@ -12,7 +12,7 @@ import ru.tsystems.ecare.persistence.entities.Option;
 public class OptionServiceImplTest {
 
 	private static OptionService optionService = new OptionServiceImpl();
-
+/*
 	@Test
 	public void testCreateGetDeleteOption() {
 		Option option = null;
@@ -90,7 +90,7 @@ public class OptionServiceImplTest {
 	}
 	
 	@Test
-	public void testSetRekatedness() {
+	public void testSetRelatedness() {
 		optionService.setRelatedness("test3", "test4");
 
 	}
@@ -120,5 +120,5 @@ public class OptionServiceImplTest {
 			fail("fail to delete option: " + option.getName());
 		}
 	}
-
+//*/
 }

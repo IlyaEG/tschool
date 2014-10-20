@@ -10,9 +10,7 @@ import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 		GenericDAO<T, ID> {
-
 	
-
 	protected Session getSession() {
 		return HibernateUtil.getSession();
 	}

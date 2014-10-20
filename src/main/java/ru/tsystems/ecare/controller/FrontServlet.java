@@ -17,6 +17,7 @@ import ru.tsystems.ecare.services.OptionServiceImpl;
 /**
  * Servlet implementation class FrontServlet
  */
+
 public class FrontServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

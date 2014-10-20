@@ -19,7 +19,7 @@
 <hr>
 
 <p>Search client by phone number:</p>
-<form method="post" action="controlPanel"
+<form method="post" action="ControlPanel"
 	enctype="application/x-www-form-urlencoded">
 	<p>
 		Number: <input type="text" placeholder="telephone number"

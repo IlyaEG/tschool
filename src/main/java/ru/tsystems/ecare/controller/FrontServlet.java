@@ -2,7 +2,6 @@ package ru.tsystems.ecare.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,16 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ru.tsystems.ecare.persistence.entities.Option;
-import ru.tsystems.ecare.services.OptionService;
-import ru.tsystems.ecare.services.OptionServiceImpl;
-
 /**
  * Servlet implementation class FrontServlet
  */
 
 public class FrontServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 11213123L;
 
 	@Override
 	public void init() throws ServletException {
@@ -32,12 +32,12 @@ public class FrontServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			//get the request's url
+			//get the request's url, it should be controller name
 			String url = request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1, request.getRequestURL().length());
-			//get Controllers name from request
-			String controller = url.substring(0, url.indexOf("."));
+			
+			
 			//Instantiate controller class
-			Controller control = ControllerFactory.getControllerByFullClassName(controller);
+			Controller control = ControllerFactory.getControllerByFullClassName(url);
 			//initialize controller
 			control.init(request);
 

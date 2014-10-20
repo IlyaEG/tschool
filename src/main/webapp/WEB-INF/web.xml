@@ -18,7 +18,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>FrontServlet</servlet-name>
-		<url-pattern>/dispatcher/</url-pattern>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

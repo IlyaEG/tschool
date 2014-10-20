@@ -20,7 +20,7 @@ public class ControllerFactory {
 	public static final Controller getControllerByFullClassName(String className) {
 		try {
 			String name = "ru.tsystems.ecare.controller." + className + "Controller";
-			Class actionClass = Class.forName(name);
+			Class<?> actionClass = Class.forName(name);
 			return getControllerByClass(actionClass);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

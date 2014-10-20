@@ -9,10 +9,10 @@
 </head>
 <body>
 
-	<div class="outer-wrapper clearfix">
+	<div class="outer">
 		<h3>Registration:</h3>
-		<div class="inner-wrapper">
-			<form method="post" action="registration"
+		<div class="inner">
+			<form method="post" action="Registration"
 				enctype="application/x-www-form-urlencoded">
 				<div id="center">
 					<p>
@@ -44,16 +44,16 @@
 						E-mail (login): <br> <input type="text" placeholder="e-mail"
 							class="simple-input" name="email" size=25 value="">
 					</p>
-
 					<p>
 						Password: <br> <input type="password" placeholder="password"
 							class="simple-input" name="password" size=25 value="">
 					</p>
-
-					<button type="submit">Save</button>
-					<a href="login.jsp" class="inline-link">Back</a>
+					<input type="submit" value="Create an account"/>
 				</div>
 			</form>
+			<div>
+				<p>If you already have registration, please <a href="login.jsp" class="inline-link">login</a></p>
+			</div>
 		</div>
 	</div>
 

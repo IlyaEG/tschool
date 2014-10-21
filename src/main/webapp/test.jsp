@@ -8,10 +8,11 @@
 </head>
 <body>
 	<center>
-		<% String currentUser = (String)session.getAttribute("currentSessionUser");%>
+		<% String user = (String)session.getAttribute("user");%>
+		<% String userRole = (String)session.getAttribute("role");%>
 
 		Welcome
-		<%= currentUser%>
+		<%= userRole%> : <%= user%>
 	</center>
 </body>
 </html>

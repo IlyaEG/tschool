@@ -9,10 +9,4 @@ import ru.tsystems.ecare.persistence.entities.Contract;
 public class ContractDAOImpl extends GenericDAOImpl<Contract, Integer> implements
 		ContractDAO {
 
-	@Override
-	public Contract getInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

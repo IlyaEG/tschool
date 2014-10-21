@@ -6,8 +6,6 @@ import java.util.List;
 import org.hibernate.Query;
 
 public interface GenericDAO<T, ID extends Serializable> {
- 
-    T getInstance();
     
 	void save(T entity);
  

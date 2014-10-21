@@ -16,10 +16,4 @@ public class TariffDAOImpl extends GenericDAOImpl<Tariff, Integer> implements Ta
 		return (Tariff) query.uniqueResult();
 	}
 
-	@Override
-	public Tariff getInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

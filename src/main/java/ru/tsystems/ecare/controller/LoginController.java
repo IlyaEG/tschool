@@ -1,22 +1,25 @@
 package ru.tsystems.ecare.controller;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpSession;
 
+import ru.tsystems.ecare.services.LoginService;
+import ru.tsystems.ecare.services.LoginServiceImpl;
+
 public class LoginController extends AbstractController {
+	
+	private static LoginService loginservice = new LoginServiceImpl();
 
 	@Override
 	public void execute() {
 		String login = this.getRequest().getParameter("login");
 		String password = this.getRequest().getParameter("password");
-		System.out.println(login + password);
-
-		if (true)// TODO login/password check
+		
+		
+		if (loginservice.userValid(login, password))
 		{
-
 			HttpSession session = this.getRequest().getSession(true);
-			session.setAttribute("currentSessionUser", login);
+			session.setAttribute("user", login);
+			session.setAttribute("role", loginservice.userRole(login));
 			this.setReturnPage("/test.jsp"); // TODO logged-in page
 		}
 
@@ -24,18 +27,10 @@ public class LoginController extends AbstractController {
 			this.setReturnPage("/invalidLogin.jsp"); // error page
 		}
 
-		// OptionService optService = new OptionServiceImpl();
-		// List<Option> allOptions = optService.getAllOptions();
-		// List<String> optionsNames = new ArrayList<String>();
-		// for (Option o : allOptions) {
-		// optionsNames.add(o.getName());
-		// }
-
 		// TODO http://www.java-only.com/LoadTutorial.javaonly?id=13
 
-		this.setReturnPage("/test.jsp");
 
-		this.getRequest().setAttribute("user", login);
+		//this.getRequest().setAttribute("user", login);
 
 	}
 

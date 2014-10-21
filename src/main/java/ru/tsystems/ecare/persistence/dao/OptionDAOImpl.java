@@ -1,7 +1,5 @@
 package ru.tsystems.ecare.persistence.dao;
 
-import java.util.Set;
-
 import org.hibernate.Query;
 
 import ru.tsystems.ecare.persistence.entities.Option;
@@ -22,21 +20,5 @@ public class OptionDAOImpl extends GenericDAOImpl<Option, Integer> implements
 		//TODO
 		
 	}
-
-	@Override
-	public Option getInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	/*
-	 * private static final Logger logger = LoggerFactory
-			.getLogger(this.class);
-	 * 
-	 * 
-	 * logger.debug("saving entity " + entity.toString());
-		try {
-	 */
 
 }

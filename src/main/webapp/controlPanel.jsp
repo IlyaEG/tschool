@@ -12,10 +12,9 @@
 	<header>Employee's control panel</header>
 </body>
 
-<hr>
-
-<p>Role(temporary): ${role}</p>
-
+<p>Role(temporary):</p>
+<jsp:useBean id="person" class="ru.tsystems.ecare.persistence.entities.Person" scope="session"></jsp:useBean>
+<jsp:getProperty property="email" name="person"/>
 <hr>
 
 <p>Search client by phone number:</p>

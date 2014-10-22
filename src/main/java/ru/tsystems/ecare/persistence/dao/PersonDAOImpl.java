@@ -3,8 +3,8 @@ package ru.tsystems.ecare.persistence.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;
+import ru.tsystems.ecare.persistence.entities.Role;
 
 public class PersonDAOImpl extends GenericDAOImpl<Person, Integer> implements
 		PersonDAO {
@@ -16,18 +16,19 @@ public class PersonDAOImpl extends GenericDAOImpl<Person, Integer> implements
 		query.setString("userEmail", login);
 		query.setString("userPassword", password);
 		Person person = (Person)query.uniqueResult();
+		
 		if (person != null && person.getEmail().equalsIgnoreCase(login) && person.getPassword().equals(password)) {
 			return true;
-		} else {
-			throw new ECareException("Wrong Login, Password pair");
 		}
+		
+		return false;
 	}
 
 	@Override
-	public String userRole(String login) {
+	public Role userRole(String login) {
 		Session hibernateSession = this.getSession();
 		Query query = hibernateSession.getNamedQuery("PersonRole");
 		query.setString("userEmail", login);
-		return (String)query.uniqueResult();
+		return (Role)query.uniqueResult();
 	}
 }

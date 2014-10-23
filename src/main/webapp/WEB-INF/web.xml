@@ -20,5 +20,25 @@
 		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>/AllCustomers</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>/NewCustomer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>/EditCustomer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>/NewContract</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>/EditContract</url-pattern>
+	</servlet-mapping>
+
 </web-app>

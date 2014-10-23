@@ -34,19 +34,19 @@ import javax.persistence.UniqueConstraint;
 public class Option implements java.io.Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2859805760076315787L;
 	private Integer id;
 	private String name;
 	private float rate;
 	private float price;
-	private Set<Option> optionsForIncompId2 = new HashSet<Option>(0);
-	private Set<Option> optionsForRelId2 = new HashSet<Option>(0);
-	private Set<Option> optionsForIncompId1 = new HashSet<Option>(0);
-	private Set<Option> optionsForRelId1 = new HashSet<Option>(0);
-	private Set<Tariff> tariffs = new HashSet<Tariff>(0);
-	private Set<Contract> contracts = new HashSet<Contract>(0);
+	private Set<Option> optionsForIncompId2 = new HashSet<>(0);
+	private Set<Option> optionsForRelId2 = new HashSet<>(0);
+	private Set<Option> optionsForIncompId1 = new HashSet<>(0);
+	private Set<Option> optionsForRelId1 = new HashSet<>(0);
+	private Set<Tariff> tariffs = new HashSet<>(0);
+	private Set<Contract> contracts = new HashSet<>(0);
 
 	public Option() {
 	}
@@ -200,7 +200,7 @@ public class Option implements java.io.Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 }

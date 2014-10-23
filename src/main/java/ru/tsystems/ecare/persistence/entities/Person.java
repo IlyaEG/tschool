@@ -38,7 +38,7 @@ import javax.persistence.Table;
 public class Person implements java.io.Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 198848134L;
 	private Integer id;
@@ -84,7 +84,7 @@ public class Person implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", nullable = false)
 	public Role getRole() {
 		return this.role;
@@ -139,7 +139,7 @@ public class Person implements java.io.Serializable {
 		this.adress = adress;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "person")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "person")
 	public Employee getEmployee() {
 		return this.employee;
 	}
@@ -148,7 +148,7 @@ public class Person implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "person")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "person")
 	public Customer getCustomer() {
 		return this.customer;
 	}

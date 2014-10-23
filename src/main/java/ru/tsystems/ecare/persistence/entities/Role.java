@@ -38,12 +38,12 @@ public class Role implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
-	
+
 	@Column(name = "name", unique = true, nullable = false, length = 45)
 	private String name;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-	private Set<Person> persons = new HashSet<Person>(0);
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
+	private Set<Person> persons = new HashSet<>(0);
 
 	public Role() {
 	}
@@ -57,7 +57,7 @@ public class Role implements java.io.Serializable {
 		this.persons = persons;
 	}
 
-	
+
 	public Integer getId() {
 		return this.id;
 	}
@@ -66,7 +66,7 @@ public class Role implements java.io.Serializable {
 		this.id = id;
 	}
 
-	
+
 	public String getName() {
 		return this.name;
 	}

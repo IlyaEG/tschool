@@ -1,9 +1,12 @@
 package ru.tsystems.ecare.services;
 
+import ru.tsystems.ecare.persistence.entities.Person;
+import ru.tsystems.ecare.persistence.entities.Role;
+
 public interface LoginService {
-	
-	boolean userValid(String login, String password);
-	
-	String userRole(String login);
+
+	Person userValid(String login, String password);
+
+	Role userRole(String login);
 
 }

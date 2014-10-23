@@ -17,7 +17,7 @@ public class FrontServlet extends HttpServlet {
 
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 11213123L;
 
@@ -30,12 +30,11 @@ public class FrontServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		try {
+		try (PrintWriter out = response.getWriter()) {
 			//get the request's url, it should be controller name
 			String url = request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/") + 1, request.getRequestURL().length());
-			
-			
+
+
 			//Instantiate controller class
 			Controller control = ControllerFactory.getControllerByFullClassName(url);
 			//initialize controller
@@ -47,8 +46,6 @@ public class FrontServlet extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			out.close();
 		}
 	}
 	@Override

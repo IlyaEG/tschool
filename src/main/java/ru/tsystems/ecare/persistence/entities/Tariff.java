@@ -27,8 +27,8 @@ public class Tariff implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private float rate;
-	private Set<Option> options = new HashSet<Option>(0);
-	private Set<Contract> contracts = new HashSet<Contract>(0);
+	private Set<Option> options = new HashSet<>(0);
+	private Set<Contract> contracts = new HashSet<>(0);
 
 	public Tariff() {
 	}
@@ -75,7 +75,7 @@ public class Tariff implements java.io.Serializable {
 		this.rate = rate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tariff_option", catalog = "ECareDB", joinColumns = { @JoinColumn(name = "tariff_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "option_id", nullable = false, updatable = false) })
 	public Set<Option> getOptions() {
 		return this.options;
@@ -85,7 +85,7 @@ public class Tariff implements java.io.Serializable {
 		this.options = options;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tariff")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tariff")
 	public Set<Contract> getContracts() {
 		return this.contracts;
 	}

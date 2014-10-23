@@ -42,7 +42,7 @@ public class Employee implements java.io.Serializable {
 		this.personId = personId;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	public Person getPerson() {
 		return this.person;

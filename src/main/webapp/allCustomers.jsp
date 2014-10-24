@@ -22,10 +22,10 @@
 					<tr>
 						<td>
 							<form id="edit${customer.person.name}" method="post"
-								  action="/EditCustomer"
+								  action="EditCustomer"
 								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="passport" value="${customer.customerPassport}"/>
-								<input type="submit" value="Edit customer" />
+								<input type="hidden" name="passport" value="${customer.customerPassport}">
+								<input type="submit" value="Edit customer">
 							</form>
 						</td>
 						<td>
@@ -42,8 +42,7 @@
 			</table>
 		</div>
 		<div>
-			<a href="controlPanel.jsp"
-			   class="inline-link">Back to control panel home page
+			<a href="controlPanel.jsp">Back to control panel home page
 			</a>.
 		</div>
     </body>

@@ -20,7 +20,7 @@
 							class="simple-input" name="name" size=25 value="">
 					</p>
 					<p>
-						Lastname: <br> <input type="text" placeholder="lastname"
+						Surname: <br> <input type="text" placeholder="lastname"
 							class="simple-input" name="lastname" size=25 value="">
 					</p>
 

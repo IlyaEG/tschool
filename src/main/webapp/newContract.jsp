@@ -12,7 +12,7 @@
     <body>
         <h1>New contract with <c:out value="${customer.person.name}"/> <c:out value="${customer.person.surname}"/></h1>
 		<form id="newContract" method="post"
-			  action="/CreateContract"
+			  action="CreateContract"
 			  enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="passport" value="${customer.customerPassport}"/>
 			<select>

@@ -21,7 +21,7 @@
 					</td>
 					<td>
 						<form id="newContract" method="post"
-							  action="/NewContract"
+							  action="NewContract"
 							  enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="passport" value="${customer.customerPassport}"/>
 							<input type="submit" value="New contract" />
@@ -35,7 +35,7 @@
 						</td>
 						<td>
 							<form id="edit${contract.number}" method="post"
-								  action="/EditContract"
+								  action="EditContract"
 								  enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="number" value="${contract.number}"/>
 								<input type="submit" value="Edit contract" />

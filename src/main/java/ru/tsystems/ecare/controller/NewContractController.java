@@ -20,9 +20,9 @@ import ru.tsystems.ecare.services.TariffServiceImpl;
  */
 public class NewContractController extends AbstractController{
 
-	private static CustomerService customerService = new CustomerServiceImpl();
-	private static TariffService tariffService = new TariffServiceImpl();
-	private static ContractService contractService = new ContractServiceImpl();
+	private static final CustomerService customerService = new CustomerServiceImpl();
+	private static final TariffService tariffService = new TariffServiceImpl();
+	private static final ContractService contractService = new ContractServiceImpl();
 
 	@Override
 	public void execute() {

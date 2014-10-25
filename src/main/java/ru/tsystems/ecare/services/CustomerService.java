@@ -4,6 +4,8 @@ import java.util.List;
 
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
+import ru.tsystems.ecare.persistence.entities.Person;
+import ru.tsystems.ecare.persistence.entities.Role;
 
 public interface CustomerService {
 
@@ -19,6 +21,8 @@ public interface CustomerService {
 
 	void newCustomer(String name, String surname, String email,
 			String password, String address, String passport);
+	
+	void newEmployee(Role role, Person person);
 
 	Customer findByPassport(String passport);
 

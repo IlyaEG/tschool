@@ -8,7 +8,7 @@ import ru.tsystems.ecare.services.LoginServiceImpl;
 
 public class LoginController extends AbstractController {
 
-	private static LoginService loginservice = new LoginServiceImpl();
+	private static final LoginService loginservice = new LoginServiceImpl();
 
 	@Override
 	public void execute() {

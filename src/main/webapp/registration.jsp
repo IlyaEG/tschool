@@ -8,54 +8,53 @@
 <title>Registration</title>
 </head>
 <body>
-
-	<div class="outer">
 		<h3>Registration:</h3>
-		<div class="inner">
+		<div>
 			<form method="post" action="Registration"
 				enctype="application/x-www-form-urlencoded">
 				<div id="center">
 					<p>
 						Name: <br> <input type="text" placeholder="name"
-							class="simple-input" name="name" size=25 value="">
+							name="name" size=25 value="">
 					</p>
 					<p>
-						Surname: <br> <input type="text" placeholder="lastname"
-							class="simple-input" name="lastname" size=25 value="">
-					</p>
-
-					<p>
-						Birth date: <br> <input type="text" placeholder="yyyy-mm-dd"
-							class="simple-input" name="birthdate" size=25 value="">
+						Surname: <br> <input type="text" placeholder="surname"
+							name="surname" size=25 value="">
 					</p>
 
 					<p>
 						Passport: <br> <input type="text"
-							placeholder="passport series and number" class="simple-input"
+							placeholder="passport full number"
 							name="passport" size=25 value="">
 					</p>
 
 					<p>
 						Address: <br> <input type="text" placeholder="address"
-							class="simple-input" name="address" size=25 value="">
+							name="address" size=25 value="">
 					</p>
 
 					<p>
 						E-mail (login): <br> <input type="text" placeholder="e-mail"
-							class="simple-input" name="email" size=25 value="">
+							name="email" size=25 value="">
 					</p>
 					<p>
 						Password: <br> <input type="password" placeholder="password"
-							class="simple-input" name="password" size=25 value="">
+							name="password" size=25 value="">
+					</p>
+					<p>
+						Is Employee: <input type="checkbox" name="isemployee">
+					</p>
+					<p>
+						Employee registration password: <br> <input type="password" placeholder="Password for employe registration"
+							name="employeePassword" size=25 value="">
 					</p>
 					<input type="submit" value="Create an account"/>
 				</div>
 			</form>
 			<div>
-				<p>If you already have registration, please <a href="login.jsp" class="inline-link">login</a></p>
+				<p>If you already have registration, please <a href="login.jsp">login</a></p>
 			</div>
 		</div>
-	</div>
 
 </body>
 </html>

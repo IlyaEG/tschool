@@ -5,13 +5,18 @@
 package ru.tsystems.ecare.services;
 
 import java.util.List;
+import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.CustomerDAO;
 import ru.tsystems.ecare.persistence.dao.CustomerDAOImpl;
+import ru.tsystems.ecare.persistence.dao.EmployeeDAO;
+import ru.tsystems.ecare.persistence.dao.EmployeeDAOImpl;
 import ru.tsystems.ecare.persistence.dao.RoleDAO;
 import ru.tsystems.ecare.persistence.dao.RoleDAOImpl;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
+import ru.tsystems.ecare.persistence.entities.Employee;
 import ru.tsystems.ecare.persistence.entities.Person;
+import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 /**
@@ -20,8 +25,9 @@ import ru.tsystems.ecare.persistence.utils.HibernateUtil;
  */
 public class CustomerServiceImpl implements CustomerService {
 
-	private static CustomerDAO customerDAO = new CustomerDAOImpl();
-	private static RoleDAO roleDAO = new RoleDAOImpl();
+	private static final CustomerDAO customerDAO = new CustomerDAOImpl();
+	private static final RoleDAO roleDAO = new RoleDAOImpl();
+	private static final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
 	@Override
 	public List<Customer> getAllCustomers() {
@@ -78,5 +84,18 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = customerDAO.findByPassport(passport);
 		HibernateUtil.commitTransaction();
 		return customer;
+	}
+
+	@Override
+	public void newEmployee(Role role, Person person) {
+		if (role.getName().equals(roleDAO.findByName("employee").getName())) {
+			HibernateUtil.beginTransaction();
+			Employee employee = new Employee(person);
+			employeeDAO.save(employee);
+			HibernateUtil.commitTransaction();
+		} else {
+			throw new ECareException("Wrong role for employee");
+		}
+
 	}
 }

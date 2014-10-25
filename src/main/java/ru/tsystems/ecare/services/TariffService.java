@@ -1,8 +1,8 @@
 package ru.tsystems.ecare.services;
 import java.util.List;
 import java.util.Set;
-
 import ru.tsystems.ecare.persistence.entities.Customer;
+
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 

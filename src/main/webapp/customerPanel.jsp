@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Customer <c:out value="${user}" /> control panel</title>
 </head>
 <body>
+	<h1>
+		Customer <c:out value="${user}" /> control panel
+	</h1>
 	not implemented yet
 
 </body>

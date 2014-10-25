@@ -1,7 +1,6 @@
 package ru.tsystems.ecare.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;

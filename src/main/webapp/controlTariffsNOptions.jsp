@@ -6,6 +6,21 @@
         <title>Tariffs and Options</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Manage tariffs and options</h1>
+		<div>
+			<form name="getAllTariffs" method="post" action="AllTariffs"
+				  enctype="application/x-www-form-urlencoded">
+				<input type="submit" value="All tariffs" />
+			</form>
+		</div>
+		<div>
+			<form name="getAllOptions" method="post" action="AllOptions"
+				  enctype="application/x-www-form-urlencoded">
+				<input type="submit" value="All options" />
+			</form>
+		</div>
+		<div>
+			<a href="controlPanel.jsp">Back to control panel home page</a>.
+		</div>
     </body>
 </html>

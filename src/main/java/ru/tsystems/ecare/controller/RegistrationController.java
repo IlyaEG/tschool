@@ -1,6 +1,8 @@
 package ru.tsystems.ecare.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Role;
@@ -23,7 +25,7 @@ public class RegistrationController extends AbstractController {
 	private String isEmployee;
 	private String employeePassword;
 	private String role;
-	HttpServletRequest request;
+	private HttpServletRequest request;
 
 	@Override
 	public void execute() {
@@ -63,9 +65,7 @@ public class RegistrationController extends AbstractController {
 					newEmployee.setEmail(email);
 					newEmployee.setAdress(address);
 					customerService.newEmployee(employee, newEmployee);
-					request.setAttribute("login", email);
-					request.setAttribute("password", password);
-					this.setReturnPage("/Login");
+					login(role);
 				} else {
 					this.setReturnPage("/registration.jsp");
 				}
@@ -76,15 +76,31 @@ public class RegistrationController extends AbstractController {
 						&& address.length() > 0) {
 					//create person with role customer
 					customerService.newCustomer(name, surname, email, password, address, passport);
-					request.setAttribute("login", email);
-					request.setAttribute("password", password);
-					this.setReturnPage("/Login");
+					login(role);
 				} else {
 					this.setReturnPage("/registration.jsp");
 				}
 				break;
 			default:
 				throw new ECareException("Wrong role for new account!");
+		}
+	}
+
+	private void login(String role) {
+		HttpSession session = request.getSession(true);
+		session.setAttribute("user", name);
+		session.setAttribute("role", role);
+		session.setAttribute("login", email);
+		switch (role) {
+			case "employee":
+				this.setReturnPage("/controlPanel.jsp"); // logged-in page for employee
+				break;
+			case "customer":
+				this.setReturnPage("/customerPanel.jsp");// logged-in page for customer
+				break;
+			default:
+				this.setReturnPage("/invalidLogin.jsp"); // error page
+				break;
 		}
 	}
 }

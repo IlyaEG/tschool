@@ -88,14 +88,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void newEmployee(Role role, Person person) {
+		HibernateUtil.beginTransaction();
 		if (role.getName().equals(roleDAO.findByName("employee").getName())) {
-			HibernateUtil.beginTransaction();
+
 			Employee employee = new Employee(person);
 			employeeDAO.save(employee);
-			HibernateUtil.commitTransaction();
 		} else {
+			HibernateUtil.commitTransaction();
 			throw new ECareException("Wrong role for employee");
 		}
+		HibernateUtil.commitTransaction();
 
 	}
 }

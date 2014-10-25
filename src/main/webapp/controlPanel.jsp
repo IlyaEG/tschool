@@ -12,7 +12,7 @@
 	<body>
 		<h1>Control panel</h1>
 		<div>
-			<p>You are curently logged as <c:out value="${role}" /> <c:out value="${user}" /></p>
+			<p>You are currently logged as <c:out value="${role}" /> <c:out value="${user}" /></p>
 		</div>
 		<div>
 			<p>

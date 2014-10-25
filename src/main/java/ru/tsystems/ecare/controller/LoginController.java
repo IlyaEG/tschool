@@ -20,6 +20,7 @@ public class LoginController extends AbstractController {
 			session.setAttribute("user", person.getName());
 			String role = loginservice.userRole(login).getName();
 			session.setAttribute("role", role);
+			session.setAttribute("login", login);
 			switch (role) {
 				case "employee":
 					this.setReturnPage("/controlPanel.jsp"); // logged-in page for employee

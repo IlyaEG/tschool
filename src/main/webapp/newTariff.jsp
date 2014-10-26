@@ -1,9 +1,3 @@
-<%-- 
-    Document   : newTariff
-    Created on : Oct 26, 2014, 10:03:30 AM
-    Author     : ilya
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

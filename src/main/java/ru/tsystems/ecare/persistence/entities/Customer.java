@@ -3,6 +3,7 @@ package ru.tsystems.ecare.persistence.entities;
 // Generated 15.10.2014 12:12:11 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,15 +50,18 @@ public class Customer implements java.io.Serializable {
 	public Customer() {
 	}
 
-	public Customer(Person person, String customerPassport) {
+	public Customer(Person person, String customerPassport, boolean locked) {
 		this.person = person;
 		this.customerPassport = customerPassport;
+		this.locked = locked;
 	}
 
-	public Customer(Person person, String customerPassport,
+
+	public Customer(Person person, String customerPassport, boolean locked,
 			Set<Contract> contracts) {
 		this.person = person;
 		this.customerPassport = customerPassport;
+		this.locked = locked;
 		this.contracts = contracts;
 	}
 
@@ -92,12 +96,12 @@ public class Customer implements java.io.Serializable {
 		this.customerPassport = customerPassport;
 	}
 
-	@Column(name = "locked")
-	public Boolean getLocked() {
+	@Column(name = "locked", nullable = false)
+	public boolean isLocked() {
 		return this.locked;
 	}
 
-	public void setLocked(Boolean locked) {
+	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}
 	
@@ -109,5 +113,30 @@ public class Customer implements java.io.Serializable {
 	public void setContracts(Set<Contract> contracts) {
 		this.contracts = contracts;
 	}
+
+	@Override
+	public int hashCode() {
+		int hash = 3;
+		hash = 89 * hash + Objects.hashCode(this.personId);
+		hash = 89 * hash + Objects.hashCode(this.customerPassport);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Customer other = (Customer) obj;
+		if (!Objects.equals(this.personId, other.personId)) {
+			return false;
+		}
+		return Objects.equals(this.customerPassport, other.customerPassport);
+	}
+	
+	
 
 }

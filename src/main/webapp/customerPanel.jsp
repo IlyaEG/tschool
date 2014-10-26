@@ -49,39 +49,14 @@
 							</form>
 						</td>
 					</tr>
-					<tr>
-					<span>Options for ${contract.number} contract</span>
-					</tr>
-					<tr>
-					<form id="addOption" method="post"
-						  action="AddOptionToContract"
-						  enctype="application/x-www-form-urlencoded">
-						<input type="hidden" name="number" value="${contract.number}">
-						<input type="submit" value="Add option">
-					</form>
-					</tr>
-					<tr>
-						<td>Remove option</td>
-						<td>Option name</td>
-						<td>Remove rate</td>
-					</tr>
-					<c:forEach var="option" items="${contract.options}">
-						<tr>
-							<td>
-								<form id="Remove${option.name}" method="post"
-									  action="RemoveOtionFromContract"
-									  enctype="application/x-www-form-urlencoded">
-									<input type="hidden" name="number" value="${contract.number}">
-									<input type="hidden" name="option" value="${option.id}">
-									<input type="submit" value="Remove option">
-								</form>
-							</td>
-							<td>${option.name}</td>
-							<td>${option.rate}</td>
-						</tr>
-					</c:forEach>
 				</c:forEach>
 			</table>
 		</div>
+		<div>
+			<form id="logout" method="post"
+			  action="Logout"
+			  enctype="application/x-www-form-urlencoded">
+			<input type="submit" value="Logout">
+		</form>
 	</body>
 </html>

@@ -91,6 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 			newPerson.setRole(roleDAO.findByName("customer"));
 			newCustomer.setPerson(newPerson);
 			newCustomer.setCustomerPassport(passport);
+			newCustomer.setLocked(false);
 			
 			customerDAO.save(newCustomer);
 			

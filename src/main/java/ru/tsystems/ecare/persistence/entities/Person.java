@@ -61,11 +61,12 @@ public class Person implements java.io.Serializable {
 	public Person() {
 	}
 
-	public Person(Role role, String name, String surname, String password) {
+	public Person(Role role, String name, String surname, String password, String email) {
 		this.role = role;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
+		this.email = email;
 	}
 
 	public Person(Role role, String name, String surname, String password,
@@ -129,7 +130,7 @@ public class Person implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "email", length = 100)
+	@Column(name = "email", unique = true, nullable = false, length = 100)
 	public String getEmail() {
 		return this.email;
 	}

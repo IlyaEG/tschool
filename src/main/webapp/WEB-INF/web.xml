@@ -34,6 +34,7 @@
 		<url-pattern>/CreateTariff</url-pattern>
 		<url-pattern>/Search</url-pattern>
 		<url-pattern>/LockCustomer</url-pattern>
+		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
 
 </web-app>

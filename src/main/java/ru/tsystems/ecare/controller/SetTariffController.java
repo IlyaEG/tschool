@@ -1,33 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ru.tsystems.ecare.controller;
 
+import java.util.List;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
+import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.ContractService;
 import ru.tsystems.ecare.services.ContractServiceImpl;
+import ru.tsystems.ecare.services.TariffService;
+import ru.tsystems.ecare.services.TariffServiceImpl;
 
-/**
- *
- * @author ilya
- */
-public class EditContractController extends AbstractController {
 
+public class SetTariffController extends AbstractController {
+	
 	private static final ContractService contractService = new ContractServiceImpl();
+	private static final TariffService tariffService = new TariffServiceImpl();
 
 	@Override
 	public void execute() {
 		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+			//todo!!!
 			int number = Integer.parseInt(this.getRequest().getParameter("number"));
 			Contract contract = contractService.findByNumber(number);
-			this.getRequest().setAttribute("contract", contract);
-			this.setReturnPage("/editContract.jsp");
+			//todo save updated contract
+			
+			this.setReturnPage("/chooseNewTariff.jsp");
 		} else if (this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
 			int number = Integer.parseInt(this.getRequest().getParameter("number"));
 			Contract contract = contractService.findByNumber(number);
 			Customer fromSession = (Customer) this.getRequest().getSession(false).getAttribute("customer");
 
 			if (contract.getCustomer().equals(fromSession)) {
+
 				this.getRequest().setAttribute("contract", contract);
-				this.setReturnPage("/editContract.jsp");
+				//todo save updated contract
+				
+				this.setReturnPage("/chooseNewTariff.jsp");
 			} else {
 				this.getRequest().getSession(false).invalidate();
 				this.setReturnPage("/index.jsp");
@@ -38,5 +50,5 @@ public class EditContractController extends AbstractController {
 			this.setReturnPage("/index.jsp");
 		}
 	}
-
+	
 }

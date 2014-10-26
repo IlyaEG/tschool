@@ -30,6 +30,13 @@
 				</a>.
 			</p>
 		</div>
+		<div>
+			<form id="logout" method="post"
+			  action="Logout"
+			  enctype="application/x-www-form-urlencoded">
+			<input type="submit" value="Logout">
+		</form>
+		</div>
 
 
 	</body>

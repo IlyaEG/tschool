@@ -62,8 +62,7 @@ public class RegistrationController extends AbstractController {
 						&& surname.length() > 0) {
 					Role employee = loginservice.findRoleByName(role);
 					//create person with role employee
-					Person newEmployee = new Person(employee, name, surname, password);
-					newEmployee.setEmail(email);
+					Person newEmployee = new Person(employee, name, surname, password, email);
 					newEmployee.setAdress(address);
 					customerService.newEmployee(employee, newEmployee);
 					login(role);

@@ -10,13 +10,13 @@
     <body>
         <h1>Edit contract <c:out value="${contract.number}"/></h1>
 		<form id="changeTariff" method="post"
-			  action="ChangeTariff"
+			  action="ChangeContractTariff"
 			  enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="number" value="${contract.number}">
 			<input type="submit" value="Change tariff">
 		</form>
 		<form id="changeOptions" method="post"
-			  action="ChangeOptions"
+			  action="ChangeContractOptions"
 			  enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="number" value="${contract.number}">
 			<input type="submit" value="Change options">

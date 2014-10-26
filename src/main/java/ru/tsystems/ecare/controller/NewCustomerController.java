@@ -15,11 +15,13 @@ import ru.tsystems.ecare.services.CustomerServiceImpl;
  */
 public class NewCustomerController extends AbstractController {
 
-	private static final CustomerService customerService = new CustomerServiceImpl();
+	private static final CustomerService customerService =
+			new CustomerServiceImpl();
 
 	@Override
 	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+		if (this.getRequest().getSession(false).getAttribute("role").
+				equals("employee")) {
 			String name = this.getRequest().getParameter("name");
 			String surname = this.getRequest().getParameter("surname");
 			String email = this.getRequest().getParameter("email");
@@ -30,7 +32,8 @@ public class NewCustomerController extends AbstractController {
 			if (name.length() > 0 && surname.length() > 0
 					&& password.length() > 0 && passport.length() > 0) {
 
-				customerService.newCustomer(name, surname, birthdate, email, password, address, passport);
+				customerService.newCustomer(name, surname, birthdate, email,
+						password, address, passport);
 				Customer newCustomer = customerService.findByPassport(passport);
 				this.getRequest().setAttribute("customer", newCustomer);
 				this.setReturnPage("/manageContracts.jsp");

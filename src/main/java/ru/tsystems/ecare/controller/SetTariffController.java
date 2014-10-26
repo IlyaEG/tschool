@@ -11,35 +11,44 @@ import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.ContractService;
 import ru.tsystems.ecare.services.ContractServiceImpl;
+import ru.tsystems.ecare.services.CustomerService;
+import ru.tsystems.ecare.services.CustomerServiceImpl;
 import ru.tsystems.ecare.services.TariffService;
 import ru.tsystems.ecare.services.TariffServiceImpl;
 
-
 public class SetTariffController extends AbstractController {
-	
+
 	private static final ContractService contractService = new ContractServiceImpl();
 	private static final TariffService tariffService = new TariffServiceImpl();
+	private static final CustomerService customerService = new CustomerServiceImpl();
 
 	@Override
 	public void execute() {
 		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			//todo!!!
 			int number = Integer.parseInt(this.getRequest().getParameter("number"));
 			Contract contract = contractService.findByNumber(number);
-			//todo save updated contract
+			int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+			Tariff tariff = tariffService.findById(id);
+			tariffService.changeTariff(contract, tariff);
+			List<Contract> contracts = contractService.getAllContracts();
+			this.getRequest().setAttribute("contracts", contracts);
+			this.setReturnPage("/allContracts.jsp");
 			
-			this.setReturnPage("/chooseNewTariff.jsp");
 		} else if (this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
+			
 			int number = Integer.parseInt(this.getRequest().getParameter("number"));
 			Contract contract = contractService.findByNumber(number);
 			Customer fromSession = (Customer) this.getRequest().getSession(false).getAttribute("customer");
 
 			if (contract.getCustomer().equals(fromSession)) {
-
-				this.getRequest().setAttribute("contract", contract);
-				//todo save updated contract
 				
-				this.setReturnPage("/chooseNewTariff.jsp");
+				int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+				Tariff tariff = tariffService.findById(id);
+				tariffService.changeTariff(contract, tariff);
+				Customer customer = customerService.findByNumber(contract.getNumber());
+				this.getRequest().setAttribute("customer", customer);
+				this.setReturnPage("/customerPanel.jsp");
+				
 			} else {
 				this.getRequest().getSession(false).invalidate();
 				this.setReturnPage("/index.jsp");
@@ -50,5 +59,5 @@ public class SetTariffController extends AbstractController {
 			this.setReturnPage("/index.jsp");
 		}
 	}
-	
+
 }

@@ -4,6 +4,9 @@
  */
 package ru.tsystems.ecare.services;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.CustomerDAO;
@@ -58,24 +61,32 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void newCustomer(String name, String surname, String email,
+	public void newCustomer(String name, String surname, String birthdate, String email,
 			String password, String address, String passport) {
-		HibernateUtil.beginTransaction();
-
-		Customer newCustomer = new Customer();
-		Person newPerson = new Person();
-		newPerson.setAdress(address);
-		newPerson.setName(name);
-		newPerson.setSurname(surname);
-		newPerson.setEmail(email);
-		newPerson.setPassword(password);
-		newPerson.setRole(roleDAO.findByName("customer"));
-		newCustomer.setPerson(newPerson);
-		newCustomer.setCustomerPassport(passport);
-
-		customerDAO.save(newCustomer);
-
-		HibernateUtil.commitTransaction();
+		try {
+			HibernateUtil.beginTransaction();
+			
+			Customer newCustomer = new Customer();
+			Person newPerson = new Person();
+			newPerson.setAdress(address);
+			newPerson.setName(name);
+			newPerson.setSurname(surname);
+			DateFormat birthdateFormat = new SimpleDateFormat("yyyy-mm-dd");
+			newPerson.setBirthdate(birthdateFormat.parse(birthdate));
+			newPerson.setEmail(email);
+			newPerson.setPassword(password);
+			newPerson.setRole(roleDAO.findByName("customer"));
+			newCustomer.setPerson(newPerson);
+			newCustomer.setCustomerPassport(passport);
+			
+			customerDAO.save(newCustomer);
+			
+		} catch (ParseException ex) {
+			throw new ECareException(ex.getMessage());
+		} finally {
+			HibernateUtil.commitTransaction();
+		}
+		
 	}
 
 	@Override

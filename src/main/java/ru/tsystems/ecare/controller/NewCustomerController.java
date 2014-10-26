@@ -25,10 +25,11 @@ public class NewCustomerController extends AbstractController {
 		String password = this.getRequest().getParameter("password");
 		String address = this.getRequest().getParameter("address");
 		String passport = this.getRequest().getParameter("passport");
+		String birthdate = this.getRequest().getParameter("birthdate");
 		if (name.length() > 0 && surname.length() > 0
 				&& password.length() > 0 && passport.length() > 0) {
 
-			customerService.newCustomer(name, surname, email, password, address, passport);
+			customerService.newCustomer(name, surname, birthdate, email, password, address, passport);
 			Customer newCustomer = customerService.findByPassport(passport);
 			this.getRequest().setAttribute("customer", newCustomer);
 			this.setReturnPage("/manageContracts.jsp");

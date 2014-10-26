@@ -31,4 +31,12 @@ public class PersonDAOImpl extends GenericDAOImpl<Person, Integer> implements
 		query.setString("userEmail", login);
 		return (Role)query.uniqueResult();
 	}
+
+	@Override
+	public Person findByEmail(String email) {
+		Session hibernateSession = this.getSession();
+		Query query = hibernateSession.getNamedQuery("PersonByEmail");
+		query.setString("userEmail", email);
+		return (Person)query.uniqueResult();
+	}
 }

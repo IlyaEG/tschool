@@ -21,6 +21,7 @@ public class RegistrationController extends AbstractController {
 	private String surname;
 	private String passport;
 	private String address;
+	private String birthdate;
 	private String isEmployee;
 	private String employeePassword;
 	private String role;
@@ -33,6 +34,7 @@ public class RegistrationController extends AbstractController {
 		email = request.getParameter("email");
 		password = request.getParameter("password");
 		surname = request.getParameter("surname");
+		birthdate = request.getParameter("birthdate");
 		passport = request.getParameter("passport");
 		address = request.getParameter("address");
 		isEmployee = request.getParameter("isemployee");
@@ -74,7 +76,7 @@ public class RegistrationController extends AbstractController {
 						&& surname.length() > 0 && passport.length() > 0
 						&& address.length() > 0) {
 					//create person with role customer
-					customerService.newCustomer(name, surname, email, password, address, passport);
+					customerService.newCustomer(name, surname, birthdate, email, password, address, passport);
 					login(role);
 				} else {
 					this.setReturnPage("/registration.jsp");

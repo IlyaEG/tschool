@@ -19,7 +19,7 @@ public interface CustomerService {
 
 	Customer findByNumber(Integer number);
 
-	void newCustomer(String name, String surname, String email,
+	void newCustomer(String name, String surname, String birtdate, String email,
 			String password, String address, String passport);
 	
 	void newEmployee(Role role, Person person);

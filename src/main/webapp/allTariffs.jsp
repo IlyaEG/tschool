@@ -10,6 +10,12 @@
     <body>
         <h1>All tariffs</h1>
 		<div>
+			<form id="newTariff" method="post"
+				  action="newTariff.jsp"
+				  enctype="application/x-www-form-urlencoded">
+
+				<input type="submit" value="New tariff">
+			</form>
 			<table>
 				<tr>
 					<td>Edit tariff</td>
@@ -26,7 +32,7 @@
 							</form>
 						</td>
 						<td>
-								${tariff.name}
+							${tariff.name}
 						</td>
 					</tr>
 				</c:forEach>

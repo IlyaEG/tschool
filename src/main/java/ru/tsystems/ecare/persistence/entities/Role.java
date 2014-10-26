@@ -34,16 +34,10 @@ public class Role implements java.io.Serializable {
 
 	private static final long serialVersionUID = 3417305259646953338L;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
-
-	@Column(name = "name", unique = true, nullable = false, length = 45)
 	private String name;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
 	private Set<Person> persons = new HashSet<>(0);
+	private Set<Contract> contracts = new HashSet<>(0);
 
 	public Role() {
 	}
@@ -52,12 +46,15 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Role(String name, Set<Person> persons) {
+	public Role(String name, Set<Person> persons, Set<Contract> contracts) {
 		this.name = name;
 		this.persons = persons;
+		this.contracts = contracts;
 	}
 
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -66,7 +63,7 @@ public class Role implements java.io.Serializable {
 		this.id = id;
 	}
 
-
+	@Column(name = "name", unique = true, nullable = false, length = 45)
 	public String getName() {
 		return this.name;
 	}
@@ -75,12 +72,22 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
 	public Set<Person> getPersons() {
 		return this.persons;
 	}
 
 	public void setPersons(Set<Person> persons) {
 		this.persons = persons;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+	public Set<Contract> getContracts() {
+		return this.contracts;
+	}
+
+	public void setContracts(Set<Contract> contracts) {
+		this.contracts = contracts;
 	}
 
 }

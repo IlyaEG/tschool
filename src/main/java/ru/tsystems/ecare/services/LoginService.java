@@ -1,5 +1,6 @@
 package ru.tsystems.ecare.services;
 
+import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Role;
 
@@ -10,5 +11,7 @@ public interface LoginService {
 	Role userRole(String login);
 	
 	Role findRoleByName(String roleName);
+	
+	Customer findByEmail(String email);
 
 }

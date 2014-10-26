@@ -17,15 +17,16 @@ public class LoginController extends AbstractController {
 		if (login.length() > 0 && password.length() > 0) {
 			Person person = loginservice.userValid(login, password);
 			HttpSession session = this.getRequest().getSession(true);
-			session.setAttribute("user", person.getName());
 			String role = loginservice.userRole(login).getName();
 			session.setAttribute("role", role);
 			session.setAttribute("login", login);
 			switch (role) {
 				case "employee":
+					session.setAttribute("user", person.getName());
 					this.setReturnPage("/controlPanel.jsp"); // logged-in page for employee
 					break;
 				case "customer":
+					session.setAttribute("customer", loginservice.findByEmail(login));
 					this.setReturnPage("/customerPanel.jsp");// logged-in page for customer
 					break;
 				default:

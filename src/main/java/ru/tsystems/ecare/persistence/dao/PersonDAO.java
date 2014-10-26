@@ -9,4 +9,6 @@ public interface PersonDAO extends GenericDAO<Person, Integer> {
 
 	Role userRole(String login);
 
+	public Person findByEmail(String email);
+
 }

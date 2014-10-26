@@ -36,6 +36,7 @@ public class Contract implements java.io.Serializable {
 	private static final long serialVersionUID = -2015087676939118163L;
 	private Integer number;
 	private Customer customer;
+	private Role lockedBy;
 	private Tariff tariff;
 	private Set<Option> options = new HashSet<>(0);
 
@@ -47,8 +48,10 @@ public class Contract implements java.io.Serializable {
 		this.tariff = tariff;
 	}
 
-	public Contract(Customer customer, Tariff tariff, Set<Option> options) {
+	public Contract(Customer customer, Role role, Tariff tariff,
+			Set<Option> options) {
 		this.customer = customer;
+		this.lockedBy = role;
 		this.tariff = tariff;
 		this.options = options;
 	}
@@ -64,7 +67,7 @@ public class Contract implements java.io.Serializable {
 		this.number = number;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	public Customer getCustomer() {
 		return this.customer;
@@ -74,7 +77,17 @@ public class Contract implements java.io.Serializable {
 		this.customer = customer;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "locked_by")
+	public Role getLockedBy() {
+		return this.lockedBy;
+	}
+
+	public void setLockedBy(Role lockedBy) {
+		this.lockedBy = lockedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tariff_id", nullable = false)
 	public Tariff getTariff() {
 		return this.tariff;
@@ -84,7 +97,7 @@ public class Contract implements java.io.Serializable {
 		this.tariff = tariff;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "contract_option", catalog = "ECareDB", joinColumns = { @JoinColumn(name = "contract_number", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "option_id", nullable = false, updatable = false) })
 	public Set<Option> getOptions() {
 		return this.options;

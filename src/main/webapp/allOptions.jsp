@@ -10,6 +10,11 @@
     <body>
         <h1>All options</h1>
 		<div>
+			<form id="newOption" method="post"
+				  action="newOption.jsp"
+				  enctype="application/x-www-form-urlencoded">
+				<input type="submit" value="New option">
+			</form>
 			<table>
 				<tr>
 					<td>Edit option</td>
@@ -26,7 +31,7 @@
 							</form>
 						</td>
 						<td>
-								${option.name}
+							${option.name}
 						</td>
 					</tr>
 				</c:forEach>

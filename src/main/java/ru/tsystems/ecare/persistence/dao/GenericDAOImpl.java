@@ -15,22 +15,31 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 		return HibernateUtil.getSession();
 	}
 
+	@Override
+	public void justSave(T entity) {
+			Session hibernateSession = this.getSession();
+			hibernateSession.save(entity);
+	}
+	
 	public void save(T entity) {
 			Session hibernateSession = this.getSession();
 			hibernateSession.saveOrUpdate(entity);
 	}
 
+	@Override
 	public void merge(T entity) {
 		Session hibernateSession = this.getSession();
 		hibernateSession.merge(entity);
 	}
 
+	@Override
 	public void delete(T entity) {
 		Session hibernateSession = this.getSession();
 		hibernateSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> findMany(Query query) {
 		List<T> t;
 		t = (List<T>) query.list();
@@ -38,6 +47,7 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public T findOne(Query query) {
 		T t;
 		t = (T) query.uniqueResult();
@@ -45,6 +55,7 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public T findByID(Class<?> clazz, Integer id) {
 		Session hibernateSession = this.getSession();
 		T t = null;
@@ -53,6 +64,7 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> findAll(Class<?> clazz) {
 		Session hibernateSession = this.getSession();
 		List<T> T = null;

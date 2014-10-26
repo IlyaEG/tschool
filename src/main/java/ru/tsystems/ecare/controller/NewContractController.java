@@ -18,7 +18,7 @@ import ru.tsystems.ecare.services.TariffServiceImpl;
  *
  * @author ilya
  */
-public class NewContractController extends AbstractController{
+public class NewContractController extends AbstractController {
 
 	private static final CustomerService customerService = new CustomerServiceImpl();
 	private static final TariffService tariffService = new TariffServiceImpl();
@@ -27,13 +27,20 @@ public class NewContractController extends AbstractController{
 	@Override
 	public void execute() {
 
-		Customer customer = customerService.findByPassport(this.getRequest().getParameter("passport"));
-		this.getRequest().setAttribute("customer", customer);
-		List<Tariff> allTariffs = tariffService.getAvailableTariffs();
-		this.getRequest().setAttribute("tariffs", allTariffs);
-		List<Integer> numbers = contractService.getAvailableNumbers();
-		this.getRequest().setAttribute("numbers", numbers);
-		this.setReturnPage("/chooseTariff.jsp");
+		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+			
+			Customer customer = customerService.findByPassport(this.getRequest().getParameter("passport"));
+			this.getRequest().setAttribute("customer", customer);
+			List<Tariff> allTariffs = tariffService.getAvailableTariffs();
+			this.getRequest().setAttribute("tariffs", allTariffs);
+			List<Integer> numbers = contractService.getAvailableNumbers();
+			this.getRequest().setAttribute("numbers", numbers);
+			this.setReturnPage("/chooseTariff.jsp");
+			
+		} else {
+			this.setReturnPage("/index.jsp");
+		}
+
 	}
 
 }

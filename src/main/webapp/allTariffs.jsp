@@ -11,7 +11,7 @@
         <h1>All tariffs</h1>
 		<div>
 			<form id="newTariff" method="post"
-				  action="newTariff.jsp"
+				  action="NewTariff"
 				  enctype="application/x-www-form-urlencoded">
 
 				<input type="submit" value="New tariff">

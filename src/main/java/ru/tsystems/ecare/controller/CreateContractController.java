@@ -5,7 +5,6 @@
  */
 package ru.tsystems.ecare.controller;
 
-import java.util.List;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Tariff;
@@ -16,21 +15,35 @@ import ru.tsystems.ecare.services.CustomerServiceImpl;
 import ru.tsystems.ecare.services.TariffService;
 import ru.tsystems.ecare.services.TariffServiceImpl;
 
-
 public class CreateContractController extends AbstractController {
+
 	private static final CustomerService customerService = new CustomerServiceImpl();
 	private static final TariffService tariffService = new TariffServiceImpl();
 	private static final ContractService contractService = new ContractServiceImpl();
 
 	@Override
 	public void execute() {
-		//TODO create contact and proceed to choosing options
-		Customer customer = customerService.findByPassport(this.getRequest().getParameter("passport"));
-		this.getRequest().setAttribute("customer", customer);
-		List<Tariff> allTariffs = tariffService.getAvailableTariffs();
-		List<Integer> numbers = contractService.getAvailableNumbers();
-		//TODO contractService.newContract(new Contract(customer, null, null))
-		this.setReturnPage("/manageContractOptions.jsp");
+		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+			Customer customer = customerService.
+					findByPassport(this.getRequest().
+							getParameter("passport"));
+			int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+			Tariff tariff = tariffService.findById(id);
+			Contract newContract = new Contract(customer, tariff);
+			newContract.setNumber(Integer.parseInt(this.getRequest().getParameter("number")));
+			contractService.newContract(newContract);
+			
+			//update customer from db
+			customer = customerService.
+					findByPassport(this.getRequest().
+							getParameter("passport"));
+			//list all customer contracts
+			this.getRequest().setAttribute("customer", customer);
+			this.setReturnPage("/manageContracts.jsp");
+		} else {
+			this.getRequest().getSession(false).invalidate();
+			this.setReturnPage("/index.jsp");
+		}
 	}
-	
+
 }

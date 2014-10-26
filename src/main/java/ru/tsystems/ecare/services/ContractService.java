@@ -11,7 +11,7 @@ public interface ContractService {
 
 	void unlockNumber();
 
-	Contract newContract(Contract newContract);
+	void newContract(Contract newContract);
 
 	void setNumber(Integer number);
 

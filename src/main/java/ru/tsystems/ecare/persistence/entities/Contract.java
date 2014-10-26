@@ -57,7 +57,6 @@ public class Contract implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "number", unique = true, nullable = false)
 	public Integer getNumber() {
 		return this.number;
@@ -67,7 +66,7 @@ public class Contract implements java.io.Serializable {
 		this.number = number;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	public Customer getCustomer() {
 		return this.customer;
@@ -77,7 +76,7 @@ public class Contract implements java.io.Serializable {
 		this.customer = customer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "locked_by")
 	public Role getLockedBy() {
 		return this.lockedBy;
@@ -87,7 +86,7 @@ public class Contract implements java.io.Serializable {
 		this.lockedBy = lockedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "tariff_id", nullable = false)
 	public Tariff getTariff() {
 		return this.tariff;
@@ -97,7 +96,7 @@ public class Contract implements java.io.Serializable {
 		this.tariff = tariff;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(name = "contract_option", catalog = "ECareDB", joinColumns = { @JoinColumn(name = "contract_number", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "option_id", nullable = false, updatable = false) })
 	public Set<Option> getOptions() {
 		return this.options;

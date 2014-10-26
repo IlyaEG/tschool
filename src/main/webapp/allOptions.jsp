@@ -19,6 +19,8 @@
 				<tr>
 					<td>Edit option</td>
 					<td>Option name</td>
+					<td>Option month rate</td>
+					<td>Option connection price</td>
 				</tr>
 				<c:forEach var="option" items="${options}">
 					<tr>
@@ -30,16 +32,15 @@
 								<input type="submit" value="Edit option">
 							</form>
 						</td>
-						<td>
-							${option.name}
-						</td>
+						<td>${option.name}</td>
+						<td>${option.rate}</td>
+						<td>${option.price}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		<div>
-			<a href="controlPanel.jsp">Back to control panel home page
-			</a>.
+			<a href="controlPanel.jsp">Back to control panel home page</a>.
 		</div>
     </body>
 </html>

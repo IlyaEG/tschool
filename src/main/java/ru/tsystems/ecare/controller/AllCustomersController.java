@@ -15,9 +15,14 @@ public class AllCustomersController extends AbstractController {
 
 	@Override
 	public void execute() {
-		List<Customer> customers = customerService.getAllCustomers();
-		this.getRequest().setAttribute("customers", customers);
-		this.setReturnPage("/allCustomers.jsp");
+		if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
+			List<Customer> customers = customerService.getAllCustomers();
+			this.getRequest().setAttribute("customers", customers);
+			this.setReturnPage("/allCustomers.jsp");
+		} else {
+			this.setReturnPage("/index.jsp");
+		}
+
 	}
 
 }

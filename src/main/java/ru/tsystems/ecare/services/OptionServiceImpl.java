@@ -12,11 +12,7 @@ import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class OptionServiceImpl implements OptionService {
 
-	private OptionDAO optionDAO;
-
-	public OptionServiceImpl() {
-		optionDAO = new OptionDAOImpl();
-	}
+	private static final OptionDAO optionDAO = new OptionDAOImpl();
 
 	@Override
 	public List<Option> getAllOptions() {

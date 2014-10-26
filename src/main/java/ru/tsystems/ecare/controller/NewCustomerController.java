@@ -19,22 +19,26 @@ public class NewCustomerController extends AbstractController {
 
 	@Override
 	public void execute() {
-		String name = this.getRequest().getParameter("name");
-		String surname = this.getRequest().getParameter("surname");
-		String email = this.getRequest().getParameter("email");
-		String password = this.getRequest().getParameter("password");
-		String address = this.getRequest().getParameter("address");
-		String passport = this.getRequest().getParameter("passport");
-		String birthdate = this.getRequest().getParameter("birthdate");
-		if (name.length() > 0 && surname.length() > 0
-				&& password.length() > 0 && passport.length() > 0) {
+		if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
+			String name = this.getRequest().getParameter("name");
+			String surname = this.getRequest().getParameter("surname");
+			String email = this.getRequest().getParameter("email");
+			String password = this.getRequest().getParameter("password");
+			String address = this.getRequest().getParameter("address");
+			String passport = this.getRequest().getParameter("passport");
+			String birthdate = this.getRequest().getParameter("birthdate");
+			if (name.length() > 0 && surname.length() > 0
+					&& password.length() > 0 && passport.length() > 0) {
 
-			customerService.newCustomer(name, surname, birthdate, email, password, address, passport);
-			Customer newCustomer = customerService.findByPassport(passport);
-			this.getRequest().setAttribute("customer", newCustomer);
-			this.setReturnPage("/manageContracts.jsp");
+				customerService.newCustomer(name, surname, birthdate, email, password, address, passport);
+				Customer newCustomer = customerService.findByPassport(passport);
+				this.getRequest().setAttribute("customer", newCustomer);
+				this.setReturnPage("/manageContracts.jsp");
+			} else {
+				this.setReturnPage("/newCustomer.jsp");
+			}
 		} else {
-			this.setReturnPage("/newCustomer.jsp");
+			this.setReturnPage("/index.jsp");
 		}
 
 	}

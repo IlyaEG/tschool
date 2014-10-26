@@ -23,5 +23,7 @@ public interface TariffService {
 	void createTariff(Tariff newTariff);
 	
 	void deleteTariff(Tariff oldTariff);
+
+	public Tariff findById(int id);
 	
 }

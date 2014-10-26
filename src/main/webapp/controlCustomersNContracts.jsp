@@ -8,6 +8,13 @@
     <body>
         <h1>Customers and Contacts</h1>
 		<div>
+			<form name="searchCustomer" method="post" action="searchCustomer.jsp"
+				  enctype="application/x-www-form-urlencoded">
+				<input type="submit" value="Search customer" />
+
+			</form>
+		</div>
+		<div>
 			<form name="getAllCustomersUsers" method="post" action="AllCustomers"
 				  enctype="application/x-www-form-urlencoded">
 				<input type="submit" value="All customers" />
@@ -15,9 +22,12 @@
 			</form>
 		</div>
 		<div>
-			<a href="allContracts.jsp">All contracts</a>.
+			<form name="getAllContracts" method="post" action="AllContracts"
+				  enctype="application/x-www-form-urlencoded">
+				<input type="submit" value="All contracts" />
+
+			</form>
 		</div>
-		<a href="searchCustomer.jsp">Search customer</a>.
 		<div>
 			<form name="getAllCustomersUsers" method="post" action="newCustomer.jsp"
 				  enctype="application/x-www-form-urlencoded">

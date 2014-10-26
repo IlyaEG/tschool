@@ -39,6 +39,7 @@ public class Customer implements java.io.Serializable {
 	private Integer personId;
 	private Person person;
 	private String customerPassport;
+	private Boolean locked;
 	private Set<Contract> contracts = new HashSet<>(0);
 
 	public Customer() {
@@ -87,6 +88,15 @@ public class Customer implements java.io.Serializable {
 		this.customerPassport = customerPassport;
 	}
 
+	@Column(name = "locked")
+	public Boolean getLocked() {
+		return this.locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
 	public Set<Contract> getContracts() {
 		return this.contracts;

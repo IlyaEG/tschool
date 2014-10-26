@@ -14,6 +14,7 @@
 			Surname:<input type="text" name="surname" value="">
 			<br>
 			Birth date ("yyyy-mm-dd"): <input type="text" placeholder="yyyy-mm-dd" name="birthdate" value="">
+			<br>
 			E-mail:<input type="text" name="email" value="">
 			<br>
 			Password:<input type="password" name="password" value="">

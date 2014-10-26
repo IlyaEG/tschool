@@ -19,34 +19,18 @@
 	<servlet-mapping>
 		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/AllCustomers</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/NewCustomer</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/EditCustomer</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/NewContract</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/EditContract</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/CreateContract</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/Registration</url-pattern>
+		<url-pattern>/AllTariffs</url-pattern>
+		<url-pattern>/AllOptions</url-pattern>
+		<url-pattern>/NewTariff</url-pattern>
+		<url-pattern>/NewOption</url-pattern>
+		<url-pattern>/CreateTariff</url-pattern>
 	</servlet-mapping>
 
 </web-app>

@@ -24,6 +24,10 @@ import javax.persistence.Table;
 	@NamedQuery(
 	name = "maximumNumber",
 	query = "select max(number) from Contract"
+	),
+	@NamedQuery(
+	name = "findContractByNumber",
+	query = "from Contract c where c.number = :contractNumber"
 	)
 })
 @Entity

@@ -17,4 +17,8 @@ public interface ContractService {
 
 	public List<Integer> getAvailableNumbers();
 
+	public Contract findByNumber(int number);
+
+	public List<Contract> getAllContracts();
+
 }

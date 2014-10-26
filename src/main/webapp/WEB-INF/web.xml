@@ -20,6 +20,7 @@
 		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>/Login</url-pattern>
 		<url-pattern>/AllCustomers</url-pattern>
+		<url-pattern>/AllContracts</url-pattern>
 		<url-pattern>/NewCustomer</url-pattern>
 		<url-pattern>/EditCustomer</url-pattern>
 		<url-pattern>/NewContract</url-pattern>
@@ -31,6 +32,8 @@
 		<url-pattern>/NewTariff</url-pattern>
 		<url-pattern>/NewOption</url-pattern>
 		<url-pattern>/CreateTariff</url-pattern>
+		<url-pattern>/Search</url-pattern>
+		<url-pattern>/LockCustomer</url-pattern>
 	</servlet-mapping>
 
 </web-app>

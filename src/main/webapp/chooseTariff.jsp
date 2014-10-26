@@ -36,5 +36,10 @@
 			</select>
 			<input type="submit" value="New contract" />
 		</form>
+		<div>
+			<a href="controlPanel.jsp">
+				Back to control panel
+			</a>.
+		</div>
     </body>
 </html>

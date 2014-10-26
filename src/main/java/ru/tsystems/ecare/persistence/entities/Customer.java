@@ -26,6 +26,10 @@ import org.hibernate.annotations.Parameter;
 	@NamedQuery(
 	name = "findCustomerByPassport",
 	query = "from Customer c where c.customerPassport = :passport"
+	),
+	@NamedQuery(
+	name = "lockStatus",
+	query = "select locked from Customer c where c.customerPassport = :passport"
 	)
 })
 @Entity

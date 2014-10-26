@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import ru.tsystems.ecare.ECareException;
+import ru.tsystems.ecare.persistence.dao.ContractDAO;
+import ru.tsystems.ecare.persistence.dao.ContractDAOImpl;
 import ru.tsystems.ecare.persistence.dao.CustomerDAO;
 import ru.tsystems.ecare.persistence.dao.CustomerDAOImpl;
 import ru.tsystems.ecare.persistence.dao.EmployeeDAO;
@@ -29,6 +31,7 @@ import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 public class CustomerServiceImpl implements CustomerService {
 
 	private static final CustomerDAO customerDAO = new CustomerDAOImpl();
+	private static final ContractDAO contractDAO = new ContractDAOImpl();
 	private static final RoleDAO roleDAO = new RoleDAOImpl();
 	private static final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
@@ -47,17 +50,27 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void lockCustomer(Customer toLock) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		HibernateUtil.beginTransaction();
+		toLock.setLocked(Boolean.TRUE);
+		customerDAO.save(toLock);
+		HibernateUtil.commitTransaction();
 	}
 
 	@Override
 	public void unlockCustomer(Customer toUnlock) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		HibernateUtil.beginTransaction();
+		toUnlock.setLocked(Boolean.FALSE);
+		customerDAO.save(toUnlock);
+		HibernateUtil.commitTransaction();
 	}
 
 	@Override
 	public Customer findByNumber(Integer number) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		HibernateUtil.beginTransaction();
+		Contract contract = contractDAO.findByNumber(number);
+		Customer customer = contract.getCustomer();
+		HibernateUtil.commitTransaction();
+		return customer;
 	}
 
 	@Override
@@ -110,5 +123,18 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		HibernateUtil.commitTransaction();
 
+	}
+
+	@Override
+	public boolean isLocked(Customer toLock) {
+		HibernateUtil.beginTransaction();
+		boolean locked = false;
+		try{
+			locked = customerDAO.locked(toLock.getCustomerPassport());
+		} catch (NullPointerException e) {
+			//todo log
+		}
+		HibernateUtil.commitTransaction();
+		return locked;
 	}
 }

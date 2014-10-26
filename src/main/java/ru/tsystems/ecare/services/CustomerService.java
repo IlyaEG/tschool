@@ -26,5 +26,7 @@ public interface CustomerService {
 
 	Customer findByPassport(String passport);
 
+	public boolean isLocked(Customer toLock);
+
 
 }

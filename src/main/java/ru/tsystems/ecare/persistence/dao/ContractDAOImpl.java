@@ -13,4 +13,11 @@ public class ContractDAOImpl extends GenericDAOImpl<Contract, Integer> implement
 		return (Integer)query.uniqueResult();
 	}
 
+	@Override
+	public Contract findByNumber(int number) {
+		Query query = this.getSession()
+				.getNamedQuery("findContractByNumber").setInteger("contractNumber", number);
+		return (Contract)query.uniqueResult();
+	}
+
 }

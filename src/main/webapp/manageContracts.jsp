@@ -15,12 +15,12 @@
 		<div>
 			<table>
 				<tr>
-						<form id="newContract" method="post"
-							  action="NewContract"
-							  enctype="application/x-www-form-urlencoded">
-							<input type="hidden" name="passport" value="${customer.customerPassport}"/>
-							<input type="submit" value="New contract" />
-						</form>
+				<form id="newContract" method="post"
+					  action="NewContract"
+					  enctype="application/x-www-form-urlencoded">
+					<input type="hidden" name="passport" value="${customer.customerPassport}"/>
+					<input type="submit" value="New contract" />
+				</form>
 				</tr>
 				<tr>
 					<td>Edit contract</td>
@@ -44,6 +44,11 @@
 					</tr>
 				</c:forEach>
 			</table>
+		</div>
+		<div>
+			<a href="controlPanel.jsp">
+				Back to control panel
+			</a>.
 		</div>
 	</body>
 </html>

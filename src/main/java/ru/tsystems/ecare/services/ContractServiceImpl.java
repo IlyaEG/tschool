@@ -64,4 +64,20 @@ public class ContractServiceImpl implements ContractService {
 		return numbers;
 	}
 
+	@Override
+	public Contract findByNumber(int number) {
+		HibernateUtil.beginTransaction();
+		Contract contract = contractDAO.findByNumber(number);
+		HibernateUtil.commitTransaction();
+		return contract;
+	}
+
+	@Override
+	public List<Contract> getAllContracts() {
+		HibernateUtil.beginTransaction();
+		List<Contract> contract = contractDAO.findAll(Contract.class);
+		HibernateUtil.commitTransaction();
+		return contract;
+	}
+
 }

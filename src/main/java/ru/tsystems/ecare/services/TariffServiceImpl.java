@@ -4,20 +4,22 @@ import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
 import ru.tsystems.ecare.ECareException;
+import ru.tsystems.ecare.persistence.dao.ContractDAO;
+import ru.tsystems.ecare.persistence.dao.ContractDAOImpl;
 
 import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.dao.TariffDAOImpl;
-import ru.tsystems.ecare.persistence.entities.Customer;
+import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class TariffServiceImpl implements TariffService {
 	
-	private final TariffDAO tariffDAO;
+	private static final TariffDAO tariffDAO = new TariffDAOImpl();
+	private static final ContractDAO contractDAO = new ContractDAOImpl();
 	
 	public TariffServiceImpl() {
-		tariffDAO = new TariffDAOImpl();
 	}
 
 	@Override
@@ -29,10 +31,11 @@ public class TariffServiceImpl implements TariffService {
 	}
 
 	@Override
-	public void changeTariff(Customer customer, Tariff newTariff) {
-		// TODO Auto-generated method stub
-		throw new ECareException("Not implemented yet!");
-
+	public void changeTariff(Contract customerContract, Tariff newTariff) {
+		HibernateUtil.beginTransaction();
+		customerContract.setTariff(newTariff);
+		contractDAO.save(customerContract);
+		HibernateUtil.commitTransaction();
 	}
 
 	@Override

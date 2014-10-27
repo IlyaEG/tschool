@@ -38,6 +38,7 @@ public class NewCustomerController extends AbstractController {
 				this.getRequest().setAttribute("customer", newCustomer);
 				this.setReturnPage("/manageContracts.jsp");
 			} else {
+				this.getRequest().setAttribute("message", "All fields are necessary.");
 				this.setReturnPage("/newCustomer.jsp");
 			}
 		} else {

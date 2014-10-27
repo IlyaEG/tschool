@@ -5,12 +5,16 @@ import java.util.List;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.ContractDAOImpl;
+import ru.tsystems.ecare.persistence.dao.RoleDAO;
+import ru.tsystems.ecare.persistence.dao.RoleDAOImpl;
 import ru.tsystems.ecare.persistence.entities.Contract;
+import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class ContractServiceImpl implements ContractService {
 
-	private static ContractDAO contractDAO = new ContractDAOImpl();
+	private static final ContractDAO contractDAO = new ContractDAOImpl();
+	private static final RoleDAO roleDAO = new RoleDAOImpl();
 
 	public void lockNumber() {
 		// dao
@@ -25,11 +29,6 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	public void unlockNumber() {
-		// TODO Auto-generated method stub
-		throw new ECareException("not implemented yet!");
-	}
-
-	public Contract showContract() {
 		// TODO Auto-generated method stub
 		throw new ECareException("not implemented yet!");
 	}
@@ -78,6 +77,25 @@ public class ContractServiceImpl implements ContractService {
 		List<Contract> contract = contractDAO.findAll(Contract.class);
 		HibernateUtil.commitTransaction();
 		return contract;
+	}
+
+	@Override
+	public void save(Contract contract) {
+		HibernateUtil.beginTransaction();
+		contractDAO.save(contract);
+		HibernateUtil.commitTransaction();
+	}
+
+	@Override
+	public void lockNumber(int number, String newlockerRole) {
+		HibernateUtil.beginTransaction();
+		Contract contract = contractDAO.findByNumber(number);
+		Role newLocker = roleDAO.findByName(newlockerRole);
+		if (newLocker != null) {
+			//todo
+		}
+		contract.setLockedBy(null);
+		HibernateUtil.commitTransaction();
 	}
 
 }

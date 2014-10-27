@@ -53,4 +53,9 @@ public class LoginServiceImpl implements LoginService {
 		return customer;
 	}
 
+	@Override
+	public void closeSession() {
+		HibernateUtil.closeSession();
+	}
+
 }

@@ -5,8 +5,6 @@ import ru.tsystems.ecare.persistence.entities.Contract;
 
 public interface ContractService {
 
-	Contract showContract();
-
 	void lockNumber();
 
 	void unlockNumber();
@@ -20,5 +18,9 @@ public interface ContractService {
 	public Contract findByNumber(int number);
 
 	public List<Contract> getAllContracts();
+
+	public void save(Contract contract);
+
+	public void lockNumber(int number, String lockedByRole);
 
 }

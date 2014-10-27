@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -97,7 +98,7 @@ public class Contract implements java.io.Serializable {
 		this.tariff = tariff;
 	}
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "contract_option", catalog = "ECareDB", joinColumns = { @JoinColumn(name = "contract_number", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "option_id", nullable = false, updatable = false) })
 	public Set<Option> getOptions() {
 		return this.options;

@@ -1,11 +1,11 @@
 package ru.tsystems.ecare.services;
 
 import java.util.List;
-import java.util.Set;
 import org.hibernate.HibernateException;
-import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.ContractDAOImpl;
+import ru.tsystems.ecare.persistence.dao.OptionDAO;
+import ru.tsystems.ecare.persistence.dao.OptionDAOImpl;
 
 import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.dao.TariffDAOImpl;
@@ -15,10 +15,11 @@ import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.persistence.utils.HibernateUtil;
 
 public class TariffServiceImpl implements TariffService {
-	
+
 	private static final TariffDAO tariffDAO = new TariffDAOImpl();
 	private static final ContractDAO contractDAO = new ContractDAOImpl();
-	
+	private static final OptionDAO optionDAO = new OptionDAOImpl();
+
 	public TariffServiceImpl() {
 	}
 
@@ -39,32 +40,11 @@ public class TariffServiceImpl implements TariffService {
 	}
 
 	@Override
-	public Set<Option> getAvailableOptions(Tariff tariff) {
+	public List<Option> getAvailableOptions() {
 		HibernateUtil.beginTransaction();
-		Tariff fromDAO = tariffDAO.findByID(Tariff.class, tariff.getId());
-		//TODO if null throw exception
+		List<Option> options = optionDAO.findAll(Option.class);
 		HibernateUtil.commitTransaction();
-		return fromDAO.getOptions();
-	}
-
-	@Override
-	public Set<Option> getActiveOptions(Tariff tariff) {
-		// TODO Auto-generated method stub
-		throw new ECareException("Not implemented yet!");
-	}
-
-	@Override
-	public void addOption(Option newOption) {
-		// TODO Auto-generated method stub
-		throw new ECareException("Not implemented yet!");
-
-	}
-
-	@Override
-	public void removeOption(Option oldOption) {
-		// TODO Auto-generated method stub
-		throw new ECareException("Not implemented yet!");
-
+		return options;
 	}
 
 	@Override
@@ -95,9 +75,16 @@ public class TariffServiceImpl implements TariffService {
 	@Override
 	public Tariff findById(int id) {
 		HibernateUtil.beginTransaction();
-			Tariff tariff = tariffDAO.findByID(Tariff.class, id);
-			HibernateUtil.commitTransaction();
-			return tariff;
+		Tariff tariff = tariffDAO.findByID(Tariff.class, id);
+		HibernateUtil.commitTransaction();
+		return tariff;
+	}
+
+	@Override
+	public void updateTariff(Tariff tariff) {
+		HibernateUtil.beginTransaction();
+		tariffDAO.save(tariff);
+		HibernateUtil.commitTransaction();
 	}
 
 }

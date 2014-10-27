@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class FrontServlet
@@ -20,6 +22,8 @@ public class FrontServlet extends HttpServlet {
 	 *
 	 */
 	private static final long serialVersionUID = 11213123L;
+	
+	private static final Logger logger = LoggerFactory.getLogger(FrontServlet.class);
 
 	@Override
 	public void init() throws ServletException {
@@ -45,7 +49,10 @@ public class FrontServlet extends HttpServlet {
 			requestDispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug(e.getMessage());
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/error.jsp");
+			request.setAttribute("message", e.getMessage());
+			requestDispatcher.forward(request, response);
 		}
 	}
 	@Override

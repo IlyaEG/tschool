@@ -17,7 +17,7 @@
 			</form>
 			<table>
 				<tr>
-					<td>Edit option</td>
+					<td>Edit option relations</td>
 					<td>Option name</td>
 					<td>Option month rate</td>
 					<td>Option connection price</td>
@@ -26,9 +26,9 @@
 					<tr>
 						<td>
 							<form id="edit${option.name}" method="post"
-								  action="EditOption"
+								  action="EditOptionRelations"
 								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="name" value="${option.name}">
+								<input type="hidden" name="name" value="${option.id}">
 								<input type="submit" value="Edit option">
 							</form>
 						</td>

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,6 +8,7 @@
     </head>
     <body>
         <h1>New Contract with new customer</h1>
+		<h2><c:out value="${message}"/></h2>
 		<form name="newCustomer" method="post" action="NewCustomer"
 			  enctype="application/x-www-form-urlencoded">
 			Name:<input type="text" name="name" value="">

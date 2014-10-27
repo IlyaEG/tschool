@@ -18,21 +18,25 @@
 			</form>
 			<table>
 				<tr>
-					<td>Edit tariff</td>
+					<td>Edit tariff options</td>
 					<td>Tariff name</td>
+					<td>Tariff rate</td>
 				</tr>
 				<c:forEach var="tariff" items="${tariffs}">
 					<tr>
 						<td>
 							<form id="edit${tariff.name}" method="post"
-								  action="EditTariff"
+								  action="EditTariffOptions"
 								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="name" value="${tariff.name}">
+								<input type="hidden" name="tariff" value="${tariff.id}">
 								<input type="submit" value="Edit tariff">
 							</form>
 						</td>
 						<td>
 							${tariff.name}
+						</td>
+						<td>
+							${tariff.rate}
 						</td>
 					</tr>
 				</c:forEach>

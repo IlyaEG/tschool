@@ -7,8 +7,8 @@ package ru.tsystems.ecare.controller;
 
 import java.util.List;
 import ru.tsystems.ecare.persistence.entities.Contract;
-import ru.tsystems.ecare.services.ContractService;
-import ru.tsystems.ecare.services.ContractServiceImpl;
+import ru.tsystems.ecare.services.interfaces.ContractService;
+import ru.tsystems.ecare.services.implementations.ContractServiceImpl;
 
 /**
  *

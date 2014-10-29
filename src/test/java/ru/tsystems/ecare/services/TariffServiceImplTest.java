@@ -1,5 +1,7 @@
 package ru.tsystems.ecare.services;
 
+import ru.tsystems.ecare.services.implementations.TariffServiceImpl;
+import ru.tsystems.ecare.services.interfaces.TariffService;
 import static org.junit.Assert.*;
 
 import java.util.List;

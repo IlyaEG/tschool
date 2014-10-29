@@ -5,8 +5,8 @@
  */
 package ru.tsystems.ecare.controller;
 
-import ru.tsystems.ecare.services.LoginService;
-import ru.tsystems.ecare.services.LoginServiceImpl;
+import ru.tsystems.ecare.services.interfaces.LoginService;
+import ru.tsystems.ecare.services.implementations.LoginServiceImpl;
 
 public class LogoutController extends AbstractController {
 	

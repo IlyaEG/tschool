@@ -9,12 +9,12 @@ import java.util.List;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Tariff;
-import ru.tsystems.ecare.services.ContractService;
-import ru.tsystems.ecare.services.ContractServiceImpl;
-import ru.tsystems.ecare.services.CustomerService;
-import ru.tsystems.ecare.services.CustomerServiceImpl;
-import ru.tsystems.ecare.services.TariffService;
-import ru.tsystems.ecare.services.TariffServiceImpl;
+import ru.tsystems.ecare.services.interfaces.ContractService;
+import ru.tsystems.ecare.services.implementations.ContractServiceImpl;
+import ru.tsystems.ecare.services.interfaces.CustomerService;
+import ru.tsystems.ecare.services.implementations.CustomerServiceImpl;
+import ru.tsystems.ecare.services.interfaces.TariffService;
+import ru.tsystems.ecare.services.implementations.TariffServiceImpl;
 
 public class SetTariffController extends AbstractController {
 

@@ -4,8 +4,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.tsystems.ecare.persistence.entities.Tariff;
-import ru.tsystems.ecare.services.TariffService;
-import ru.tsystems.ecare.services.TariffServiceImpl;
+import ru.tsystems.ecare.services.interfaces.TariffService;
+import ru.tsystems.ecare.services.implementations.TariffServiceImpl;
 
 /**
  *

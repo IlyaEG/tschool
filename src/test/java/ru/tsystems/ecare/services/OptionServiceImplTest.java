@@ -1,5 +1,7 @@
 package ru.tsystems.ecare.services;
 
+import ru.tsystems.ecare.services.implementations.OptionServiceImpl;
+import ru.tsystems.ecare.services.interfaces.OptionService;
 import static org.junit.Assert.*;
 
 import java.util.List;

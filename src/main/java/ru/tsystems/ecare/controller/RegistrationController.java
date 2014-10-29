@@ -5,10 +5,10 @@ import javax.servlet.http.HttpSession;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Role;
-import ru.tsystems.ecare.services.CustomerService;
-import ru.tsystems.ecare.services.CustomerServiceImpl;
-import ru.tsystems.ecare.services.LoginService;
-import ru.tsystems.ecare.services.LoginServiceImpl;
+import ru.tsystems.ecare.services.interfaces.CustomerService;
+import ru.tsystems.ecare.services.implementations.CustomerServiceImpl;
+import ru.tsystems.ecare.services.interfaces.LoginService;
+import ru.tsystems.ecare.services.implementations.LoginServiceImpl;
 
 public class RegistrationController extends AbstractController {
 

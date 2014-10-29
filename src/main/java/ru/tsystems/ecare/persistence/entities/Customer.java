@@ -19,124 +19,128 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import ru.tsystems.ecare.dto.CustomerDTO;
 
 /**
  * Customer entity
  */
 @NamedQueries({
-	@NamedQuery(
-	name = "findCustomerByPassport",
-	query = "from Customer c where c.customerPassport = :passport"
-	),
-	@NamedQuery(
-	name = "lockStatus",
-	query = "select locked from Customer c where c.customerPassport = :passport"
-	)
+    @NamedQuery(
+            name = "findCustomerByPassport",
+            query = "from Customer c where c.customerPassport = :passport"
+    ),
+    @NamedQuery(
+            name = "lockStatus",
+            query = "select locked from Customer c where c.customerPassport = :passport"
+    )
 })
 @Entity
 @Table(name = "customer", catalog = "ECareDB", uniqueConstraints = @UniqueConstraint(columnNames = "customer_passport"))
-public class Customer implements java.io.Serializable {
+public class Customer implements GenericEntity<CustomerDTO> {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 6118168012820426567L;
-	private Integer personId;
-	private Person person;
-	private String customerPassport;
-	private Boolean locked;
-	private Set<Contract> contracts = new HashSet<>(0);
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6118168012820426567L;
+    private Integer personId;
+    private Person person;
+    private String customerPassport;
+    private Boolean locked;
+    private Set<Contract> contracts = new HashSet<>(0);
 
-	public Customer() {
-	}
+    public Customer() {
+    }
 
-	public Customer(Person person, String customerPassport, boolean locked) {
-		this.person = person;
-		this.customerPassport = customerPassport;
-		this.locked = locked;
-	}
+    public Customer(Person person, String customerPassport, boolean locked) {
+        this.person = person;
+        this.customerPassport = customerPassport;
+        this.locked = locked;
+    }
 
+    public Customer(Person person, String customerPassport, boolean locked,
+            Set<Contract> contracts) {
+        this.person = person;
+        this.customerPassport = customerPassport;
+        this.locked = locked;
+        this.contracts = contracts;
+    }
 
-	public Customer(Person person, String customerPassport, boolean locked,
-			Set<Contract> contracts) {
-		this.person = person;
-		this.customerPassport = customerPassport;
-		this.locked = locked;
-		this.contracts = contracts;
-	}
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "person_id", unique = true, nullable = false)
+    public Integer getPersonId() {
+        return this.personId;
+    }
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "person_id", unique = true, nullable = false)
-	public Integer getPersonId() {
-		return this.personId;
-	}
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 
-	public void setPersonId(Integer personId) {
-		this.personId = personId;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    public Person getPerson() {
+        return this.person;
+    }
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
-	public Person getPerson() {
-		return this.person;
-	}
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+    @Column(name = "customer_passport", unique = true, nullable = false, length = 45)
+    public String getCustomerPassport() {
+        return this.customerPassport;
+    }
 
-	@Column(name = "customer_passport", unique = true, nullable = false, length = 45)
-	public String getCustomerPassport() {
-		return this.customerPassport;
-	}
+    public void setCustomerPassport(String customerPassport) {
+        this.customerPassport = customerPassport;
+    }
 
-	public void setCustomerPassport(String customerPassport) {
-		this.customerPassport = customerPassport;
-	}
+    @Column(name = "locked", nullable = false)
+    public boolean isLocked() {
+        return this.locked;
+    }
 
-	@Column(name = "locked", nullable = false)
-	public boolean isLocked() {
-		return this.locked;
-	}
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-	}
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
-	public Set<Contract> getContracts() {
-		return this.contracts;
-	}
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    public Set<Contract> getContracts() {
+        return this.contracts;
+    }
 
-	public void setContracts(Set<Contract> contracts) {
-		this.contracts = contracts;
-	}
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 3;
-		hash = 89 * hash + Objects.hashCode(this.personId);
-		hash = 89 * hash + Objects.hashCode(this.customerPassport);
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.personId);
+        hash = 89 * hash + Objects.hashCode(this.customerPassport);
+        return hash;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Customer other = (Customer) obj;
-		if (!Objects.equals(this.personId, other.personId)) {
-			return false;
-		}
-		return Objects.equals(this.customerPassport, other.customerPassport);
-	}
-	
-	
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        if (!Objects.equals(this.personId, other.personId)) {
+            return false;
+        }
+        return Objects.equals(this.customerPassport, other.customerPassport);
+    }
+
+    @Override
+    public void readDTO(CustomerDTO dto) {
+        //TODO Not implemented yet!
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

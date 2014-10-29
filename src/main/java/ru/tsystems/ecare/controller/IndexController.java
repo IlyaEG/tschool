@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.tsystems.ecare.persistence.entities.Option;
-import ru.tsystems.ecare.services.OptionService;
-import ru.tsystems.ecare.services.OptionServiceImpl;
+import ru.tsystems.ecare.services.interfaces.OptionService;
+import ru.tsystems.ecare.services.implementations.OptionServiceImpl;
 
 public class IndexController extends AbstractController {
 

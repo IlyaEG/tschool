@@ -8,8 +8,8 @@ package ru.tsystems.ecare.controller;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tsystems.ecare.services.ContractService;
-import ru.tsystems.ecare.services.ContractServiceImpl;
+import ru.tsystems.ecare.services.interfaces.ContractService;
+import ru.tsystems.ecare.services.implementations.ContractServiceImpl;
 
 /**
  *

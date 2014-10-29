@@ -3,8 +3,8 @@ package ru.tsystems.ecare.controller;
 import javax.servlet.http.HttpSession;
 
 import ru.tsystems.ecare.persistence.entities.Person;
-import ru.tsystems.ecare.services.LoginService;
-import ru.tsystems.ecare.services.LoginServiceImpl;
+import ru.tsystems.ecare.services.interfaces.LoginService;
+import ru.tsystems.ecare.services.implementations.LoginServiceImpl;
 
 public class LoginController extends AbstractController {
 

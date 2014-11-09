@@ -5,7 +5,7 @@ import java.util.List;
 
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.services.OptionService;
-import ru.tsystems.ecare.services.OptionServiceImpl;
+import ru.tsystems.ecare.services.impl.OptionServiceImpl;
 
 public class IndexController extends AbstractController {
 

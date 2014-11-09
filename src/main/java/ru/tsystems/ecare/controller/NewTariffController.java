@@ -7,7 +7,7 @@ package ru.tsystems.ecare.controller;
 
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.TariffService;
-import ru.tsystems.ecare.services.TariffServiceImpl;
+import ru.tsystems.ecare.services.impl.TariffServiceImpl;
 
 /**
  *

@@ -6,9 +6,9 @@ import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.services.CustomerService;
-import ru.tsystems.ecare.services.CustomerServiceImpl;
+import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
 import ru.tsystems.ecare.services.LoginService;
-import ru.tsystems.ecare.services.LoginServiceImpl;
+import ru.tsystems.ecare.services.impl.LoginServiceImpl;
 
 public class RegistrationController extends AbstractController {
 

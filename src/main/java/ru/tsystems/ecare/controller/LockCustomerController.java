@@ -8,7 +8,7 @@ package ru.tsystems.ecare.controller;
 import java.util.List;
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.services.CustomerService;
-import ru.tsystems.ecare.services.CustomerServiceImpl;
+import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
 
 /**
  *

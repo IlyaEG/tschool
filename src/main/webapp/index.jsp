@@ -8,12 +8,12 @@
 	</head>
 	<body>
 		<div>
-			<h3>Welcome</h3>
+			<h1>Welcome</h1>
 			<div>
 				<p>
-					Welcome on ECAre Web System to continue you need to
-					<a href="login.jsp" class="inline-link">Login</a> or
-					<a href="registration.jsp" class="inline-link">Register</a>.
+					Welcome on ECare Web System to continue you need to
+					<a href="login.jsp">Login</a> or
+					<a href="registration.jsp">Register</a>.
 				</p>
 			</div>
 		</div>

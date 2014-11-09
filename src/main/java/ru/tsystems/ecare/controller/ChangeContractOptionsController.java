@@ -16,11 +16,11 @@ import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.ContractService;
-import ru.tsystems.ecare.services.ContractServiceImpl;
+import ru.tsystems.ecare.services.impl.ContractServiceImpl;
 import ru.tsystems.ecare.services.OptionService;
-import ru.tsystems.ecare.services.OptionServiceImpl;
+import ru.tsystems.ecare.services.impl.OptionServiceImpl;
 import ru.tsystems.ecare.services.TariffService;
-import ru.tsystems.ecare.services.TariffServiceImpl;
+import ru.tsystems.ecare.services.impl.TariffServiceImpl;
 
 /**
  *

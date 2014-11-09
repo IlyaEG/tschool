@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://java.sun.com/xml/ns/javaee"
-		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-		 version="2.5">
-	<display-name>MobileOperator</display-name>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>login.jsp</welcome-file>
-		<welcome-file>registration.jsp</welcome-file>
-	</welcome-file-list>
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+            http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>MobileOperator</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
-	<servlet>
-		<description>Controls and dispatches requests from JSP's</description>
-		<display-name>FrontServlet</display-name>
-		<servlet-name>FrontServlet</servlet-name>
-		<servlet-class>ru.tsystems.ecare.controller.FrontServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
-		<url-pattern>/Login</url-pattern>
-		<url-pattern>/Home</url-pattern>
-		<url-pattern>/AllCustomers</url-pattern>
-		<url-pattern>/AllContracts</url-pattern>
-		<url-pattern>/NewCustomer</url-pattern>
-		<url-pattern>/EditCustomer</url-pattern>
-		<url-pattern>/NewContract</url-pattern>
-		<url-pattern>/EditContract</url-pattern>
-		<url-pattern>/CreateContract</url-pattern>
-		<url-pattern>/Registration</url-pattern>
-		<url-pattern>/AllTariffs</url-pattern>
-		<url-pattern>/AllOptions</url-pattern>
-		<url-pattern>/NewTariff</url-pattern>
-		<url-pattern>/NewOption</url-pattern>
-		<url-pattern>/CreateTariff</url-pattern>
-		<url-pattern>/Search</url-pattern>
-		<url-pattern>/LockCustomer</url-pattern>
-		<url-pattern>/Logout</url-pattern>
-		<url-pattern>/ChangeContractTariff</url-pattern>
-		<url-pattern>/ChangeContractOptions</url-pattern>
-		<url-pattern>/SetTariff</url-pattern>
-		<url-pattern>/EditTariffOptions</url-pattern>
-		<url-pattern>/EditOptionRelations</url-pattern>
-		<url-pattern>/AddTariffOptions</url-pattern>
-		<url-pattern>/RemoveTariffOptions</url-pattern>
-		<url-pattern>/LockContract</url-pattern>
-	</servlet-mapping>
+    <display-name>ecare-app</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:persistence-beans.xml
+        </param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>ecare</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ecare</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 </web-app>

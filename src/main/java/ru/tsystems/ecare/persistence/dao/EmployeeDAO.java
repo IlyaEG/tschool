@@ -8,8 +8,7 @@ package ru.tsystems.ecare.persistence.dao;
 import ru.tsystems.ecare.persistence.entities.Employee;
 
 /**
- *
- * @author ilya
+ * DAO of employee.
  */
 public interface EmployeeDAO extends GenericDAO<Employee, Integer> {
 	

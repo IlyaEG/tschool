@@ -8,15 +8,14 @@ package ru.tsystems.ecare.controller;
 import ru.tsystems.ecare.services.LoginService;
 import ru.tsystems.ecare.services.impl.LoginServiceImpl;
 
-public class LogoutController extends AbstractController {
-	
-	private static final LoginService loginservice = new LoginServiceImpl();
+public class LogoutController {
 
-	@Override
-	public void execute() {
-		this.getRequest().getSession(false).invalidate();
-		loginservice.closeSession();
-		this.setReturnPage("/index.jsp");
-	}
+    private static final LoginService loginservice = new LoginServiceImpl();
+
+    public void execute() {
+//        this.getRequest().getSession(false).invalidate();
+//        loginservice.closeSession();
+//        this.setReturnPage("/index.jsp");
+    }
 
 }

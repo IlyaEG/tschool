@@ -6,23 +6,21 @@ package ru.tsystems.ecare.controller;
 
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.services.CustomerService;
-import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
 
 /**
  *
  * @author ilya
  */
-public class EditCustomerController extends AbstractController {
+public class EditCustomerController {
 
-	private static CustomerService customerService = new CustomerServiceImpl();
+    private CustomerService customerService;
 
-	@Override
-	public void execute() {
-
-		Customer newCustomer = customerService.findByPassport(this.getRequest().getParameter("passport"));
-		this.getRequest().setAttribute("customer", newCustomer);
-		this.setReturnPage("/manageContracts.jsp");
-		
-	}
+//    public void execute() {
+//
+//        Customer newCustomer = customerService.findByPassport(this.getRequest().getParameter("passport"));
+//        this.getRequest().setAttribute("customer", newCustomer);
+//        this.setReturnPage("/manageContracts.jsp");
+//
+//    }
 
 }

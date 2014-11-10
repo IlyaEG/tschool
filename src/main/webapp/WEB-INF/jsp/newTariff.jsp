@@ -9,30 +9,30 @@
     </head>
     <body>
         <h1>Create new tariff</h1>
-		<div>
-			<form method="post" action="CreateTariff"
-				  enctype="application/x-www-form-urlencoded">
-				<div>
-					<p>
-						Name: <br> <input type="text" placeholder="name"
-										  name="name" value="">
-					</p>
-					<p>
-						Rate: <br> <input type="text" placeholder="monthly rate"
-										  name="rate" value="">
-					</p>
-					<c:forEach var="option" items="${options}">
-						<input type="checkbox" name="${option.id}"
-							   value="${option.id}">${option.name}
-						<br>
-					</c:forEach>
+        <div>
+            <form method="post" action="CreateTariff"
+                  enctype="application/x-www-form-urlencoded">
+                <div>
+                    <p>
+                        Name: <br> <input type="text" placeholder="name"
+                                          name="name" value="">
+                    </p>
+                    <p>
+                        Rate: <br> <input type="text" placeholder="monthly rate"
+                                          name="rate" value="">
+                    </p>
+                    <c:forEach var="option" items="${options}">
+                        <input type="checkbox" name="${option.id}"
+                               value="${option.id}">${option.name}
+                        <br>
+                    </c:forEach>
 
-					<input type="submit" value="Create new tariff"/>
-				</div>
-			</form>
-			<div>
-				<p>Back to <a href="controlPanel.jsp">control panel</a></p>
-			</div>
-		</div>
+                    <input type="submit" value="Create new tariff"/>
+                </div>
+            </form>
+            <div>
+                <p>Back to <a href="controlPanel.jsp">control panel</a></p>
+            </div>
+        </div>
     </body>
 </html>

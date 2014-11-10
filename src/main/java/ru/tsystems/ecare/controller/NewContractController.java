@@ -18,29 +18,28 @@ import ru.tsystems.ecare.services.impl.TariffServiceImpl;
  *
  * @author ilya
  */
-public class NewContractController extends AbstractController {
+public class NewContractController {
 
-	private static final CustomerService customerService = new CustomerServiceImpl();
-	private static final TariffService tariffService = new TariffServiceImpl();
-	private static final ContractService contractService = new ContractServiceImpl();
+    private static final CustomerService customerService = new CustomerServiceImpl();
+    private static final TariffService tariffService = new TariffServiceImpl();
+    private static final ContractService contractService = new ContractServiceImpl();
 
-	@Override
-	public void execute() {
-
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			
-			Customer customer = customerService.findByPassport(this.getRequest().getParameter("passport"));
-			this.getRequest().setAttribute("customer", customer);
-			List<Tariff> allTariffs = tariffService.getAvailableTariffs();
-			this.getRequest().setAttribute("tariffs", allTariffs);
-			List<Integer> numbers = contractService.getAvailableNumbers();
-			this.getRequest().setAttribute("numbers", numbers);
-			this.setReturnPage("/chooseTariff.jsp");
-			
-		} else {
-			this.setReturnPage("/index.jsp");
-		}
-
-	}
+//    public void execute() {
+//
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//
+//            Customer customer = customerService.findByPassport(this.getRequest().getParameter("passport"));
+//            this.getRequest().setAttribute("customer", customer);
+//            List<Tariff> allTariffs = tariffService.getAvailableTariffs();
+//            this.getRequest().setAttribute("tariffs", allTariffs);
+//            List<Integer> numbers = contractService.getAvailableNumbers();
+//            this.getRequest().setAttribute("numbers", numbers);
+//            this.setReturnPage("/chooseTariff.jsp");
+//
+//        } else {
+//            this.setReturnPage("/index.jsp");
+//        }
+//
+//    }
 
 }

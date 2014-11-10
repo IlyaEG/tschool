@@ -11,20 +11,20 @@
     </head>
     <body>
         <h1>Choose new tariff for <c:out value="${contract.number}" /></h1>
-		<form id="setTariff" method="post" action="SetTariff"
-			  enctype="application/x-www-form-urlencoded">
-			<input type="hidden" name="number" value="${contract.number}">
-			<p>Select tariff</p>
-			<select name="tariff">
-				<option selected="selected"></option>
-				<c:forEach var="tariff" items="${tariffs}">
-					<option value="${tariff.id}">
-						${tariff.name}
-					</option>
-				</c:forEach>
-			</select>
-			<br>
-			<input type="submit" value="Change tariff">
-		</form>
+        <form id="setTariff" method="post" action="SetTariff"
+              enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="number" value="${contract.number}">
+            <p>Select tariff</p>
+            <select name="tariff">
+                <option selected="selected"></option>
+                <c:forEach var="tariff" items="${tariffs}">
+                    <option value="${tariff.id}">
+                        ${tariff.name}
+                    </option>
+                </c:forEach>
+            </select>
+            <br>
+            <input type="submit" value="Change tariff">
+        </form>
     </body>
 </html>

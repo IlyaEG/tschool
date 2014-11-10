@@ -6,12 +6,12 @@ import ru.tsystems.ecare.persistence.entities.Role;
 
 public interface LoginService {
 
-	Person userValid(String login, String password);
+    Person userValid(String login, String password);
 
-	Role userRole(String login);
-	
-	Role findRoleByName(String roleName);
-	
-	Customer findByEmail(String email);
+    Role userRole(String login);
+
+    Role findRoleByName(String roleName);
+
+    Customer findByEmail(String email);
 
 }

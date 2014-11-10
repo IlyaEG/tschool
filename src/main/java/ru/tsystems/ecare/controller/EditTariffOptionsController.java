@@ -13,27 +13,26 @@ import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.TariffService;
 import ru.tsystems.ecare.services.impl.TariffServiceImpl;
 
-public class EditTariffOptionsController extends AbstractController {
+public class EditTariffOptionsController {
 
-	private static final Logger logger = LoggerFactory.getLogger(EditTariffOptionsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EditTariffOptionsController.class);
 
-	private static final TariffService tariffService = new TariffServiceImpl();
+    private static final TariffService tariffService = new TariffServiceImpl();
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
-			Tariff tariff = tariffService.findById(id);
-			List<Option> availableOptions = tariffService.getAvailableOptions();
-			this.getRequest().setAttribute("availableOptions", availableOptions);
-			this.getRequest().setAttribute("tariff", tariff);
-			this.setReturnPage("/editTariffOptions.jsp");
-			
-		} else {
-			logger.debug("Unauthorized attemp to acess to EditTariffOptionsController");
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+//            Tariff tariff = tariffService.findById(id);
+//            List<Option> availableOptions = tariffService.getAvailableOptions();
+//            this.getRequest().setAttribute("availableOptions", availableOptions);
+//            this.getRequest().setAttribute("tariff", tariff);
+//            this.setReturnPage("/editTariffOptions.jsp");
+//
+//        } else {
+//            logger.debug("Unauthorized attemp to acess to EditTariffOptionsController");
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

@@ -11,10 +11,10 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-		<div>
-			<a href="controlPanel.jsp">
-				Back to control panel
-			</a>.
-		</div>
+        <div>
+            <a href="controlPanel.jsp">
+                Back to control panel
+            </a>.
+        </div>
     </body>
 </html>

@@ -11,35 +11,35 @@
     </head>
     <body>
         <h1>New contract with <c:out value="${customer.person.name}"/> <c:out value="${customer.person.surname}"/></h1>
-		<form id="newContract" method="post"
-			  action="CreateContract"
-			  enctype="application/x-www-form-urlencoded">
-			<input type="hidden" name="passport" value="${customer.customerPassport}"/>
-			<p>Select tariff</p>
-			<select name="tariff">
-				<option selected="selected"></option>
-				<c:forEach var="tariff" items="${tariffs}">
-					<option value="${tariff.id}">
-						${tariff.name}
-					</option>
-				</c:forEach>
-			</select>
-			<br>
-			<p>Select number</p>
-			<select name="number">
-				<option selected="selected"></option>
-				<c:forEach var="number" items="${numbers}">
-					<option value="${number}">
-						${number}
-					</option>
-				</c:forEach>
-			</select>
-			<input type="submit" value="New contract" />
-		</form>
-		<div>
-			<a href="controlPanel.jsp">
-				Back to control panel
-			</a>.
-		</div>
+        <form id="newContract" method="post"
+              action="CreateContract"
+              enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="passport" value="${customer.customerPassport}"/>
+            <p>Select tariff</p>
+            <select name="tariff">
+                <option selected="selected"></option>
+                <c:forEach var="tariff" items="${tariffs}">
+                    <option value="${tariff.id}">
+                        ${tariff.name}
+                    </option>
+                </c:forEach>
+            </select>
+            <br>
+            <p>Select number</p>
+            <select name="number">
+                <option selected="selected"></option>
+                <c:forEach var="number" items="${numbers}">
+                    <option value="${number}">
+                        ${number}
+                    </option>
+                </c:forEach>
+            </select>
+            <input type="submit" value="New contract" />
+        </form>
+        <div>
+            <a href="controlPanel.jsp">
+                Back to control panel
+            </a>.
+        </div>
     </body>
 </html>

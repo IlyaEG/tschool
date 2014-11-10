@@ -7,28 +7,28 @@
     </head>
     <body>
         <h1>New option</h1>
-		<div>
-			<form method="post" action="NewOption"
-				  enctype="application/x-www-form-urlencoded">
-				<div>
-					<p>
-						Name: <br> <input type="text" placeholder="name"
-										  name="name" value="">
-					</p>
-					<p>
-						Rate: <br> <input type="text" placeholder="monthly rate"
-										  name="rate" value="">
-					</p>
-					<p>
-						Price: <br> <input type="text" placeholder="connection price"
-										  name="price" value="">
-					</p>
-					<input type="submit" value="Create new option"/>
-				</div>
-			</form>
-			<div>
-				<p>Back to <a href="controlPanel.jsp">control panel</a></p>
-			</div>
-		</div>
+        <div>
+            <form method="post" action="NewOption"
+                  enctype="application/x-www-form-urlencoded">
+                <div>
+                    <p>
+                        Name: <br> <input type="text" placeholder="name"
+                                          name="name" value="">
+                    </p>
+                    <p>
+                        Rate: <br> <input type="text" placeholder="monthly rate"
+                                          name="rate" value="">
+                    </p>
+                    <p>
+                        Price: <br> <input type="text" placeholder="connection price"
+                                           name="price" value="">
+                    </p>
+                    <input type="submit" value="Create new option"/>
+                </div>
+            </form>
+            <div>
+                <p>Back to <a href="controlPanel.jsp">control panel</a></p>
+            </div>
+        </div>
     </body>
 </html>

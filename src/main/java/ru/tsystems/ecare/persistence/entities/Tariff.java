@@ -24,74 +24,76 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "tariff", catalog = "ECareDB", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Tariff implements java.io.Serializable {
 
-	private Integer id;
-	private String name;
-	private float rate;
-	private Set<Option> options = new HashSet<>(0);
-	private Set<Contract> contracts = new HashSet<>(0);
+    private Integer id;
+    private String name;
+    private float rate;
+    private Set<Option> options = new HashSet<>(0);
+    private Set<Contract> contracts = new HashSet<>(0);
 
-	public Tariff() {
-	}
+    public Tariff() {
+    }
 
-	public Tariff(String name, float rate) {
-		this.name = name;
-		this.rate = rate;
-	}
+    public Tariff(String name, float rate) {
+        this.name = name;
+        this.rate = rate;
+    }
 
-	public Tariff(String name, float rate, Set<Option> options,
-			Set<Contract> contracts) {
-		this.name = name;
-		this.rate = rate;
-		this.options = options;
-		this.contracts = contracts;
-	}
+    public Tariff(String name, float rate, Set<Option> options,
+            Set<Contract> contracts) {
+        this.name = name;
+        this.rate = rate;
+        this.options = options;
+        this.contracts = contracts;
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@Column(name = "name", unique = true, nullable = false, length = 100)
-	public String getName() {
-		return this.name;
-	}
+    @Column(name = "name", unique = true, nullable = false, length = 100)
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Column(name = "rate", nullable = false, precision = 12, scale = 0)
-	public float getRate() {
-		return this.rate;
-	}
+    @Column(name = "rate", nullable = false, precision = 12, scale = 0)
+    public float getRate() {
+        return this.rate;
+    }
 
-	public void setRate(float rate) {
-		this.rate = rate;
-	}
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tariff_option", catalog = "ECareDB", joinColumns = { @JoinColumn(name = "tariff_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "option_id", nullable = false, updatable = false) })
-	public Set<Option> getOptions() {
-		return this.options;
-	}
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tariff_option", catalog = "ECareDB", joinColumns = {
+        @JoinColumn(name = "tariff_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "option_id", nullable = false, updatable = false)})
+    public Set<Option> getOptions() {
+        return this.options;
+    }
 
-	public void setOptions(Set<Option> options) {
-		this.options = options;
-	}
+    public void setOptions(Set<Option> options) {
+        this.options = options;
+    }
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tariff")
-	public Set<Contract> getContracts() {
-		return this.contracts;
-	}
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tariff")
+    public Set<Contract> getContracts() {
+        return this.contracts;
+    }
 
-	public void setContracts(Set<Contract> contracts) {
-		this.contracts = contracts;
-	}
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }
 
 }

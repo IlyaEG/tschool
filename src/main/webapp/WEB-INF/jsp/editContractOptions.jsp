@@ -12,30 +12,30 @@
     </head>
     <body>
         <h1>Edit "<c:out value="${contract.number}" />" contract options</h1>
-		<div>
-			<h2>Active options, check to remove</h2>
-			<form method="post" action="ChangeContractOptions">
-				<p>
-					<c:forEach var="option" items="${contract.options}">
-						<input type="checkbox" name="rem${option.name}" value="${option.id}">${option.name}<br>
-					</c:forEach>
-				</p>
-				<input type="hidden" name="number" value="${contract.number}">
-				<input type="submit" value="Remove options">
-			</form>
-			<h2>Available options, check to add</h2>
-			<form method="post" action="ChangeContractOptions">
-				<p>
-					<c:forEach var="option" items="${availableOptions}">
-						<input type="checkbox" name="add${option.name}" value="${option.id}">${option.name}<br>
-					</c:forEach>
-				</p>
-				<input type="hidden" name="number" value="${contract.number}">
-				<input type="submit" value="Add options">
-			</form>
-		</div>
-		<div>
-			<a href="Home">Back to control panel home page</a>.
-		</div>
+        <div>
+            <h2>Active options, check to remove</h2>
+            <form method="post" action="ChangeContractOptions">
+                <p>
+                    <c:forEach var="option" items="${contract.options}">
+                        <input type="checkbox" name="rem${option.name}" value="${option.id}">${option.name}<br>
+                    </c:forEach>
+                </p>
+                <input type="hidden" name="number" value="${contract.number}">
+                <input type="submit" value="Remove options">
+            </form>
+            <h2>Available options, check to add</h2>
+            <form method="post" action="ChangeContractOptions">
+                <p>
+                    <c:forEach var="option" items="${availableOptions}">
+                        <input type="checkbox" name="add${option.name}" value="${option.id}">${option.name}<br>
+                    </c:forEach>
+                </p>
+                <input type="hidden" name="number" value="${contract.number}">
+                <input type="submit" value="Add options">
+            </form>
+        </div>
+        <div>
+            <a href="Home">Back to control panel home page</a>.
+        </div>
     </body>
 </html>

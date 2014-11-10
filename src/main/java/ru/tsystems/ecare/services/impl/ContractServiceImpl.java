@@ -59,8 +59,8 @@ public class ContractServiceImpl implements ContractService {
     public void lockNumber() {
 		// dao
 
-		// dao.lockNumber
-		// throw Exception
+        // dao.lockNumber
+        // throw Exception
         // TODO Auto-generated method stub
         throw new ECareException("not implemented yet!");
     }

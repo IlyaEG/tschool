@@ -11,30 +11,30 @@
     </head>
     <body>
         <h1>Edit tariff "<c:out value="${tariff.name}" />" options</h1>
-		<div>
-			<h2>Active options, check to remove</h2>
-			<form method="post" action="RemoveTariffOptions">
-				<p>
-					<c:forEach var="option" items="${tariff.options}">
-						<input type="checkbox" name="rem${option.name}" value="${option.id}">${option.name}<br>
-					</c:forEach>
-				</p>
-				<input type="hidden" name="tariff" value="${tariff.id}">
-				<input type="submit" value="Remove options">
-			</form>
-			<h2>Available options, check to add</h2>
-			<form method="post" action="AddTariffOptions">
-				<p>
-					<c:forEach var="option" items="${availableOptions}">
-						<input type="checkbox" name="add${option.name}" value="${option.id}">${option.name}<br>
-					</c:forEach>
-				</p>
-				<input type="hidden" name="tariff" value="${tariff.id}">
-				<input type="submit" value="Add options">
-			</form>
-		</div>
-		<div>
-			<a href="controlPanel.jsp">Back to control panel home page</a>.
-		</div>
+        <div>
+            <h2>Active options, check to remove</h2>
+            <form method="post" action="RemoveTariffOptions">
+                <p>
+                    <c:forEach var="option" items="${tariff.options}">
+                        <input type="checkbox" name="rem${option.name}" value="${option.id}">${option.name}<br>
+                    </c:forEach>
+                </p>
+                <input type="hidden" name="tariff" value="${tariff.id}">
+                <input type="submit" value="Remove options">
+            </form>
+            <h2>Available options, check to add</h2>
+            <form method="post" action="AddTariffOptions">
+                <p>
+                    <c:forEach var="option" items="${availableOptions}">
+                        <input type="checkbox" name="add${option.name}" value="${option.id}">${option.name}<br>
+                    </c:forEach>
+                </p>
+                <input type="hidden" name="tariff" value="${tariff.id}">
+                <input type="submit" value="Add options">
+            </form>
+        </div>
+        <div>
+            <a href="controlPanel.jsp">Back to control panel home page</a>.
+        </div>
     </body>
 </html>

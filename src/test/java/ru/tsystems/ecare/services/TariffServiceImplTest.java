@@ -10,7 +10,8 @@ import org.junit.Test;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 
 public class TariffServiceImplTest {
-	private static TariffService tariffService = new TariffServiceImpl();
+
+    private static TariffService tariffService = new TariffServiceImpl();
 
 //	@Test
 //	public void testGetAvailableTariffs() {
@@ -23,7 +24,4 @@ public class TariffServiceImplTest {
 //			fail("Not yet implemented");
 //		}
 //	}
-	
-	
-
 }

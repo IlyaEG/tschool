@@ -19,54 +19,52 @@ import ru.tsystems.ecare.services.impl.OptionServiceImpl;
 import ru.tsystems.ecare.services.TariffService;
 import ru.tsystems.ecare.services.impl.TariffServiceImpl;
 
+public class RemoveTariffOptionsController {
 
-public class RemoveTariffOptionsController extends AbstractController {
+    private static final Logger logger = LoggerFactory.getLogger(AddTariffOptionsController.class);
 
-	private static final Logger logger = LoggerFactory.getLogger(AddTariffOptionsController.class);
+    private static final TariffService tariffService = new TariffServiceImpl();
+    private static final OptionService optionService = new OptionServiceImpl();
 
-	private static final TariffService tariffService = new TariffServiceImpl();
-	private static final OptionService optionService = new OptionServiceImpl();
+    HttpServletRequest request;
 
-	HttpServletRequest request;
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            request = this.getRequest();
+//            int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+//            Tariff tariff = tariffService.findById(id);
+//            List<Option> add = getOptions("rem");
+//            Set<Option> activeOptions = tariff.getOptions();
+//            for (Option o : add) {
+//                activeOptions.remove(o);
+//            }
+//            tariff.setOptions(activeOptions);
+//            tariffService.updateTariff(tariff);
+//
+//            List<Option> availableOptions = tariffService.getAvailableOptions();
+//            availableOptions.removeAll(activeOptions);
+//            request.setAttribute("availableOptions", availableOptions);
+//            request.setAttribute("tariff", tariff);
+//            this.setReturnPage("/editTariffOptions.jsp");
+//
+//        } else {
+//            logger.debug("Unauthorized attemp to acess to AddTariffOptionsController");
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			request = this.getRequest();
-			int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
-			Tariff tariff = tariffService.findById(id);
-			List<Option> add = getOptions("rem");
-			Set<Option> activeOptions = tariff.getOptions();
-			for (Option o : add) {
-				activeOptions.remove(o);
-			}
-			tariff.setOptions(activeOptions);
-			tariffService.updateTariff(tariff);
-			
-			List<Option> availableOptions = tariffService.getAvailableOptions();
-			availableOptions.removeAll(activeOptions);
-			request.setAttribute("availableOptions", availableOptions);
-			request.setAttribute("tariff", tariff);
-			this.setReturnPage("/editTariffOptions.jsp");
+    protected List<Option> getOptions(String prefix) {
+        Enumeration names = request.getParameterNames();
+        List<Option> options = new ArrayList<>();
+        String temp;
+        while (names.hasMoreElements()) {
+            temp = (String) names.nextElement();
+            if (temp.substring(0, 3).equals(prefix)) {
+                options.add(optionService.findByName(temp.substring(3)));
+            }
+        }
+        return options;
+    }
 
-		} else {
-			logger.debug("Unauthorized attemp to acess to AddTariffOptionsController");
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
-
-	protected List<Option> getOptions(String prefix) {
-		Enumeration names = request.getParameterNames();
-		List<Option> options = new ArrayList<>();
-		String temp;
-		while (names.hasMoreElements()) {
-			temp = (String)names.nextElement();
-			if (temp.substring(0, 3).equals(prefix)) {
-				options.add(optionService.findByName(temp.substring(3)));
-			}
-		}
-		return options;
-	}
-	
 }

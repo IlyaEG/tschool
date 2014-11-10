@@ -9,20 +9,19 @@ import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
  *
  * @author ilya
  */
-public class AllCustomersController extends AbstractController {
+public class AllCustomersController {
 
-	private static CustomerService customerService = new CustomerServiceImpl();
+    private static CustomerService customerService = new CustomerServiceImpl();
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
-			List<Customer> customers = customerService.getAllCustomers();
-			this.getRequest().setAttribute("customers", customers);
-			this.setReturnPage("/allCustomers.jsp");
-		} else {
-			this.setReturnPage("/index.jsp");
-		}
-
-	}
+//    public void execute() {
+//        if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
+//            List<Customer> customers = customerService.getAllCustomers();
+//            this.getRequest().setAttribute("customers", customers);
+//            this.setReturnPage("/allCustomers.jsp");
+//        } else {
+//            this.setReturnPage("/index.jsp");
+//        }
+//
+//    }
 
 }

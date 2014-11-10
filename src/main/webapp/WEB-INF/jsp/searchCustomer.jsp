@@ -8,18 +8,18 @@
     </head>
     <body>
         <h1>Search customer</h1>
-		<form method="post" action="Search"
-				  enctype="application/x-www-form-urlencoded">
-				<div>
-					<p>
-						Phone Number: <br> <input type="text" placeholder="phone number"
-													name="number" value="">
-					</p>
-					<input type="submit" value="Search"/>
-				</div>
-			</form>
-			<div>
-				<p>Back to <a href="controlPanel.jsp">control panel</a></p>
-			</div>
+        <form method="post" action="Search"
+              enctype="application/x-www-form-urlencoded">
+            <div>
+                <p>
+                    Phone Number: <br> <input type="text" placeholder="phone number"
+                                              name="number" value="">
+                </p>
+                <input type="submit" value="Search"/>
+            </div>
+        </form>
+        <div>
+            <p>Back to <a href="controlPanel.jsp">control panel</a></p>
+        </div>
     </body>
 </html>

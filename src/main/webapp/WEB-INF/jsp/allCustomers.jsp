@@ -10,45 +10,45 @@
     </head>
     <body>
         <h1>All customers</h1>
-		<div>
-			<table>
-				<tr>
-					<td>Edit customer</td>
-					<td>Customer name</td>
-					<td>Customer passport</td>
-					<td>Customer e-mail</td>
-					<td>Locked</td>
-					<td>Lock/Unlock</td>
-				</tr>
-				<c:forEach var="customer" items="${customers}">
-					<tr>
-						<td>
-							<form id="edit${customer.person.name}" method="post"
-								  action="EditCustomer"
-								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="passport" value="${customer.customerPassport}">
-								<input type="submit" value="Edit customer">
-							</form>
-						</td>
-						<td>${customer.person.name}</td>
-						<td>${customer.customerPassport}</td>
-						<td>${customer.person.email}</td>
-						<td>${customer.locked}</td>
-						<td>
-							<form id="lock${customer.personId}" method="post"
-								  action="LockCustomer"
-								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="passport" value="${customer.customerPassport}">
-								<input type="submit" value="Lock customer">
-							</form>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		<div>
-			<a href="controlPanel.jsp">Back to control panel home page
-			</a>.
-		</div>
+        <div>
+            <table>
+                <tr>
+                    <td>Edit customer</td>
+                    <td>Customer name</td>
+                    <td>Customer passport</td>
+                    <td>Customer e-mail</td>
+                    <td>Locked</td>
+                    <td>Lock/Unlock</td>
+                </tr>
+                <c:forEach var="customer" items="${customers}">
+                    <tr>
+                        <td>
+                            <form id="edit${customer.person.name}" method="post"
+                                  action="EditCustomer"
+                                  enctype="application/x-www-form-urlencoded">
+                                <input type="hidden" name="passport" value="${customer.customerPassport}">
+                                <input type="submit" value="Edit customer">
+                            </form>
+                        </td>
+                        <td>${customer.person.name}</td>
+                        <td>${customer.customerPassport}</td>
+                        <td>${customer.person.email}</td>
+                        <td>${customer.locked}</td>
+                        <td>
+                            <form id="lock${customer.personId}" method="post"
+                                  action="LockCustomer"
+                                  enctype="application/x-www-form-urlencoded">
+                                <input type="hidden" name="passport" value="${customer.customerPassport}">
+                                <input type="submit" value="Lock customer">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <div>
+            <a href="controlPanel.jsp">Back to control panel home page
+            </a>.
+        </div>
     </body>
 </html>

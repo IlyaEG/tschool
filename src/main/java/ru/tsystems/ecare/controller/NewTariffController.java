@@ -13,19 +13,18 @@ import ru.tsystems.ecare.services.impl.TariffServiceImpl;
  *
  * @author ilya
  */
-public class NewTariffController extends AbstractController {
-	
-	private static final TariffService tariffService = new TariffServiceImpl();
+public class NewTariffController {
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
-			//TODO add options
-			this.setReturnPage("/newTariff.jsp");
-		} else {
-			this.setReturnPage("/index.jsp");
-		}
+    private static final TariffService tariffService = new TariffServiceImpl();
 
-	}
+//    public void execute() {
+//        if (this.getRequest().getSession().getAttribute("role").equals("employee")) {
+//            //TODO add options
+//            this.setReturnPage("/newTariff.jsp");
+//        } else {
+//            this.setReturnPage("/index.jsp");
+//        }
+//
+//    }
 
 }

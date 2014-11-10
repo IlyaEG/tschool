@@ -54,7 +54,6 @@ public class LoginServiceImpl implements LoginService {
     private Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
-    
 
     @Override
     public Person userValid(String login, String password) {

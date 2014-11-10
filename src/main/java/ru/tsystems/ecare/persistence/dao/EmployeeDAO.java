@@ -11,5 +11,5 @@ import ru.tsystems.ecare.persistence.entities.Employee;
  * DAO of employee.
  */
 public interface EmployeeDAO extends GenericDAO<Employee, Integer> {
-	
+
 }

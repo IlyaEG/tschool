@@ -17,44 +17,44 @@ import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
 import ru.tsystems.ecare.services.TariffService;
 import ru.tsystems.ecare.services.impl.TariffServiceImpl;
 
-public class CreateContractController extends AbstractController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CreateContractController.class);
+public class CreateContractController {
 
-	private static final CustomerService customerService = new CustomerServiceImpl();
-	private static final TariffService tariffService = new TariffServiceImpl();
-	private static final ContractService contractService = new ContractServiceImpl();
+    private static final Logger logger = LoggerFactory.getLogger(CreateContractController.class);
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			Customer customer = customerService.
-					findByPassport(this.getRequest().
-							getParameter("passport"));
-			try {
-			int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
-			Tariff tariff = tariffService.findById(id);
-			Contract newContract = new Contract(customer, tariff);
-			newContract.setNumber(Integer.parseInt(this.getRequest().getParameter("number")));
-			contractService.newContract(newContract);
-			
-			//update customer from db
-			customer = customerService.
-					findByPassport(this.getRequest().
-							getParameter("passport"));
-			//list all customer contracts
-			this.getRequest().setAttribute("customer", customer);
-			this.setReturnPage("/manageContracts.jsp");
-			} catch (NumberFormatException nfe) {
-				logger.debug(nfe.getMessage());
-				this.getRequest().setAttribute("message", "Tariff is not selected.");
-				this.setReturnPage("/error.jsp");
-			}
-			
-		} else {
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
+    private static final CustomerService customerService = new CustomerServiceImpl();
+    private static final TariffService tariffService = new TariffServiceImpl();
+    private static final ContractService contractService = new ContractServiceImpl();
+
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            Customer customer = customerService.
+//                    findByPassport(this.getRequest().
+//                            getParameter("passport"));
+//            try {
+//                int id = Integer.parseInt(this.getRequest().getParameter("tariff"));
+//                Tariff tariff = tariffService.findById(id);
+//                Contract newContract = new Contract(customer, tariff);
+//                newContract.setNumber(Integer.parseInt(this.getRequest().getParameter("number")));
+//                contractService.newContract(newContract);
+//
+//                //update customer from db
+//                customer = customerService.
+//                        findByPassport(this.getRequest().
+//                                getParameter("passport"));
+//                //list all customer contracts
+//                this.getRequest().setAttribute("customer", customer);
+//                this.setReturnPage("/manageContracts.jsp");
+//            }
+//            catch (NumberFormatException nfe) {
+//                logger.debug(nfe.getMessage());
+//                this.getRequest().setAttribute("message", "Tariff is not selected.");
+//                this.setReturnPage("/error.jsp");
+//            }
+//
+//        } else {
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

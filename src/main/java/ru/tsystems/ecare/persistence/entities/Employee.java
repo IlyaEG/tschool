@@ -20,36 +20,36 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "employee", catalog = "ECareDB")
 public class Employee implements java.io.Serializable {
 
-	private Integer personId;
-	private Person person;
+    private Integer personId;
+    private Person person;
 
-	public Employee() {
-	}
+    public Employee() {
+    }
 
-	public Employee(Person person) {
-		this.person = person;
-	}
+    public Employee(Person person) {
+        this.person = person;
+    }
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "person_id", unique = true, nullable = false)
-	public Integer getPersonId() {
-		return this.personId;
-	}
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "person_id", unique = true, nullable = false)
+    public Integer getPersonId() {
+        return this.personId;
+    }
 
-	public void setPersonId(Integer personId) {
-		this.personId = personId;
-	}
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
-	public Person getPerson() {
-		return this.person;
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    public Person getPerson() {
+        return this.person;
+    }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
 }

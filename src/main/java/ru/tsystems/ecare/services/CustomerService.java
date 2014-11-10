@@ -9,24 +9,23 @@ import ru.tsystems.ecare.persistence.entities.Role;
 
 public interface CustomerService {
 
-	List<Customer> getAllCustomers();
+    List<Customer> getAllCustomers();
 
-	List<Contract> getAllContracts();
+    List<Contract> getAllContracts();
 
-	void lockCustomer(Customer toLock);
+    void lockCustomer(Customer toLock);
 
-	void unlockCustomer(Customer toUnlock);
+    void unlockCustomer(Customer toUnlock);
 
-	Customer findByNumber(Integer number);
+    Customer findByNumber(Integer number);
 
-	void newCustomer(String name, String surname, String birtdate, String email,
-			String password, String address, String passport);
-	
-	void newEmployee(Role role, Person person);
+    void newCustomer(String name, String surname, String birtdate, String email,
+            String password, String address, String passport);
 
-	Customer findByPassport(String passport);
+    void newEmployee(Role role, Person person);
 
-	public boolean isLocked(Customer toLock);
+    Customer findByPassport(String passport);
 
+    public boolean isLocked(Customer toLock);
 
 }

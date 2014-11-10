@@ -8,10 +8,10 @@
     </head>
     <body>
         <h1>Error</h1>
-		<c:out value="${message}" />
-		</div>
-		<div>
-			<a href="controlPanel.jsp">Back to control panel home page</a>.
-		</div>
-    </body>
+        <c:out value="${message}" />
+    </div>
+    <div>
+        <a href="controlPanel.jsp">Back to control panel home page</a>.
+    </div>
+</body>
 </html>

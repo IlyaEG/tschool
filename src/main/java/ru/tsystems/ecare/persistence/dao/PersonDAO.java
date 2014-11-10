@@ -8,10 +8,10 @@ import ru.tsystems.ecare.persistence.entities.Role;
  */
 public interface PersonDAO extends GenericDAO<Person, Integer> {
 
-	Person validPerson(String login, String password);
+    Person validPerson(String login, String password);
 
-	Role personRole(Person person);
+    Role personRole(Person person);
 
-	Person findByEmail(String email);
+    Person findByEmail(String email);
 
 }

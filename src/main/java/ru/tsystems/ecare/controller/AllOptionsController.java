@@ -9,15 +9,14 @@ import ru.tsystems.ecare.services.impl.OptionServiceImpl;
  *
  * @author ilya
  */
-public class AllOptionsController extends AbstractController {
+public class AllOptionsController {
 
-	private static final OptionService optionService = new OptionServiceImpl();
+    private static final OptionService optionService = new OptionServiceImpl();
 
-	@Override
-	public void execute() {
-		List<Option> options = optionService.getAllOptions();
-		this.getRequest().setAttribute("options", options);
-		this.setReturnPage("/allOptions.jsp");
-	}
+    public void execute() {
+//        List<Option> options = optionService.getAllOptions();
+//        this.getRequest().setAttribute("options", options);
+//        this.setReturnPage("/allOptions.jsp");
+    }
 
 }

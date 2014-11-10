@@ -5,22 +5,22 @@ import ru.tsystems.ecare.persistence.entities.Contract;
 
 public interface ContractService {
 
-	void lockNumber();
+    void lockNumber();
 
-	void unlockNumber();
+    void unlockNumber();
 
-	void newContract(Contract newContract);
+    void newContract(Contract newContract);
 
-	void setNumber(Integer number);
+    void setNumber(Integer number);
 
-	public List<Integer> getAvailableNumbers();
+    public List<Integer> getAvailableNumbers();
 
-	public Contract findByNumber(int number);
+    public Contract findByNumber(int number);
 
-	public List<Contract> getAllContracts();
+    public List<Contract> getAllContracts();
 
-	public void save(Contract contract);
+    public void save(Contract contract);
 
-	public void lockNumber(int number, String lockedByRole);
+    public void lockNumber(int number, String lockedByRole);
 
 }

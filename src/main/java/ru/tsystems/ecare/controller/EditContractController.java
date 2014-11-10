@@ -9,34 +9,33 @@ import ru.tsystems.ecare.services.impl.ContractServiceImpl;
  *
  * @author ilya
  */
-public class EditContractController extends AbstractController {
+public class EditContractController {
 
-	private static final ContractService contractService = new ContractServiceImpl();
+    private static final ContractService contractService = new ContractServiceImpl();
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			int number = Integer.parseInt(this.getRequest().getParameter("number"));
-			Contract contract = contractService.findByNumber(number);
-			this.getRequest().setAttribute("contract", contract);
-			this.setReturnPage("/editContract.jsp");
-		} else if (this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
-			int number = Integer.parseInt(this.getRequest().getParameter("number"));
-			Contract contract = contractService.findByNumber(number);
-			Customer fromSession = (Customer) this.getRequest().getSession(false).getAttribute("customer");
-
-			if (contract.getCustomer().equals(fromSession)) {
-				this.getRequest().setAttribute("contract", contract);
-				this.setReturnPage("/editContract.jsp");
-			} else {
-				this.getRequest().getSession(false).invalidate();
-				this.setReturnPage("/index.jsp");
-			}
-
-		} else {
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            int number = Integer.parseInt(this.getRequest().getParameter("number"));
+//            Contract contract = contractService.findByNumber(number);
+//            this.getRequest().setAttribute("contract", contract);
+//            this.setReturnPage("/editContract.jsp");
+//        } else if (this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
+//            int number = Integer.parseInt(this.getRequest().getParameter("number"));
+//            Contract contract = contractService.findByNumber(number);
+//            Customer fromSession = (Customer) this.getRequest().getSession(false).getAttribute("customer");
+//
+//            if (contract.getCustomer().equals(fromSession)) {
+//                this.getRequest().setAttribute("contract", contract);
+//                this.setReturnPage("/editContract.jsp");
+//            } else {
+//                this.getRequest().getSession(false).invalidate();
+//                this.setReturnPage("/index.jsp");
+//            }
+//
+//        } else {
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

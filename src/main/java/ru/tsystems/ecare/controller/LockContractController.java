@@ -15,30 +15,29 @@ import ru.tsystems.ecare.services.impl.ContractServiceImpl;
  *
  * @author ilya
  */
-public class LockContractController extends AbstractController {
+public class LockContractController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LockContractController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LockContractController.class);
 
-	private static final ContractService contractService = new ContractServiceImpl();
+    private static final ContractService contractService = new ContractServiceImpl();
 
-	@Override
-	public void execute() {
-		HttpServletRequest request = this.getRequest();
-		if (request.getSession(false).getAttribute("role").equals("employee")) {
-			int number = Integer.parseInt(request.getParameter("number"));
-			contractService.lockNumber(number, "employee");
-			this.setReturnPage("AllContracts");
-			
-		} else if (request.getSession(false).getAttribute("role").equals("customer")) {
-			int number = Integer.parseInt(request.getParameter("number"));
-			contractService.lockNumber(number, "customer");
-			
-			this.setReturnPage("/customerPanel.jsp");// logged-in page for customer
-		} else {
-			logger.debug("Unauthorized attemp to acess to LockContractController");
-			request.getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
+//    public void execute() {
+//        HttpServletRequest request = this.getRequest();
+//        if (request.getSession(false).getAttribute("role").equals("employee")) {
+//            int number = Integer.parseInt(request.getParameter("number"));
+//            contractService.lockNumber(number, "employee");
+//            this.setReturnPage("AllContracts");
+//
+//        } else if (request.getSession(false).getAttribute("role").equals("customer")) {
+//            int number = Integer.parseInt(request.getParameter("number"));
+//            contractService.lockNumber(number, "customer");
+//
+//            this.setReturnPage("/customerPanel.jsp");// logged-in page for customer
+//        } else {
+//            logger.debug("Unauthorized attemp to acess to LockContractController");
+//            request.getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

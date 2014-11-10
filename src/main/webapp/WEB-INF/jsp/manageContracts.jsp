@@ -12,43 +12,43 @@
     </head>
     <body>
         <h1><c:out value="${customer.person.name}"/> <c:out value="${customer.person.surname}"/> contracts page</h1>
-		<div>
-			<table>
-				<tr>
-				<form id="newContract" method="post"
-					  action="NewContract"
-					  enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="passport" value="${customer.customerPassport}"/>
-					<input type="submit" value="New contract" />
-				</form>
-				</tr>
-				<tr>
-					<td>Edit contract</td>
-					<td>Number</td>
-					<td>Tariff</td>
-					<td>Month rate</td>
-				</tr>
-				<c:forEach var="contract" items="${customer.contracts}">
-					<tr>
-						<td>
-							<form id="edit${contract.number}" method="post"
-								  action="EditContract"
-								  enctype="application/x-www-form-urlencoded">
-								<input type="hidden" name="number" value="${contract.number}"/>
-								<input type="submit" value="Edit contract" />
-							</form>
-						</td>
-						<td>${contract.number}</td>
-						<td>${contract.tariff.name}</td>
-						<td>${contract.tariff.rate}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		<div>
-			<a href="controlPanel.jsp">
-				Back to control panel
-			</a>.
-		</div>
-	</body>
+        <div>
+            <table>
+                <tr>
+                <form id="newContract" method="post"
+                      action="NewContract"
+                      enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="passport" value="${customer.customerPassport}"/>
+                    <input type="submit" value="New contract" />
+                </form>
+                </tr>
+                <tr>
+                    <td>Edit contract</td>
+                    <td>Number</td>
+                    <td>Tariff</td>
+                    <td>Month rate</td>
+                </tr>
+                <c:forEach var="contract" items="${customer.contracts}">
+                    <tr>
+                        <td>
+                            <form id="edit${contract.number}" method="post"
+                                  action="EditContract"
+                                  enctype="application/x-www-form-urlencoded">
+                                <input type="hidden" name="number" value="${contract.number}"/>
+                                <input type="submit" value="Edit contract" />
+                            </form>
+                        </td>
+                        <td>${contract.number}</td>
+                        <td>${contract.tariff.name}</td>
+                        <td>${contract.tariff.rate}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <div>
+            <a href="controlPanel.jsp">
+                Back to control panel
+            </a>.
+        </div>
+    </body>
 </html>

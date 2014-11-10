@@ -11,24 +11,23 @@ import ru.tsystems.ecare.services.impl.TariffServiceImpl;
  *
  * @author ilya
  */
-public class AllTariffsController extends AbstractController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AllTariffsController.class);
+public class AllTariffsController {
 
-	private static final TariffService tariffService = new TariffServiceImpl();
+    private static final Logger logger = LoggerFactory.getLogger(AllTariffsController.class);
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee") ||
-				this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
-		List<Tariff> tariffs = tariffService.getAvailableTariffs();
-		this.getRequest().setAttribute("tariffs", tariffs);
-		this.setReturnPage("/allTariffs.jsp");
-		} else {
-			this.getRequest().getSession(false).invalidate();
-			logger.debug("Unauthorized attempt to access to AllTariffsController.");
-			this.setReturnPage("/index.jsp");
-		}
-	}
+    private static final TariffService tariffService = new TariffServiceImpl();
+
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")
+//                || this.getRequest().getSession(false).getAttribute("role").equals("customer")) {
+//            List<Tariff> tariffs = tariffService.getAvailableTariffs();
+//            this.getRequest().setAttribute("tariffs", tariffs);
+//            this.setReturnPage("/allTariffs.jsp");
+//        } else {
+//            this.getRequest().getSession(false).invalidate();
+//            logger.debug("Unauthorized attempt to access to AllTariffsController.");
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

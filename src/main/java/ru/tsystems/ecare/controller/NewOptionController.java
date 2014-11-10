@@ -15,37 +15,38 @@ import ru.tsystems.ecare.services.impl.OptionServiceImpl;
  *
  * @author ilya
  */
-public class NewOptionController extends AbstractController {
+public class NewOptionController {
 
-	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
-	private static final OptionService optionService = new OptionServiceImpl();
+    private static final OptionService optionService = new OptionServiceImpl();
 
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-			try {
-				String name = this.getRequest().getParameter("name");
-				float rate = Float.parseFloat(this.getRequest().getParameter("rate"));
-				float price = Float.parseFloat(this.getRequest().getParameter("price"));
-				optionService.createOption(new Option(name, rate, price));
-
-				this.setReturnPage("/AllOptions");
-
-			} catch (NumberFormatException nfe) {
-				logger.debug(nfe.getMessage());
-				this.getRequest().setAttribute("message", "Wrong nuber for rate or price.");
-				this.setReturnPage("/error.jsp");
-			} catch (NullPointerException npe) {
-				logger.debug(npe.getMessage());
-				this.getRequest().setAttribute("message", "All fields are necessary.");
-				this.setReturnPage("/error.jsp");
-			}
-
-		} else {
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            try {
+//                String name = this.getRequest().getParameter("name");
+//                float rate = Float.parseFloat(this.getRequest().getParameter("rate"));
+//                float price = Float.parseFloat(this.getRequest().getParameter("price"));
+//                optionService.createOption(new Option(name, rate, price));
+//
+//                this.setReturnPage("/AllOptions");
+//
+//            }
+//            catch (NumberFormatException nfe) {
+//                logger.debug(nfe.getMessage());
+//                this.getRequest().setAttribute("message", "Wrong nuber for rate or price.");
+//                this.setReturnPage("/error.jsp");
+//            }
+//            catch (NullPointerException npe) {
+//                logger.debug(npe.getMessage());
+//                this.getRequest().setAttribute("message", "All fields are necessary.");
+//                this.setReturnPage("/error.jsp");
+//            }
+//
+//        } else {
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
 
 }

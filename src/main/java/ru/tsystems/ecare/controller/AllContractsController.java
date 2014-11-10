@@ -14,19 +14,20 @@ import ru.tsystems.ecare.services.impl.ContractServiceImpl;
  *
  * @author ilya
  */
-public class AllContractsController extends AbstractController {
-	private static final ContractService contractService = new ContractServiceImpl();
-	@Override
-	public void execute() {
-		if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
-				List<Contract> contracts = contractService.getAllContracts();
-				this.getRequest().setAttribute("contracts", contracts);
-				this.setReturnPage("/allContracts.jsp");
-			
-		} else {
-			this.getRequest().getSession(false).invalidate();
-			this.setReturnPage("/index.jsp");
-		}
-	}
-	
+public class AllContractsController {
+
+    private static final ContractService contractService = new ContractServiceImpl();
+
+//    public void execute() {
+//        if (this.getRequest().getSession(false).getAttribute("role").equals("employee")) {
+//            List<Contract> contracts = contractService.getAllContracts();
+//            this.getRequest().setAttribute("contracts", contracts);
+//            this.setReturnPage("/allContracts.jsp");
+//
+//        } else {
+//            this.getRequest().getSession(false).invalidate();
+//            this.setReturnPage("/index.jsp");
+//        }
+//    }
+
 }

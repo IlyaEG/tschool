@@ -15,6 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+USE ECareDB;
 --
 -- Table structure for table `contract`
 --
@@ -30,7 +31,7 @@ CREATE TABLE `contract` (
   PRIMARY KEY (`number`),
   KEY `contract_tariff` (`tariff_id`),
   KEY `contract_customer_id` (`customer_id`),
-  KEY `fk_contract_locked_by` (`locked_by`),
+  KEY `contract_locked_by` (`locked_by`),
   CONSTRAINT `fk_contract_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`person_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_contract_locked_by` FOREIGN KEY (`locked_by`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_contract_tariff` FOREIGN KEY (`tariff_id`) REFERENCES `tariff` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION

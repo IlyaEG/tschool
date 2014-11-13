@@ -1,7 +1,6 @@
 package ru.tsystems.ecare.services;
 
 import java.util.List;
-import java.util.Set;
 import ru.tsystems.ecare.persistence.entities.Contract;
 
 import ru.tsystems.ecare.persistence.entities.Option;

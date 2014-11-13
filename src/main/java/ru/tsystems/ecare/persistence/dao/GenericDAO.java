@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * Generic DAO
+ * Generic DAO.
  *
  * @param <E>
  * @param <K>

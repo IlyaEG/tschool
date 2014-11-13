@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Role entity
+ * Role entity.
  */
 @NamedQueries({
     @NamedQuery(
@@ -28,7 +28,8 @@ import javax.persistence.UniqueConstraint;
     )
 })
 @Entity
-@Table(name = "role", catalog = "ECareDB", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "role", catalog = "ECareDB",
+        uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Role implements java.io.Serializable {
 
     private static final long serialVersionUID = 3417305259646953338L;

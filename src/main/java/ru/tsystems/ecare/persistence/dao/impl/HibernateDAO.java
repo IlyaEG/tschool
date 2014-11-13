@@ -11,20 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.persistence.dao.GenericDAO;
 
 /**
- * Basic DAO operations dependent with Hibernate's specific classes
+ * Basic DAO operations dependent with Hibernate's specific classes.
  *
  * @param <E>
  * @param <K>
  * @see SessionFactory
  */
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-public class HibernateDAO<E, K extends Serializable> implements GenericDAO<E, K> {
+public class HibernateDAO<E, K extends Serializable>
+        implements GenericDAO<E, K> {
 
     private SessionFactory sessionFactory;
     protected Class<? extends E> daoType;
 
     public HibernateDAO() {
-        daoType = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass())
+        daoType = (Class<E>) ((ParameterizedType) getClass()
+                .getGenericSuperclass())
                 .getActualTypeArguments()[0];
     }
 

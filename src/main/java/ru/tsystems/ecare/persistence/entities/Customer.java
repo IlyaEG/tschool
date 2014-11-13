@@ -96,11 +96,11 @@ public class Customer implements java.io.Serializable {
     }
 
     @Column(name = "locked", nullable = false)
-    public boolean isLocked() {
+    public boolean getLocked() {
         return this.locked;
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(final boolean locked) {
         this.locked = locked;
     }
 
@@ -114,7 +114,7 @@ public class Customer implements java.io.Serializable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int hash = 3;
         hash = 89 * hash + Objects.hashCode(this.personId);
         hash = 89 * hash + Objects.hashCode(this.customerPassport);
@@ -122,7 +122,7 @@ public class Customer implements java.io.Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }

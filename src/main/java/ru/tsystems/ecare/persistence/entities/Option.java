@@ -30,7 +30,8 @@ import javax.persistence.UniqueConstraint;
     )
 })
 @Entity
-@Table(name = "option", catalog = "ECareDB", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "option", catalog = "ECareDB",
+        uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Option implements java.io.Serializable {
 
     /**

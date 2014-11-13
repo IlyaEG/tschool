@@ -15,6 +15,7 @@
     <context:annotation-config />
 
     <!-- package to look for annotated classes -->
+    <context:component-scan base-package="ru.tsystems.ecare.persistence.dao.impl" />
     <context:component-scan base-package="ru.tsystems.ecare.services.impl" />
 
     <!-- manage transactions with annotations -->
@@ -32,17 +33,17 @@
 
     <!-- configure hibernate session factory -->
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean">
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses" >
             <list>
-                <value>ru.tsystems.eacare.persistence.entities.Contract</value>
-                <value>ru.tsystems.eacare.persistence.entities.Customer</value>
-                <value>ru.tsystems.eacare.persistence.entities.Employee</value>
-                <value>ru.tsystems.eacare.persistence.entities.Option</value>
-                <value>ru.tsystems.eacare.persistence.entities.Person</value>
-                <value>ru.tsystems.eacare.persistence.entities.Role</value>
-                <value>ru.tsystems.eacare.persistence.entities.Tariff</value>
+                <value>ru.tsystems.ecare.persistence.entities.Contract</value>
+                <value>ru.tsystems.ecare.persistence.entities.Customer</value>
+                <value>ru.tsystems.ecare.persistence.entities.Employee</value>
+                <value>ru.tsystems.ecare.persistence.entities.Option</value>
+                <value>ru.tsystems.ecare.persistence.entities.Person</value>
+                <value>ru.tsystems.ecare.persistence.entities.Role</value>
+                <value>ru.tsystems.ecare.persistence.entities.Tariff</value>
             </list>
         </property>
         <property name="hibernateProperties">

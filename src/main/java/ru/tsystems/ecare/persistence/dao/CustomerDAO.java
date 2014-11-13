@@ -1,5 +1,7 @@
 package ru.tsystems.ecare.persistence.dao;
 
+import java.util.Set;
+import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
 
 /**
@@ -7,8 +9,18 @@ import ru.tsystems.ecare.persistence.entities.Customer;
  */
 public interface CustomerDAO extends GenericDAO<Customer, Integer> {
 
-    public Customer findByPassport(String passport);
+    Customer findByPassport(String passport);
 
-    public boolean lockStatus(Customer customer);
+    void lock(Customer customer);
+
+    void unlock(Customer customer);
+
+    Boolean lockStatus(Customer customer);
+
+    Set<Contract> getContracts(Customer customer);
+
+    void addContract(Customer customer, Contract contract);
+
+    void deleteContract(Customer customer, Contract contract);
 
 }

@@ -6,7 +6,7 @@ import ru.tsystems.ecare.persistence.dao.RoleDAO;
 
 import ru.tsystems.ecare.persistence.entities.Role;
 
-@Repository("optionDAO")
+@Repository("roleDAO")
 public class RoleDAOImpl extends HibernateDAO<Role, Integer>
         implements RoleDAO {
 

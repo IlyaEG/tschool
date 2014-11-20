@@ -3,16 +3,17 @@
 <%@page import="ru.tsystems.ecare.persistence.entities.Person" %>
 <%@page import="ru.tsystems.ecare.persistence.entities.Contract" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>New Contract</title>
     </head>
     <body>
         <h1>New contract with <c:out value="${customer.person.name}"/> <c:out value="${customer.person.surname}"/></h1>
         <form id="newContract" method="post"
-              action="CreateContract"
+              action="createContract"
               enctype="application/x-www-form-urlencoded">
             <input type="hidden" name="passport" value="${customer.customerPassport}"/>
             <p>Select tariff</p>
@@ -36,10 +37,5 @@
             </select>
             <input type="submit" value="New contract" />
         </form>
-        <div>
-            <a href="controlPanel.jsp">
-                Back to control panel
-            </a>.
-        </div>
     </body>
 </html>

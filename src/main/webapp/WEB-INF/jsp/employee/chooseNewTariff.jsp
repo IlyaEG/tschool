@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>Choose new tariff for <c:out value="${contract.number}" /></h1>
-        <form id="setTariff" method="post" action="SetTariff"
+        <form id="setTariff" method="post" action="setTariff"
               enctype="application/x-www-form-urlencoded">
             <input type="hidden" name="number" value="${contract.number}">
             <p>Select tariff</p>

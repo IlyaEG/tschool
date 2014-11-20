@@ -8,19 +8,16 @@
     <body>
         <h1>Manage tariffs and options</h1>
         <div>
-            <form name="getAllTariffs" method="post" action="AllTariffs"
+            <form name="getAllTariffs" method="post" action="allTariffs"
                   enctype="application/x-www-form-urlencoded">
                 <input type="submit" value="All tariffs" />
             </form>
         </div>
         <div>
-            <form name="getAllOptions" method="post" action="AllOptions"
+            <form name="getAllOptions" method="post" action="allOptions"
                   enctype="application/x-www-form-urlencoded">
                 <input type="submit" value="All options" />
             </form>
-        </div>
-        <div>
-            <a href="controlPanel.jsp">Back to control panel home page</a>.
         </div>
     </body>
 </html>

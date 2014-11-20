@@ -41,10 +41,5 @@
                 </c:forEach>
             </table>
         </div>
-        <div>
-            <a href="controlPanel.jsp">
-                Back to control panel
-            </a>.
-        </div>
     </body>
 </html>

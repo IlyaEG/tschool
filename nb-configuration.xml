@@ -26,6 +26,7 @@
             <config-file>src/main/resources/persistence-beans.xml</config-file>
             <config-file>src/main/webapp/WEB-INF/ecare-servlet.xml</config-file>
             <config-file>src/main/resources/aop.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/spring-security.xml</config-file>
         </config-files>
         <config-file-groups/>
     </spring-data>

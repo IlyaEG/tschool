@@ -5,6 +5,8 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -14,6 +16,9 @@ import java.util.Arrays;
  */
 @Aspect
 public class DAOLoggingAspect {
+
+    private static final Logger logger
+            = LoggerFactory.getLogger(DAOLoggingAspect.class);
 
     @Pointcut("within(@org.springframework.stereotype.Repository *)")
     public void controller() {
@@ -29,12 +34,12 @@ public class DAOLoggingAspect {
 
     @Before("repository() && methodPointcut() && requestMapping()")
     public void aroundRepositoryMethod(JoinPoint joinPoint) throws Throwable {
-        System.out.println("Invoked: " + niceName(joinPoint));
+        logger.info("Invoked: " + niceName(joinPoint));
     }
 
     @AfterReturning("repository() && methodPointcut() && requestMapping()")
     public void afterRepositoryMethod(JoinPoint joinPoint) {
-        System.out.println("Finished: " + niceName(joinPoint));
+        logger.info("Finished: " + niceName(joinPoint));
     }
 
     private String niceName(JoinPoint joinPoint) {

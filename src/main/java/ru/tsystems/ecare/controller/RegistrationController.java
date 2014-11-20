@@ -2,6 +2,8 @@ package ru.tsystems.ecare.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Role;
@@ -10,6 +12,8 @@ import ru.tsystems.ecare.services.impl.CustomerServiceImpl;
 import ru.tsystems.ecare.services.LoginService;
 import ru.tsystems.ecare.services.impl.LoginServiceImpl;
 
+@Controller
+@RequestMapping("register")
 public class RegistrationController {
 
     private static final LoginService loginservice = new LoginServiceImpl();

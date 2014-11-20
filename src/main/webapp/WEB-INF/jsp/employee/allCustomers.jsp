@@ -24,7 +24,7 @@
                     <tr>
                         <td>
                             <form id="edit${customer.person.name}" method="post"
-                                  action="EditCustomer"
+                                  action="editCustomer"
                                   enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="passport" value="${customer.customerPassport}">
                                 <input type="submit" value="Edit customer">
@@ -36,7 +36,7 @@
                         <td>${customer.locked}</td>
                         <td>
                             <form id="lock${customer.personId}" method="post"
-                                  action="LockCustomer"
+                                  action="lockCustomer"
                                   enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="passport" value="${customer.customerPassport}">
                                 <input type="submit" value="Lock customer">
@@ -45,10 +45,6 @@
                     </tr>
                 </c:forEach>
             </table>
-        </div>
-        <div>
-            <a href="controlPanel.jsp">Back to control panel home page
-            </a>.
         </div>
     </body>
 </html>

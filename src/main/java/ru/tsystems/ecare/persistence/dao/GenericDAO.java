@@ -1,6 +1,6 @@
 package ru.tsystems.ecare.persistence.dao;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -19,6 +19,6 @@ public interface GenericDAO<E, K> {
 
     E find(K key);
 
-    List<E> list();
+    Set<E> all();
 
 }

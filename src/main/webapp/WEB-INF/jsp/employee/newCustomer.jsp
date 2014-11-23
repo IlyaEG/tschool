@@ -1,16 +1,12 @@
-<%@page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<%@page import="ru.tsystems.ecare.persistence.entities.Customer"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"
-        pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="resources/graphic/favicon.ico">
-        <title>Employee's control page</title>
+        <title>New customer</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
@@ -30,39 +26,36 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="employee">ECare</a>
+                    <a class="navbar-brand" href="#">ECare</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="employee/about">My info</a></li>
-                        <li><a href="logout">Logout</a></li>
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-
-        <h1 id="banner">Employee's control panel</h1>
-        <hr>
-
-        <p>You are currently logged-in as
-            <span id="username">
-                <sec:authentication property="principal.username"/>
-            </span>!
-        </p>
-        <div class="col-lg-6">
-            <h4>Manage customers and contracts</h4>
-
-            <h5><a href="employee/searchCustomer">Search customer</a></h5>
-            <h5><a href="employee/allCustomers">List all customer</a></h5>
-            <h5><a href="employee/allContracts">List all contracts</a></h5>
-            <h5><a href="employee/newCustomer">Register new customer</a></h5>
-        </div>
-        <div class="col-lg-6">
-            <h4>Manage tariffs and options</h4>
-            <h5><a href="employee/allTariffs">List all tariffs</a></h5>
-            <h5><a href="employee/newTariff">Create new tariff</a></h5>
-            <h5><a href="employee/allOptions">List all options</a></h5>
-            <h5><a href="employee/newOption">Create new option</a></h5>
-        </div>
+        <h1>New Contract with new customer</h1>
+        <h2><c:out value="${message}"/></h2>
+        <form name="newCustomer" method="post" action="NewCustomer"
+              enctype="application/x-www-form-urlencoded">
+            Name:<input type="text" name="name" value="">
+            <br>
+            Surname:<input type="text" name="surname" value="">
+            <br>
+            Birth date ("yyyy-mm-dd"): <input type="text" placeholder="yyyy-mm-dd" name="birthdate" value="">
+            <br>
+            E-mail:<input type="text" name="email" value="">
+            <br>
+            Password:<input type="password" name="password" value="">
+            <br>
+            Address:<input type="text" name="address" value="">
+            <br>
+            Passport:<input type="passport" name="passport" value="">
+            <br>
+            <input type="submit" value="Create" />
+        </form>
     </body>
 </html>

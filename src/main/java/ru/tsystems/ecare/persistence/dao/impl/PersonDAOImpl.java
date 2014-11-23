@@ -12,7 +12,7 @@ public class PersonDAOImpl extends HibernateDAO<Person, Integer>
         implements PersonDAO {
 
     @Override
-    public final Person validPerson(final String login, final String password) {
+    public Person validPerson(final String login, final String password) {
         Session hibernateSession = currentSession();
         Query query = hibernateSession.getNamedQuery("PersonByEmail&Password");
         query.setString("userEmail", login);

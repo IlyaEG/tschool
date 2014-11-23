@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.persistence.dao.PersonDAO;
+import ru.tsystems.ecare.persistence.dao.impl.PersonDAOImpl;
 import ru.tsystems.ecare.persistence.entities.Person;
 
 /**

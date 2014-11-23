@@ -2,7 +2,9 @@ package ru.tsystems.ecare.persistence.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,12 @@ public class HibernateDAO<E, K extends Serializable>
     }
 
     @Override
-    public List<E> list() {
-        return currentSession().createCriteria(daoType).list();
+    public Set<E> all() {
+        List<E> es = currentSession().createCriteria(daoType).list();
+        Set<E> eSet = new HashSet<>();
+        for (E e : es) {
+            eSet.add(e);
+        }
+        return eSet;
     }
 }

@@ -1,6 +1,5 @@
 package ru.tsystems.ecare.services.impl;
 
-import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -35,9 +34,9 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public List<Option> getAllOptions() {
-        List<Option> allOptions;
-        allOptions = optionDAO.list();
+    public Set<Option> getAllOptions() {
+        Set<Option> allOptions;
+        allOptions = optionDAO.all();
         return allOptions;
     }
 

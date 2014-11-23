@@ -1,6 +1,6 @@
 package ru.tsystems.ecare.services;
 
-import java.util.List;
+import java.util.Set;
 import ru.tsystems.ecare.persistence.entities.Contract;
 
 public interface ContractService {
@@ -13,11 +13,11 @@ public interface ContractService {
 
     void setNumber(Integer number);
 
-    public List<Integer> getAvailableNumbers();
+    public Set<Integer> getAvailableNumbers();
 
     public Contract findByNumber(int number);
 
-    public List<Contract> getAllContracts();
+    public Set<Contract> getAllContracts();
 
     public void save(Contract contract);
 

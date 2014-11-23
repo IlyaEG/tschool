@@ -7,7 +7,7 @@ package ru.tsystems.ecare.services.impl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,15 +91,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        List<Customer> customers = customerDAO.list();
+    public Set<Customer> getAllCustomers() {
+        Set<Customer> customers = customerDAO.all();
         return customers;
     }
 
     @Override
-    public List<Contract> getAllContracts() {
-        //todo
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Set<Contract> getAllContracts(Customer customer) {
+        return customerDAO.getContracts(customer);
     }
 
     @Override

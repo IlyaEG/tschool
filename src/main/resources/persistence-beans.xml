@@ -16,7 +16,7 @@
 
     <!-- package to look for annotated classes -->
     <context:component-scan base-package="ru.tsystems.ecare.persistence.dao.impl" />
-    <context:component-scan base-package="ru.tsystems.ecare.services.impl" />
+    <context:component-scan base-package="ru.tsystems.ecare.services" />
 
     <!-- manage transactions with annotations -->
     <tx:annotation-driven />

@@ -1,7 +1,6 @@
 package ru.tsystems.ecare.services.impl;
 
-import java.util.List;
-import org.hibernate.Session;
+import java.util.Set;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,54 +19,18 @@ import ru.tsystems.ecare.services.TariffService;
 public class TariffServiceImpl implements TariffService {
 
     // dependencies
+    @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
     private TariffDAO tariffDAO;
+    @Autowired
     private ContractDAO contractDAO;
+    @Autowired
     private OptionDAO optionDAO;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Autowired
-    public void setTariffDAO(TariffDAO tariffDAO) {
-        this.tariffDAO = tariffDAO;
-    }
-
-    @Autowired
-    public void setContractDAO(ContractDAO contractDAO) {
-        this.contractDAO = contractDAO;
-    }
-
-    @Autowired
-    public void setOptionDAO(OptionDAO optionDAO) {
-        this.optionDAO = optionDAO;
-    }
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public TariffDAO getTariffDAO() {
-        return tariffDAO;
-    }
-
-    public ContractDAO getContractDAO() {
-        return contractDAO;
-    }
-
-    public OptionDAO getOptionDAO() {
-        return optionDAO;
-    }
-
-    private Session currentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
     @Override
-    public List<Tariff> getAvailableTariffs() {
-        List<Tariff> availableTariffs = tariffDAO.list();
+    public Set<Tariff> getAvailableTariffs() {
+        Set<Tariff> availableTariffs = tariffDAO.all();
         return availableTariffs;
     }
 
@@ -78,8 +41,8 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public List<Option> getAvailableOptions() {
-        List<Option> options = optionDAO.list();
+    public Set<Option> getAvailableOptions() {
+        Set<Option> options = optionDAO.all();
         return options;
     }
 

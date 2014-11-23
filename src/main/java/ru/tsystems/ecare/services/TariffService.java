@@ -1,6 +1,6 @@
 package ru.tsystems.ecare.services;
 
-import java.util.List;
+import java.util.Set;
 import ru.tsystems.ecare.persistence.entities.Contract;
 
 import ru.tsystems.ecare.persistence.entities.Option;
@@ -8,11 +8,11 @@ import ru.tsystems.ecare.persistence.entities.Tariff;
 
 public interface TariffService {
 
-    List<Tariff> getAvailableTariffs();
+    Set<Tariff> getAvailableTariffs();
 
     void changeTariff(Contract customerContract, Tariff newTariff);
 
-    List<Option> getAvailableOptions();
+    Set<Option> getAvailableOptions();
 
     void updateTariff(Tariff tariff);
 

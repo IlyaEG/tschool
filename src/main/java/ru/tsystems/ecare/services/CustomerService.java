@@ -1,6 +1,6 @@
 package ru.tsystems.ecare.services;
 
-import java.util.List;
+import java.util.Set;
 
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
@@ -9,9 +9,9 @@ import ru.tsystems.ecare.persistence.entities.Role;
 
 public interface CustomerService {
 
-    List<Customer> getAllCustomers();
+    Set<Customer> getAllCustomers();
 
-    List<Contract> getAllContracts();
+    Set<Contract> getAllContracts(Customer customer);
 
     void lockCustomer(Customer toLock);
 

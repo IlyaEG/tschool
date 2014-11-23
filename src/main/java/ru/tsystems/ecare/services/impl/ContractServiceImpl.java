@@ -1,7 +1,7 @@
 package ru.tsystems.ecare.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +84,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<Integer> getAvailableNumbers() {
-        List<Integer> numbers = new ArrayList<>();
+    public Set<Integer> getAvailableNumbers() {
+        Set<Integer> numbers = new HashSet<>();
         int maxNumber;
         try {
             maxNumber = contractDAO.getMaxumimumNumber();
@@ -106,8 +106,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<Contract> getAllContracts() {
-        List<Contract> contract = contractDAO.list();
+    public Set<Contract> getAllContracts() {
+        Set<Contract> contract = contractDAO.all();
         return contract;
     }
 

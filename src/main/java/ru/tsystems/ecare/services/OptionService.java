@@ -1,13 +1,12 @@
 package ru.tsystems.ecare.services;
 
-import java.util.List;
 import java.util.Set;
 
 import ru.tsystems.ecare.persistence.entities.Option;
 
 public interface OptionService {
 
-    List<Option> getAllOptions();
+    Set<Option> getAllOptions();
 
     void createOption(Option newOption);
 

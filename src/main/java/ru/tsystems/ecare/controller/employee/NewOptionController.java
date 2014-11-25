@@ -17,7 +17,7 @@ import ru.tsystems.ecare.services.impl.OptionServiceImpl;
  */
 public class NewOptionController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
+    private static final Logger logger = LoggerFactory.getLogger(NewOptionController.class);
 
     private static final OptionService optionService = new OptionServiceImpl();
 

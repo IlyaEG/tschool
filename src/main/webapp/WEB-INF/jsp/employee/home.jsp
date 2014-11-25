@@ -22,26 +22,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="employee">ECare</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="employee/about">My info</a></li>
-                        <li><a href="logout">Logout</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-
+    <jsp:include page="navbar.jsp" />
         <h1 id="banner">Employee's control panel</h1>
         <hr>
 
@@ -51,17 +32,17 @@
         <div class="col-lg-6">
             <h4>Manage customers and contracts</h4>
 
-            <h5><a href="employee/searchCustomer">Search customer</a></h5>
-            <h5><a href="employee/allCustomers">View all customer</a></h5>
-            <h5><a href="employee/allContracts">View all contracts</a></h5>
-            <h5><a href="employee/newCustomer">Register new customer</a></h5>
+            <h5><a href="/ECare/employee/searchCustomer">Search customer</a></h5>
+            <h5><a href="/ECare/employee/allCustomers">View all customers</a></h5>
+            <h5><a href="/ECare/employee/allContracts">View all contracts</a></h5>
+            <h5><a href="/ECare/employee/newCustomer">Register new customer</a></h5>
         </div>
         <div class="col-lg-6">
             <h4>Manage tariffs and options</h4>
-            <h5><a href="employee/allTariffs">View all tariffs</a></h5>
-            <h5><a href="employee/newTariff">Create new tariff</a></h5>
-            <h5><a href="employee/allOptions">View all options</a></h5>
-            <h5><a href="employee/newOption">Create new option</a></h5>
+            <h5><a href="/ECare/employee/allTariffs">View all tariffs</a></h5>
+            <h5><a href="/ECare/employee/newTariff">Create new tariff</a></h5>
+            <h5><a href="/ECare/employee/allOptions">View all options</a></h5>
+            <h5><a href="/ECare/employee/newOption">Create new option</a></h5>
         </div>
     </body>
 </html>

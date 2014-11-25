@@ -22,53 +22,39 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="home">ECare</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <h1 id="banner">All contracts</h1>
+        <jsp:include page="navbar.jsp" />
+        <h1 id="banner">All contracts ${owners}</h1>
         <div class="container">
-            <table>
-                <tr>
-                    <td>Edit contract</td>
-                    <td>Number</td>
-                    <td>Tariff</td>
-                    <td>Month rate</td>
-                    <td>Customer name</td>
-                    <td>Customer surname</td>
-                </tr>
-                <c:forEach var="contract" items="${contracts}">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            <form id="edit${contract.number}" method="post"
-                                  action="EditContract"
-                                  enctype="application/x-www-form-urlencoded">
-                                <input type="hidden" name="number" value="${contract.number}"/>
-                                <input type="submit" value="Edit contract" />
-                            </form>
-                        </td>
-                        <td>${contract.number}</td>
-                        <td>${contract.tariff.name}</td>
-                        <td>${contract.tariff.rate}</td>
-                        <td>${contract.customer.person.name}</td>
-                        <td>${contract.customer.person.surname}</td>
+                        <th>Edit contract</th>
+                        <th>Number</th>
+                        <th>Tariff</th>
+                        <th>Month rate</th>
+                        <th>Customer name</th>
+                        <th>Customer surname</th>
                     </tr>
-                </c:forEach>
+                </thead>
+                <tbody>
+                    <c:forEach var="contract" items="${contracts}">
+                        <tr>
+                            <td>
+                                <form id="edit${contract.number}" method="post"
+                                      action="/ECare/employee/EditContract"
+                                      enctype="application/x-www-form-urlencoded">
+                                    <input type="hidden" name="number" value="${contract.number}"/>
+                                    <input type="submit" value="Edit contract" />
+                                </form>
+                            </td>
+                            <td>${contract.number}</td>
+                            <td>${contract.tariff.name}</td>
+                            <td>${contract.tariff.rate}</td>
+                            <td>${contract.customer.person.name}</td>
+                            <td>${contract.customer.person.surname}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
             </table>
         </div>
     </body>

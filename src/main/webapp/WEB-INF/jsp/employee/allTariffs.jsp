@@ -19,62 +19,38 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="employee">ECare</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-
+        <jsp:include page="navbar.jsp" />
+        <h1 id="banner">All tariffs</h1>
         <div class="container">
-            <h1 id="banner">All tariffs</h1>
-            <form id="newTariff" method="post"
-                  action="NewTariff"
-                  enctype="application/x-www-form-urlencoded">
-                <input type="submit" value="New tariff">
-            </form>
-            <table>
-                <tr>
-                    <td>Edit tariff options</td>
-                    <td>Tariff name</td>
-                    <td>Tariff rate</td>
-                </tr>
-                <c:forEach var="tariff" items="${tariffs}">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            <form id="edit${tariff.name}" method="post"
-                                  action="EditTariffOptions"
-                                  enctype="application/x-www-form-urlencoded">
-                                <input type="hidden" name="tariff" value="${tariff.id}">
-                                <input type="submit" value="Edit tariff">
-                            </form>
-                        </td>
-                        <td>
-                            ${tariff.name}
-                        </td>
-                        <td>
-                            ${tariff.rate}
-                        </td>
+                        <th>Edit tariff</th>
+                        <th>Tariff name</th>
+                        <th>Tariff rate</th>
                     </tr>
-                </c:forEach>
+                </thead>
+                <tbody>
+                    <c:forEach var="tariff" items="${tariffs}">
+                        <tr>
+                            <td>
+                                <form id="edit${tariff.name}" method="post"
+                                      action="editTariff"
+                                      enctype="application/x-www-form-urlencoded">
+                                    <input type="hidden" name="tariff" value="${tariff.id}">
+                                    <input type="submit" value="Edit tariff">
+                                </form>
+                            </td>
+                            <td>
+                                ${tariff.name}
+                            </td>
+                            <td>
+                                ${tariff.rate}
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
             </table>
-        </div>
-        <div>
-            <a href="controlPanel.jsp">Back to control panel home page
-            </a>.
         </div>
     </body>
 </html>

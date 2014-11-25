@@ -29,11 +29,17 @@
                     </button>
                     <a class="navbar-brand" href="/ECare">ECare</a>
                 </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="about">About</a></li>
+                        <li><a href="login">Login</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
         </nav>
         <div class="container">
 
-            <form class="form-signin" role="form" action="registration" method="post">
+            <form class="form-signin" role="form" action="finishRegistration" method="post">
                 <h2 class="form-signin-heading">Please fill all fields</h2>
                 <label for="name" class="sr-only">Name</label>
                 <input type="text" id="name" name="name"
@@ -52,19 +58,12 @@
                        class="form-control" placeholder="Address" required>
                 <input type="email" id="email" name="email"
                        class="form-control" placeholder="Email address" required>
-                <label for="j_password" class="sr-only">Password</label>
-                <input type="password" id="j_password" name="j_password"
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password"
                        class="form-control" placeholder="Password" required>
-                <label for="is_employee" class="sr-only">Is employee</label>
-                <input type="checkbox" for="emp_password" id="isemployee"
-                       name="isemployee" class="form-control">
-                <input type="password" id="emp_password" name="emp_password"
-                       class="form-control" placeholder="Password for employee registration" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
             </form>
-
         </div> <!-- /container -->
-
         <p class="text-danger text-center">${message}</p>
         <div class="container">
             <p class="text-center">
@@ -72,66 +71,4 @@
             </p>
         </div>
     </body>
-
-
-
-
-
-
-
-
-
-    <div>
-        <form method="post" action="Registration"
-              enctype="application/x-www-form-urlencoded">
-            <div>
-                <p>
-                    Name: <br> <input type="text" placeholder="name"
-                                      name="name" value="">
-                </p>
-                <p>
-                    Surname: <br> <input type="text" placeholder="surname"
-                                         name="surname" value="">
-                </p>
-                <p>
-                    Birth date: <br> <input type="text"
-                                            placeholder="yyyy-mm-dd"
-                                            name="birthdate" value="">
-                </p>
-
-                <p>
-                    Passport: <br> <input type="text"
-                                          placeholder="passport full number"
-                                          name="passport" value="">
-                </p>
-
-                <p>
-                    Address: <br> <input type="text" placeholder="address"
-                                         name="address" value="">
-                </p>
-
-                <p>
-                    E-mail (login): <br> <input type="text" placeholder="e-mail"
-                                                name="email" value="">
-                </p>
-                <p>
-                    Password: <br> <input type="password" placeholder="password"
-                                          name="password" value="">
-                </p>
-                <p>
-                    Is Employee: <input type="checkbox" name="isemployee">
-                </p>
-                <p>
-                    Employee registration password: <br> <input type="password" placeholder="Password for employe registration"
-                                                                name="employeePassword" value="">
-                </p>
-                <input type="submit" value="Create an account"/>
-            </div>
-        </form>
-        <div>
-            <p>If you already have registration, please <a href="login.jsp">login</a></p>
-        </div>
-    </div>
-
-</body>
 </html>

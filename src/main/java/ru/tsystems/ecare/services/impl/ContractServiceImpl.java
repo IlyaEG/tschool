@@ -92,7 +92,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void setNumber(Contract contract, Integer number) {
-        // TODO Auto-generated method stub
+        //TODO Auto-generated method stub
         throw new ECareException("not implemented yet!");
     }
 

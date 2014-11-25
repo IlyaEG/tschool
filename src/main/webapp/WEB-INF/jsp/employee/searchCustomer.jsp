@@ -55,8 +55,21 @@
             <div class="container">
                 <ul>
                     <li>Customer Name: ${customer.person.name}</li>
-                    <li>Customer password: ${customer.person.password}</li>
+                    <li>Customer Surname: ${customer.person.surname}</li>
+                    <li>Customer passport: ${customer.customerPassport}</li>
                 </ul>
+                <form id="edit${customer.personId}" method="post"
+                      action="/ECare/employee/editCustomer"
+                      enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="passport" value="${customer.customerPassport}">
+                    <input type="submit" value="Edit customer">
+                </form>
+                <form id="editcontracts${customer.personId}" method="post"
+                      action="/ECare/employee/getCustomersContracts"
+                      enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="passport" value="${customer.customerPassport}">
+                    <input type="submit" value="Edit customer's contracts">
+                </form>
             </div>
             <div class="container">
                 <p>${message}</p>

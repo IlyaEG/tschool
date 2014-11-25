@@ -19,27 +19,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">ECare</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                    <!--<span class="navbar-right"><a href="logout">Logout</a></span>-->
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+        <jsp:include page="navbar.jsp" />
 
         <div class="container">
             <h1 id="banner">All options</h1>
@@ -48,28 +28,32 @@
                   enctype="application/x-www-form-urlencoded">
                 <input type="submit" value="New option">
             </form>
-            <table>
-                <tr>
-                    <td>Edit option relations</td>
-                    <td>Option name</td>
-                    <td>Option month rate</td>
-                    <td>Option connection price</td>
-                </tr>
-                <c:forEach var="option" items="${options}">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            <form id="edit${option.name}" method="post"
-                                  action="EditOptionRelations"
-                                  enctype="application/x-www-form-urlencoded">
-                                <input type="hidden" name="name" value="${option.id}">
-                                <input type="submit" value="Edit option">
-                            </form>
-                        </td>
-                        <td>${option.name}</td>
-                        <td>${option.rate}</td>
-                        <td>${option.price}</td>
+                        <th>Edit option relations</th>
+                        <th>Option name</th>
+                        <th>Option month rate</th>
+                        <th>Option connection price</th>
                     </tr>
-                </c:forEach>
+                </thead>
+                <tbody>
+                    <c:forEach var="option" items="${options}">
+                        <tr>
+                            <td>
+                                <form id="edit${option.name}" method="post"
+                                      action="editOptionRelations"
+                                      enctype="application/x-www-form-urlencoded">
+                                    <input type="hidden" name="name" value="${option.id}">
+                                    <input type="submit" value="Edit option">
+                                </form>
+                            </td>
+                            <td>${option.name}</td>
+                            <td>${option.rate}</td>
+                            <td>${option.price}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
             </table>
         </div>
     </body>

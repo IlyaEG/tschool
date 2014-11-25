@@ -87,7 +87,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String getNameByEmail(String email) {
         Person person = personDAO.findByEmail(email);
-        String name = person.getName();
+        String name = person.getName() + " " + person.getSurname();
         return name;
     }
 

@@ -45,15 +45,4 @@ public class MediatorController {
         model.addAttribute("userName", loginService.getNameByEmail(email));
         return "customer/home";
     }
-
-//    @RequestMapping(value = "/employee")
-    public final String getEmployeePage(final Model model) {
-        Authentication auth = SecurityContextHolder.
-                getContext().
-                getAuthentication();
-        String email = auth.getName(); //get logged in email
-        //String userName = loginService.getNameByEmail(email);
-        model.addAttribute("userName", email);
-        return "employee/home";
-    }
 }

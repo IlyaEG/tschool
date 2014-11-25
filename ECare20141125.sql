@@ -1,8 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `ECareDB` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `ECareDB`;
 -- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: ECareDB
+-- Host: 127.0.0.1    Database: ECareDB
 -- ------------------------------------------------------
--- Server version	5.5.40-0ubuntu0.12.04.1
+-- Server version	5.5.40-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,7 +17,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-USE ECareDB;
 --
 -- Table structure for table `contract`
 --
@@ -89,9 +90,10 @@ CREATE TABLE `customer` (
   `locked` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`person_id`),
   UNIQUE KEY `customer_passport_UNIQUE` (`customer_passport`),
+  UNIQUE KEY `UK_o0cl31ufkwyc47ntdqu6d4c48` (`customer_passport`),
   KEY `Customer_person_id` (`person_id`),
   CONSTRAINT `fk_Customer_Person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +102,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,'11 11 111 111',1),(4,'22 22 222 222',0),(5,'092371',0),(6,'4536',0),(7,'345642g5',0);
+INSERT INTO `customer` VALUES (3,'11 11 111 111',1),(4,'22 22 222 222',0),(5,'092371',0),(6,'4536',0),(7,'345642g5',0),(8,'101',0),(9,'4005 684119',0),(10,'a23df4',0);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +171,8 @@ CREATE TABLE `option` (
   `rate` float NOT NULL,
   `price` float NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `UK_9ox7f1nspwyvlk3gfhfj9rmmj` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,7 +182,7 @@ CREATE TABLE `option` (
 
 LOCK TABLES `option` WRITE;
 /*!40000 ALTER TABLE `option` DISABLE KEYS */;
-INSERT INTO `option` VALUES (1,'opt1',1.1,1.1),(2,'opt2',2.2,2.2),(3,'opt3',3.3,3.3),(4,'opt4',4.4,4.4),(5,'opt5',5.5,5.5);
+INSERT INTO `option` VALUES (1,'100 SMS',1.1,1.1),(2,'100 MMS',2.2,2.2),(3,'1 GiB',3.3,3.3),(4,'2 GiB',4.4,4.4),(5,'Home calls',5.5,5.5);
 /*!40000 ALTER TABLE `option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +206,7 @@ CREATE TABLE `person` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `person_role_id` (`role_id`),
   CONSTRAINT `fk_Person_Role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +215,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (1,'a','a','a','a','',1,NULL),(3,'cust1name','cust1surname','cust1','cust1','cust1 address',2,'1985-01-12'),(4,'cust2 name','cust2 surname','cust2','cust2','cust2 address',2,'2000-01-10'),(5,'Name 3','Surname 3','cust3','cust3','adr3',2,'1845-01-04'),(6,'name 1','surname1','n','n','gfgkg',2,'1986-01-02'),(7,'ilya','gri','ig','ig','ertgsddfg',2,'2005-01-05');
+INSERT INTO `person` VALUES (1,'Super','Admin','a','a@ecare','',1,NULL),(3,'Galileo','Galilei','g','gg@ecare','Italy',2,'1985-01-12'),(4,'Georg','Ohm','g','go@ecare','Germany',2,'1789-03-06'),(5,'Isaac','Newton','i','in@ecare','England',2,'1642-12-25'),(6,'Hermann','surname1','g','gw@ecare','Germany',2,'1885-11-09'),(7,'Richard','Feynman','r','rf@ecare','United States',2,'1918-05-11'),(8,'Enrico','Fermi','e','ef@ecare','Italy',2,'1901-09-29'),(9,'Ilya','Grigoryev','i','i@ecare','Vyborgskoe sh.',2,'1985-11-06'),(10,'test','test','2','2@2','dfwerv',2,'2001-01-01');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +257,8 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `UK_8sewwnpamngi6b1dwaa88askk` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,8 +284,9 @@ CREATE TABLE `tariff` (
   `name` varchar(100) NOT NULL,
   `rate` float NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `Name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `Name_UNIQUE` (`name`),
+  UNIQUE KEY `UK_paeau3s55i9vxqwoioinyjwjt` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +295,7 @@ CREATE TABLE `tariff` (
 
 LOCK TABLES `tariff` WRITE;
 /*!40000 ALTER TABLE `tariff` DISABLE KEYS */;
-INSERT INTO `tariff` VALUES (1,'tariff 2',2.2),(2,'tariff 3',3.3),(3,'tariff 5',5.5),(4,'tariff 100',100),(5,'tariff ultd.',100500);
+INSERT INTO `tariff` VALUES (1,'Calls+SMS',2.2),(2,'JustCalls',3.3),(3,'Cheap',5.5),(4,'Internet',100),(5,'Ultd.',100500);
 /*!40000 ALTER TABLE `tariff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-06 14:21:04
+-- Dump completed on 2014-11-25 19:31:17

@@ -22,5 +22,4 @@ public class EditCustomerController {
 //        this.setReturnPage("/manageContracts.jsp");
 //
 //    }
-
 }

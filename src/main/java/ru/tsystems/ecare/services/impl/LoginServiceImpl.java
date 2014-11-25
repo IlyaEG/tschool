@@ -24,6 +24,15 @@ public class LoginServiceImpl implements LoginService {
     private RoleDAO roleDAO;
     private CustomerDAO customerDAO;
 
+    public PersonDAO getPersonDAO() {
+        return personDAO;
+    }
+
+    @Autowired
+    public void setPersonDAO(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
+
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -63,15 +72,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Role userRole(String login) {
-        //todo
-        throw new UnsupportedOperationException("todo");
-//        Role role = personDAO.personRole(login);
-//        return role;
-
-    }
-
-    @Override
     public Role findRoleByName(String roleName) {
         Role role = roleDAO.findByName(roleName);
         return role;
@@ -82,6 +82,13 @@ public class LoginServiceImpl implements LoginService {
         Person person = personDAO.findByEmail(email);
         Customer customer = customerDAO.find(person.getId());
         return customer;
+    }
+
+    @Override
+    public String getNameByEmail(String email) {
+        Person person = personDAO.findByEmail(email);
+        String name = person.getName();
+        return name;
     }
 
 }

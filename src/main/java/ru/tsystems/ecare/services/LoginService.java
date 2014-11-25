@@ -8,7 +8,7 @@ public interface LoginService {
 
     Person userValid(String login, String password);
 
-    Role userRole(String login);
+    String getNameByEmail(String email);
 
     Role findRoleByName(String roleName);
 

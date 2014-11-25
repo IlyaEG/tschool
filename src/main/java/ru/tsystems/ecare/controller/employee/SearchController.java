@@ -44,5 +44,4 @@ public class SearchController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

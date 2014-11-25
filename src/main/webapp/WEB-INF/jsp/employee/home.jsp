@@ -9,12 +9,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="resources/graphic/favicon.ico">
         <title>Employee's control page</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
-        <link href="resources/css/starter-template.css" rel="stylesheet">
+        <link href="/ECare/resources/css/starter-template.css" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="icon" href="/ECare/resources/graphic/favicon.ico">
         <!-- Optional: Include the jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
@@ -45,23 +46,21 @@
         <hr>
 
         <p>You are currently logged-in as
-            <span id="username">
-                <sec:authentication property="principal.username"/>
-            </span>!
+            <span id="username">${userName}</span>!
         </p>
         <div class="col-lg-6">
             <h4>Manage customers and contracts</h4>
 
             <h5><a href="employee/searchCustomer">Search customer</a></h5>
-            <h5><a href="employee/allCustomers">List all customer</a></h5>
-            <h5><a href="employee/allContracts">List all contracts</a></h5>
+            <h5><a href="employee/allCustomers">View all customer</a></h5>
+            <h5><a href="employee/allContracts">View all contracts</a></h5>
             <h5><a href="employee/newCustomer">Register new customer</a></h5>
         </div>
         <div class="col-lg-6">
             <h4>Manage tariffs and options</h4>
-            <h5><a href="employee/allTariffs">List all tariffs</a></h5>
+            <h5><a href="employee/allTariffs">View all tariffs</a></h5>
             <h5><a href="employee/newTariff">Create new tariff</a></h5>
-            <h5><a href="employee/allOptions">List all options</a></h5>
+            <h5><a href="employee/allOptions">View all options</a></h5>
             <h5><a href="employee/newOption">Create new option</a></h5>
         </div>
     </body>

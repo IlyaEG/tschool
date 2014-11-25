@@ -39,5 +39,4 @@ public class LockContractController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

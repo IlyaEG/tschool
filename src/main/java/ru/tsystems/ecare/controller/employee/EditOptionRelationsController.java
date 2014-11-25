@@ -25,5 +25,4 @@ public class EditOptionRelationsController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

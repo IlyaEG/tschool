@@ -30,8 +30,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public Set<Tariff> getAvailableTariffs() {
-        Set<Tariff> availableTariffs = tariffDAO.all();
-        return availableTariffs;
+        return tariffDAO.all();
     }
 
     @Override

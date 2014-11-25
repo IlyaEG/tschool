@@ -2,6 +2,7 @@ package ru.tsystems.ecare.persistence.dao.impl;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import ru.tsystems.ecare.persistence.dao.PersonDAO;
 import ru.tsystems.ecare.persistence.entities.Person;

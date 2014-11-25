@@ -9,16 +9,16 @@
 <c:url value="logout" var="logoutUrl"/>
 
 <div class="menu">
-	<ul>
-		<li><a href="${homeUrl}">Home</a></li>
-		<li><a href="${userUrl}">User</a></li>
-		
-		<sec:authorize access="hasRole('ROLE_EMPLOYEE')">
-		<li><a href="${adminUrl}">Admin</a></li>
-		</sec:authorize>
-		
-		<li><a href="${logoutUrl}">Logout</a></li>
-	</ul>
-	<span id="menu-username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>
-	<br style="clear:left"/>
+    <ul>
+        <li><a href="${homeUrl}">Home</a></li>
+        <li><a href="${userUrl}">User</a></li>
+
+        <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+            <li><a href="${adminUrl}">Admin</a></li>
+            </sec:authorize>
+
+        <li><a href="${logoutUrl}">Logout</a></li>
+    </ul>
+    <span id="menu-username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>
+    <br style="clear:left"/>
 </div>

@@ -36,5 +36,4 @@ public class LockCustomerController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

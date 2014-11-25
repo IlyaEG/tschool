@@ -49,5 +49,4 @@ public class ChangeContractTariffController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

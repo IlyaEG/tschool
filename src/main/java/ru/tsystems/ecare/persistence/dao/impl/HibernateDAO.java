@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,8 @@ public class HibernateDAO<E, K extends Serializable>
 
     @Override
     public Set<E> all() {
-        List<E> es = currentSession().createCriteria(daoType).list();
+        List<E> es = currentSession().
+                createQuery("from " + daoType.getName()).list();
         Set<E> eSet = new HashSet<>();
         for (E e : es) {
             eSet.add(e);

@@ -80,10 +80,10 @@ public class Tariff implements java.io.Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tariff_option", catalog = "ECareDB", joinColumns = {
-        @JoinColumn(name = "tariff_id", nullable = false, updatable = false) },
+        @JoinColumn(name = "tariff_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
                 @JoinColumn(name = "option_id", nullable = false,
-                        updatable = false) })
+                        updatable = false)})
     public Set<Option> getOptions() {
         return this.options;
     }

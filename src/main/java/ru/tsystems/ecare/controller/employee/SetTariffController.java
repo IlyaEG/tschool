@@ -58,5 +58,4 @@ public class SetTariffController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

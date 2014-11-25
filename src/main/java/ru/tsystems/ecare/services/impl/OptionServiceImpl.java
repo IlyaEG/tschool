@@ -20,6 +20,15 @@ public class OptionServiceImpl implements OptionService {
     private SessionFactory sessionFactory;
     private OptionDAO optionDAO;
 
+    public OptionDAO getOptionDAO() {
+        return optionDAO;
+    }
+
+    @Autowired
+    public void setOptionDAO(OptionDAO optionDAO) {
+        this.optionDAO = optionDAO;
+    }
+
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -35,9 +44,7 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public Set<Option> getAllOptions() {
-        Set<Option> allOptions;
-        allOptions = optionDAO.all();
-        return allOptions;
+        return optionDAO.all();
     }
 
     @Override

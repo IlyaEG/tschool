@@ -1,0 +1,46 @@
+<sec:authentication property="principal.authorities"/>
+
+<jsp:include page="menu.jsp" />
+
+
+
+tariff service
+@Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Autowired
+    public void setTariffDAO(TariffDAO tariffDAO) {
+        this.tariffDAO = tariffDAO;
+    }
+
+    @Autowired
+    public void setContractDAO(ContractDAO contractDAO) {
+        this.contractDAO = contractDAO;
+    }
+
+    @Autowired
+    public void setOptionDAO(OptionDAO optionDAO) {
+        this.optionDAO = optionDAO;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public TariffDAO getTariffDAO() {
+        return tariffDAO;
+    }
+
+    public ContractDAO getContractDAO() {
+        return contractDAO;
+    }
+
+    public OptionDAO getOptionDAO() {
+        return optionDAO;
+    }
+
+    private Session currentSession() {
+        return sessionFactory.getCurrentSession();
+    }

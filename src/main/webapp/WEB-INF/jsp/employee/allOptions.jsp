@@ -6,12 +6,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="resources/graphic/favicon.ico">
         <title>All options</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
-        <link href="resources/css/starter-template.css" rel="stylesheet">
+        <link href="/ECare/resources/css/starter-template.css" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="icon" href="/ECare/resources/graphic/favicon.ico">
         <!-- Optional: Include the jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
@@ -35,11 +36,13 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    <!--<span class="navbar-right"><a href="logout">Logout</a></span>-->
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <h1 id="banner">All options</h1>
+
         <div class="container">
+            <h1 id="banner">All options</h1>
             <form id="newOption" method="post"
                   action="newOption"
                   enctype="application/x-www-form-urlencoded">

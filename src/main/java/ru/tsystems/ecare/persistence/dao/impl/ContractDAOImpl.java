@@ -199,7 +199,7 @@ public class ContractDAOImpl extends HibernateDAO<Contract, Integer>
                     update(storedContract);
                 } else {
                     throw new ECareException("Customer can not unlock contract"
-                        + " locked by employee!");
+                            + " locked by employee!");
                 }
             } else {
                 throw new ECareException("Customer can not unlock contract"

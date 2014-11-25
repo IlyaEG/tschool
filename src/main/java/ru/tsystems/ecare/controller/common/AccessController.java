@@ -41,4 +41,10 @@ public class AccessController {
         String message = "Logout Success!";
         return "redirect:/login?message=" + message;
     }
+
+    @RequestMapping(value = "/registration")
+    public final String registration() {
+        String message = "Logout Success!";
+        return "access/registration";
+    }
 }

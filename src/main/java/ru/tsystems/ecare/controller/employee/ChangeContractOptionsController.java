@@ -77,7 +77,6 @@ public class ChangeContractOptionsController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
     protected List<Option> getOptions(String prefix) {
         Enumeration names = request.getParameterNames();
         List<Option> options = new ArrayList<>();

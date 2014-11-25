@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
+import ru.tsystems.ecare.persistence.dao.PersonDAO;
 import ru.tsystems.ecare.persistence.dao.RoleDAO;
 import ru.tsystems.ecare.persistence.entities.Contract;
-import ru.tsystems.ecare.persistence.entities.Role;
+import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.services.ContractService;
 
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -23,6 +24,16 @@ public class ContractServiceImpl implements ContractService {
     private SessionFactory sessionFactory;
     private ContractDAO contractDAO;
     private RoleDAO roleDAO;
+    private PersonDAO personDAO;
+
+    public PersonDAO getPersonDAO() {
+        return personDAO;
+    }
+
+    @Autowired
+    public void setPersonDAO(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -55,21 +66,23 @@ public class ContractServiceImpl implements ContractService {
         return sessionFactory.getCurrentSession();
     }
 
+//    @Override
+//    public void lockNumber() {
+//
+//		// dao
+//
+//        // dao.lockNumber
+//        // throw Exception
+//        //TODO Auto-generated method stub
+//        throw new ECareException("not implemented yet!");
+//    }
     @Override
-    public void lockNumber() {
-
-		// dao
-
-        // dao.lockNumber
-        // throw Exception
-        //TODO Auto-generated method stub
-        throw new ECareException("not implemented yet!");
-    }
-
-    @Override
-    public void unlockNumber() {
-        // TODO Auto-generated method stub
-        throw new ECareException("not implemented yet!");
+    public void unlockNumber(int number, String userEmail) {
+        Contract contract = contractDAO.findByNumber(number);
+        Person unLocker = personDAO.findByEmail(userEmail);
+        if (unLocker != null) {
+            contractDAO.unlock(contract, unLocker);
+        }
     }
 
     @Override
@@ -78,7 +91,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void setNumber(Integer number) {
+    public void setNumber(Contract contract, Integer number) {
         // TODO Auto-generated method stub
         throw new ECareException("not implemented yet!");
     }
@@ -89,8 +102,7 @@ public class ContractServiceImpl implements ContractService {
         int maxNumber;
         try {
             maxNumber = contractDAO.getMaxumimumNumber();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             maxNumber = 1;
         }
         for (int i = 0; i < 15; i++) {
@@ -107,8 +119,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Set<Contract> getAllContracts() {
-        Set<Contract> contract = contractDAO.all();
-        return contract;
+        return contractDAO.all();
     }
 
     @Override
@@ -117,13 +128,12 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void lockNumber(int number, String newlockerRole) {
+    public void lockNumber(int number, String userEmail) {
         Contract contract = contractDAO.findByNumber(number);
-        Role newLocker = roleDAO.findByName(newlockerRole);
+        Person newLocker = personDAO.findByEmail(userEmail);
         if (newLocker != null) {
-            //todo
+            contractDAO.lock(contract, newLocker);
         }
-        contract.setLockedBy(null);
     }
 
 }

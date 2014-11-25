@@ -56,5 +56,4 @@ public class CreateContractController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

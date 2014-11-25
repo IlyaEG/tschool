@@ -34,5 +34,4 @@ public class EditTariffOptionsController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

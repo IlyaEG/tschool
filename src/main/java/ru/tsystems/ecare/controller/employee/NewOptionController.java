@@ -48,5 +48,4 @@ public class NewOptionController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

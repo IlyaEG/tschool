@@ -35,7 +35,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(
             name = "PersonByEmail&Password",
             query = "from Person p where"
-                    + " p.email = :userEmail and p.password = :userPassword"),
+            + " p.email = :userEmail and p.password = :userPassword"),
     @NamedQuery(
             name = "PersonByEmail",
             query = "from Person p where p.email = :userEmail")

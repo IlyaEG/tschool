@@ -37,5 +37,4 @@ public class EditContractController {
 //            this.setReturnPage("/index.jsp");
 //        }
 //    }
-
 }

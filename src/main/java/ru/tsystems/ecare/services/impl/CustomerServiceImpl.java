@@ -92,8 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Set<Customer> getAllCustomers() {
-        Set<Customer> customers = customerDAO.all();
-        return customers;
+        return customerDAO.all();
     }
 
     @Override

@@ -11,24 +11,49 @@ package ru.tsystems.ecare.controller.common;
  *
  * @author ilya
  */
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.tsystems.ecare.services.LoginService;
 
-@Controller
-@RequestMapping("/")
+//@Controller
+//@RequestMapping("/")
 @PreAuthorize("hasRole('ROLE_USER')")
 public class MediatorController {
 
+    private LoginService loginService;
+
+    public LoginService getLoginService() {
+        return loginService;
+    }
+
+    @Autowired
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     @RequestMapping("/customer")
-    public final String getCustomerPage() {
+    public final String getCustomerPage(final Model model) {
+        Authentication auth = SecurityContextHolder.
+                getContext().
+                getAuthentication();
+        String email = auth.getName(); //get logged in email
+        model.addAttribute("userName", loginService.getNameByEmail(email));
         return "customer/home";
     }
 
-    @RequestMapping(value = "/employee")
-    public final String getEmployeePage() {
+//    @RequestMapping(value = "/employee")
+    public final String getEmployeePage(final Model model) {
+        Authentication auth = SecurityContextHolder.
+                getContext().
+                getAuthentication();
+        String email = auth.getName(); //get logged in email
+        //String userName = loginService.getNameByEmail(email);
+        model.addAttribute("userName", email);
         return "employee/home";
     }
 }

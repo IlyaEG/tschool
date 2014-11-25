@@ -138,8 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
             newCustomer.setLocked(false);
 
             customerDAO.add(newCustomer);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new ECareException(ex.getMessage());
         }
     }
@@ -167,8 +166,7 @@ public class CustomerServiceImpl implements CustomerService {
         boolean locked = false;
         try {
             locked = customerDAO.lockStatus(toLock);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             //todo log
         }
         return locked;

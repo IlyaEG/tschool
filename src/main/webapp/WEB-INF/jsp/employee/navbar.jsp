@@ -16,7 +16,7 @@
                 <li class="active"><a href="/ECare/employee/about">My info</a></li>
                 <li><a href="/ECare/employee/newCustomer">Register new customer</a></li>
                 <li><a href="/ECare/employee/searchCustomer">Search customer</a></li>
-                <li><a href="/ECare/employee/newTariff">Create new tariff</a></li>
+                <li><a href="/ECare/employee/tariff">Create new tariff</a></li>
                 <li><a href="/ECare/logout">Logout</a></li>
             </ul>
         </div><!--/.nav-collapse -->

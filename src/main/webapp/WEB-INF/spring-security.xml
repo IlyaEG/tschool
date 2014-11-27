@@ -24,6 +24,8 @@
         <intercept-url pattern="/employee" access="hasRole('ROLE_EMPLOYEE')"/>
         <intercept-url pattern="/customer/*" access="hasRole('ROLE_CUSTOMER')"/>
         <intercept-url pattern="/employee/*" access="hasRole('ROLE_EMPLOYEE')"/>
+        <intercept-url pattern="/customer/*/*" access="hasRole('ROLE_CUSTOMER')"/>
+        <intercept-url pattern="/employee/*/*" access="hasRole('ROLE_EMPLOYEE')"/>
 
         <form-login login-page="/login"
                     authentication-failure-url="/login/failure"

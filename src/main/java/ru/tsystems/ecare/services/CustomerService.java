@@ -19,13 +19,15 @@ public interface CustomerService {
 
     Customer findByNumber(Integer number);
 
-    void newCustomer(String name, String surname, String birtdate, String email,
+    void saveCustomer(String name, String surname, String birtdate, String email,
             String password, String address, String passport);
 
     void newEmployee(Role role, Person person);
 
     Customer findByPassport(String passport);
 
-    public boolean isLocked(Customer toLock);
+    boolean isLocked(Customer toLock);
+
+    void deleteCustomer(Customer c);
 
 }

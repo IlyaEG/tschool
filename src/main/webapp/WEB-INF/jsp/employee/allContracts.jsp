@@ -25,37 +25,47 @@
         <jsp:include page="navbar.jsp" />
         <h1 id="banner">All contracts ${owners}</h1>
         <div class="container">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Edit contract</th>
-                        <th>Number</th>
-                        <th>Tariff</th>
-                        <th>Month rate</th>
-                        <th>Customer name</th>
-                        <th>Customer surname</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="contract" items="${contracts}">
+            <c:if test="${owners != 'of all customers'}">
+                <form id="newContract" method="post"
+                      action="/ECare/employee/newContract"
+                      enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="passport" value="${customer.customerPassport}"/>
+                    <input type="submit" value="New contract">
+                </form>
+            </c:if>
+            <form method="post" action="/ECare/employee/removeContracts"
+                  enctype="application/x-www-form-urlencoded">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                <form id="edit${contract.number}" method="post"
-                                      action="/ECare/employee/EditContract"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="number" value="${contract.number}"/>
-                                    <input type="submit" value="Edit contract" />
-                                </form>
-                            </td>
-                            <td>${contract.number}</td>
-                            <td>${contract.tariff.name}</td>
-                            <td>${contract.tariff.rate}</td>
-                            <td>${contract.customer.person.name}</td>
-                            <td>${contract.customer.person.surname}</td>
+                            <th>Remove</th>
+                            <th>Number</th>
+                            <th>Tariff</th>
+                            <th>Options</th>
+                            <th>Customer</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="contract" items="${contracts}">
+                            <tr>
+                                <td><input type="checkbox" name="remove${contract.number}" value="${contract.number}"></td>
+                                <td><a href="/ECare/employee/contract/${contract.number}">${contract.number}</a></td>
+                                <td><a href="/ECare/employee/contractTariff/${contract.number}">${contract.tariff.name}</a></td>
+                                <td><a href="/ECare/employee/contractOptions/${contract.number}">Manage options</a></td>
+                                <td>
+                                    <form id="customer" method="post"
+                                          action="/ECare/employee/editCustomer"
+                                          enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="passport" value="${contract.customer.customerPassport}"/>
+                                        <button class="btn btn-link" type="submit">${contract.customer.person.name} ${contract.customer.person.surname}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <button class="btn btn-danger"type="submit">Remove selected contracts</button>
+            </form>
         </div>
     </body>
 </html>

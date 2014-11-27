@@ -12,7 +12,7 @@ public interface TariffService {
 
     void changeTariff(Contract customerContract, Tariff newTariff);
 
-    Set<Option> getAvailableOptions();
+    Set<Option> getAvailableOptions(Tariff tariff);
 
     void updateTariff(Tariff tariff);
 

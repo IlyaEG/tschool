@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tsystems.ecare.persistence.entities.Contract;
@@ -96,7 +97,8 @@ public class EmployeeActionsController {
         Customer customer = customerService.findByPassport(customersPassport);
         Set<Contract> contracts = customerService.getAllContracts(customer);
         model.addAttribute("contracts", contracts);
-        model.addAttribute("owners", customer.getPerson().getName()
+        model.addAttribute("customer", customer);
+        model.addAttribute("owners", "of " + customer.getPerson().getName()
                 + " " + customer.getPerson().getSurname());
         return "employee/allContracts";
     }
@@ -120,8 +122,8 @@ public class EmployeeActionsController {
             final HttpServletRequest request) {
         try {
             int number = Integer.parseInt(request.getParameter("number"));
-            Customer customer = customerService.findByNumber(number);
-            model.addAttribute("customer", customer);
+            Set<Contract> contracts = contractService.findAnyByNumber(number);
+            model.addAttribute("contracts", contracts);
             return "employee/searchCustomer";
         } catch (NumberFormatException nfe) {
             model.addAttribute("message",
@@ -135,7 +137,12 @@ public class EmployeeActionsController {
     }
 
     @RequestMapping("/newCustomer")
-    public final String newCustomer() {
+    public final String newCustomer(final Model model) {
+        model.addAttribute("new", "1");
+        model.addAttribute("availableTariffs",
+                tariffService.getAvailableTariffs());
+        model.addAttribute("availableNumbers",
+                contractService.getAvailableNumbers());
         return "employee/editCustomer";
     }
 
@@ -170,15 +177,27 @@ public class EmployeeActionsController {
         String birthdate = httpServletRequest.getParameter("birthdate");
         String passport = httpServletRequest.getParameter("passport");
         String address = httpServletRequest.getParameter("address");
+        String tariff = httpServletRequest.getParameter("tariff");
+        String number = httpServletRequest.getParameter("number");
 
         if (name.length() > 0 && email.length() > 0 && password.length() > 0
                 && surname.length() > 0 && passport.length() > 0
                 && address.length() > 0) {
             //create new customer
-            customerService.newCustomer(name, surname, birthdate, email,
-                    password, address, passport);
-            //todo set tariff
-            return "employee/home";
+            if (tariff.length() > 0 && number.length() > 0) {
+                customerService.saveCustomer(name, surname, birthdate, email,
+                        password, address, passport);
+                Customer saved = customerService.findByPassport(passport);
+                Contract contract = new Contract(saved,
+                        tariffService.findById(Integer.parseInt(tariff)));
+                contract.setNumber(Integer.parseInt(number));
+                contractService.newContract(contract);
+            } else {
+                //update old
+                customerService.saveCustomer(name, surname, birthdate, email,
+                        password, address, passport);
+            }
+            return getCustomersContracts(model, httpServletRequest);
         } else {
             model.addAttribute("name", name);
             model.addAttribute("email", email);
@@ -187,17 +206,125 @@ public class EmployeeActionsController {
             model.addAttribute("passport", passport);
             model.addAttribute("address", address);
             model.addAttribute("password", password);
-            model.addAttribute("message", "Registration Failed!\nFill all fields properly.");
+            model.addAttribute("message",
+                    "Registration Failed!\nFill all fields properly.");
             return "employee/editCustomer";
         }
     }
 
-    @RequestMapping("/newTariff")
-    public final String getNewTariffPage(final Model model,
+    @RequestMapping("/removeCustomers")
+    public final String removeCustomers(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Set<Customer> remove
+                = getCustomers("remove", httpServletRequest);
+        for (Customer c : remove) {
+            customerService.deleteCustomer(c);
+        }
+        return getAllCustomers(model);
+    }
+
+    @RequestMapping("/option")
+    public final String newOptionPage(final Model model,
+            @RequestParam(required = false) String message) {
+        Option option = new Option();
+        option.setName("New");
+        model.addAttribute("option", option);
+        model.addAttribute("message", message);
+        model.addAttribute("availableOptions", optionService.getAllOptions());
+        return "employee/option";
+    }
+
+    @RequestMapping("/option/{id}")
+    public final String optionPage(
+            @PathVariable("id") int id, final Model model) {
+        Option option = optionService.findByID(id);
+        model.addAttribute("option", option);
+        model.addAttribute("relatedOptions", option.getOptionsForRelId2());
+        model.addAttribute("incompatibleOptions",
+                option.getOptionsForIncompId2());
+        Set<Option> availableOptions = optionService.getAllOptions();
+        availableOptions.remove(option);
+        for (Option o : option.getOptionsForRelId2()) {
+            availableOptions.remove(o);
+        }
+        for (Option o : option.getOptionsForIncompId2()) {
+            availableOptions.remove(o);
+        }
+        model.addAttribute("availableOptions", availableOptions);
+        return "employee/option";
+    }
+
+    @RequestMapping("/saveOption")
+    public final String saveOption(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Option option = new Option(
+                httpServletRequest.getParameter("name"),
+                Float.parseFloat(httpServletRequest.getParameter("rate")),
+                Float.parseFloat(httpServletRequest.getParameter("price")));
+        optionService.createOption(option);
+        Set<Option> related
+                = getOptions("related", httpServletRequest);
+        for (Option o : related) {
+            optionService.setRelatedness(option.getName(), o.getName());
+        }
+        Set<Option> incompatible
+                = getOptions("incompatible", httpServletRequest);
+        for (Option o : incompatible) {
+            optionService.setIncompatibility(option.getName(), o.getName());
+        }
+        return getAllOptions(model);
+    }
+
+    @RequestMapping("/saveOption/{id}")
+    public final String saveOption(@PathVariable("id") int id,
+            final Model model, final HttpServletRequest httpServletRequest) {
+        Option option = optionService.findByID(id);
+        option.setName(httpServletRequest.getParameter("name"));
+        option.setRate(
+                Float.parseFloat(httpServletRequest.getParameter("rate")));
+        option.setPrice(
+                Float.parseFloat(httpServletRequest.getParameter("price")));
+        optionService.saveOption(option);
+        optionService.independentOption(option);
+        Set<Option> related
+                = getOptions("related", httpServletRequest);
+        for (Option o : related) {
+            optionService.setRelatedness(option.getName(), o.getName());
+        }
+        Set<Option> incompatible
+                = getOptions("incompatible", httpServletRequest);
+        for (Option o : incompatible) {
+            optionService.setIncompatibility(option.getName(), o.getName());
+        }
+        return getAllOptions(model);
+    }
+
+    @RequestMapping("/removeOptions")
+    public final String removeOptions(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Set<Option> remove
+                = getOptions("remove", httpServletRequest);
+        for (Option o : remove) {
+            optionService.deleteOption(o);
+        }
+        return getAllOptions(model);
+    }
+
+    @RequestMapping("/tariff")
+    public final String getTariffPage(final Model model,
             @RequestParam(required = false) String message) {
         model.addAttribute("message", message);
         model.addAttribute("options", optionService.getAllOptions());
-        return "employee/newTariff";
+        return "employee/tariff";
+    }
+
+    @RequestMapping(value = "tariff/{id}")
+    public final String getTariffEditPage(
+            @PathVariable("id") int id, Model model) {
+        Tariff tariff = tariffService.findById(id);
+        model.addAttribute("tariff", tariffService.findById(id));
+
+        return "employee/tariff";
     }
 
     @RequestMapping("/createTariff")
@@ -218,25 +345,139 @@ public class EmployeeActionsController {
             return "employee/allTariffs";
         } catch (NumberFormatException nfe) {
             model.addAttribute("message", "Wrong nuber for rate.");
-            return "redirect:newTariff";
+            return "redirect:tariff";
         } catch (NullPointerException npe) {
             model.addAttribute("message", "All fields are necessary.");
-            return "redirect:newTariff";
+            return "redirect:tariff";
         }
     }
 
-    protected Set<Option>
-            getOptions(final String prefix,
-                    final HttpServletRequest httpServletRequest) {
+    @RequestMapping("newContract")
+    public final String newContract(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Customer customer = customerService.
+                findByPassport(httpServletRequest.getParameter("passport"));
+        model.addAttribute("customer", customer);
+        model.addAttribute("availableTariffs", tariffService.getAvailableTariffs());
+
+//todo add page with new contract 
+
+
+        return "employee/customersTariff";
+    }
+
+    @RequestMapping(value = "contractTariff/{number}")
+    public final String getTariffChangingPage(
+            @PathVariable("number") int number, final Model model) {
+        Contract contract = contractService.findByNumber(number);
+        model.addAttribute("customer", contract.getCustomer());
+        model.addAttribute("contract", contract);
+        model.addAttribute("availableTariffs", tariffService.getAvailableTariffs());
+        return "employee/customersTariff";
+    }
+
+    @RequestMapping(value = "changeTariff")
+    public final String changeTariff(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Contract contract = contractService.
+                findByNumber(Integer.parseInt(httpServletRequest.
+                                getParameter("number")));
+        Tariff newTariff = tariffService.
+                findById(Integer.parseInt(httpServletRequest.
+                                getParameter("tariff")));
+        contract.setTariff(newTariff);
+        contractService.save(contract);
+        model.addAttribute("contracts", contractService.getAllContracts());
+        return "employee/allContracts";
+    }
+
+    @RequestMapping(value = "contractOptions/{number}")
+    public final String getContractOptionsPage(
+            @PathVariable("number") int number, Model model) {
+        Contract contract = contractService.findByNumber(number);
+        //set current contract
+        model.addAttribute("contract", contract);
+        //available options this contract's tariff excluding already added.
+        Set<Option> availableOptions
+                = tariffService.getAvailableOptions(contract.getTariff());
+        for (Option o : contract.getOptions()) {
+            availableOptions.remove(o);
+        }
+        model.addAttribute("availableOptions", availableOptions);
+        return "employee/customersOptions";
+    }
+
+    @RequestMapping(value = "changeContractOptions")
+    public final String changeContractOptions(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Contract contract = contractService.
+                findByNumber(Integer.parseInt(httpServletRequest.
+                                getParameter("number")));
+        Set<Option> add = getOptions("addOption", httpServletRequest);
+        Set<Option> rem = getOptions("remOption", httpServletRequest);
+        Set<Option> activeOptions = contract.getOptions();
+        for (Option o : add) {
+            activeOptions.add(o);
+        }
+        for (Option o : rem) {
+            activeOptions.remove(o);
+        }
+        contract.setOptions(activeOptions);
+        contractService.save(contract);
+
+        Person customer = contract.getCustomer().getPerson();
+        Set<Contract> contracts = customerService.
+                getAllContracts(contract.getCustomer());
+        model.addAttribute("contracts", contracts);
+        model.addAttribute("owners", "of " + customer.getName()
+                + " " + customer.getSurname());
+        return "employee/allContracts";
+    }
+
+//get set of options from request with specified prefix
+    protected Set<Option> getOptions(final String prefix,
+            final HttpServletRequest httpServletRequest) {
         Enumeration names = httpServletRequest.getParameterNames();
         Set<Option> options = new HashSet<>();
         String temp;
         while (names.hasMoreElements()) {
             temp = (String) names.nextElement();
-            if (temp.substring(0, 3).equals(prefix)) {
-                options.add(optionService.findByName(temp.substring(3)));
+            if (temp.length() > prefix.length()
+                    && temp.substring(0, prefix.length()).equals(prefix)) {
+                options.add(optionService.findByName(
+                        temp.substring(prefix.length())));
             }
         }
         return options;
+    }
+
+    //get set of customers from request with specified prefix
+    protected Set<Customer> getCustomers(final String prefix,
+            final HttpServletRequest httpServletRequest) {
+        Enumeration names = httpServletRequest.getParameterNames();
+        Set<Customer> customers = new HashSet<>();
+        String temp;
+        while (names.hasMoreElements()) {
+            temp = (String) names.nextElement();
+            if (temp.length() > prefix.length()
+                    && temp.substring(0, prefix.length()).equals(prefix)) {
+                customers.add(customerService.findByPassport(
+                        temp.substring(prefix.length())));
+            }
+        }
+        return customers;
+    }
+
+    @RequestMapping(value = "lockCustomer/{passport}")
+    public final String lockCustomer(
+            @PathVariable("passport") final String passport,
+            final Model model) {
+        Customer customer = customerService.findByPassport(passport);
+        if (customerService.isLocked(customer)) {
+            customerService.unlockCustomer(customer);
+        } else {
+            customerService.lockCustomer(customer);
+        }
+        return getAllCustomers(model);
     }
 }

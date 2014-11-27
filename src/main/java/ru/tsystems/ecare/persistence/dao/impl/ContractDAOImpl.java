@@ -1,5 +1,7 @@
 package ru.tsystems.ecare.persistence.dao.impl;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,4 +210,16 @@ public class ContractDAOImpl extends HibernateDAO<Contract, Integer>
         }
     }
 
+    @Override
+    public final Set<Contract> findAnyByNumber(final int number) {
+        Query query = currentSession()
+                .getNamedQuery("findAnyContractByNumber")
+                .setString("contractNumber", "%" + number + "%");
+        List list = query.list();
+        Set<Contract> contracts = new HashSet<>();
+        for (Object o : list) {
+            contracts.add((Contract) o);
+        }
+        return contracts;
+    }
 }

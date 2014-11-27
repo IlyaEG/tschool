@@ -20,21 +20,21 @@ public class OptionServiceImpl implements OptionService {
     private SessionFactory sessionFactory;
     private OptionDAO optionDAO;
 
-    public OptionDAO getOptionDAO() {
+    public final OptionDAO getOptionDAO() {
         return optionDAO;
     }
 
     @Autowired
-    public void setOptionDAO(OptionDAO optionDAO) {
+    public final void setOptionDAO(final OptionDAO optionDAO) {
         this.optionDAO = optionDAO;
     }
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public final void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    public SessionFactory getSessionFactory() {
+    public final SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
@@ -43,50 +43,72 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public Set<Option> getAllOptions() {
+    public final Set<Option> getAllOptions() {
         return optionDAO.all();
     }
 
     @Override
-    public void createOption(Option newOption) {
+    public final void createOption(final Option newOption) {
         optionDAO.add(newOption);
     }
 
     @Override
-    public void deleteOption(Option oldOption) {
+    public final void deleteOption(final Option oldOption) {
         optionDAO.remove(oldOption);
     }
 
     @Override
-    public void setIncompatibility(String mainOption, String incompatibleOption) {
-        optionDAO.findByName(mainOption).getOptionsForIncompId2()
-                .add(optionDAO.findByName(incompatibleOption));
-        optionDAO.update(optionDAO.findByName(mainOption));
+    public final void setIncompatibility(final String mainOption,
+            final String incompatibleOption) {
+        optionDAO.setIncompatibility(
+                findByName(mainOption),
+                findByName(incompatibleOption));
     }
 
     @Override
-    public void setRelatedness(String mainOption, String relatedOption) {
-        optionDAO.findByName(mainOption).getOptionsForRelId2()
-                .add(optionDAO.findByName(relatedOption));
-        optionDAO.update(optionDAO.findByName(mainOption));
+    public final void setRelatedness(final String mainOption,
+            final String relatedOption) {
+        optionDAO.setRelatedness(
+                findByName(mainOption),
+                findByName(relatedOption));
     }
 
     @Override
-    public Set<Option> getIncompatibile(String option) {
-        Set<Option> incompOptions = optionDAO.findByName(option).getOptionsForIncompId2();
-        return incompOptions;
+    public final Set<Option> getIncompatibile(final String option) {
+        return optionDAO.getIncompatibleOptions(findByName(option));
     }
 
     @Override
-    public Set<Option> getRelated(String option) {
-        Set<Option> relOptions = optionDAO.findByName(option).getOptionsForRelId2();
-        return relOptions;
+    public final Set<Option> getRelated(final String option) {
+        return optionDAO.getRelatedOptions(findByName(option));
     }
 
     @Override
-    public Option findByName(String name) {
+    public final Option findByName(final String name) {
         Option finded = optionDAO.findByName(name);
         return finded;
+    }
+
+    @Override
+    public final Option findByID(final int id) {
+        return optionDAO.find(id);
+    }
+
+    @Override
+    public final void saveOption(final Option option) {
+        optionDAO.update(option);
+    }
+
+    @Override
+    public final void independentOption(final Option option) {
+        Set<Option> temp = option.getOptionsForIncompId2();
+        for (Option o : temp) {
+            optionDAO.removeIncompatibility(option, o);
+        }
+        temp = option.getOptionsForRelId2();
+        for (Option o : temp) {
+            optionDAO.removeRelatedness(option, o);
+        }
     }
 
 }

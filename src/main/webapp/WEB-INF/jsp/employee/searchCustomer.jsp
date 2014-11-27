@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ru.tsystems.ecare.persistence.entities.Customer" %>
 <%@page import="ru.tsystems.ecare.persistence.entities.Person" %>
@@ -19,58 +20,48 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">ECare</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+        <jsp:include page="navbar.jsp" />
 
         <h1 id="banner">Search customer</h1>
         <div class="container">
+
             <form method="post" action="searchCustomer"
                   enctype="application/x-www-form-urlencoded">
-                <div>
-                    <p>
-                        Phone Number: <br> <input type="text"
-                                                  name="number" value="">
-                    </p>
-                    <input type="submit" value="Search"/>
+                <div class="input-group">
+                    <span class="input-group-addon">Phone Number:</span>
+                    <input type="text" class="form-control" name="number">
+                    <span class="input-group-addon">
+                        <button class="btn" type="submit">Search</button>
+                    </span>
                 </div>
             </form>
-            <div class="container">
-                <ul>
-                    <li>Customer Name: ${customer.person.name}</li>
-                    <li>Customer Surname: ${customer.person.surname}</li>
-                    <li>Customer passport: ${customer.customerPassport}</li>
-                </ul>
-                <form id="edit${customer.personId}" method="post"
-                      action="/ECare/employee/editCustomer"
-                      enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="passport" value="${customer.customerPassport}">
-                    <input type="submit" value="Edit customer">
-                </form>
-                <form id="editcontracts${customer.personId}" method="post"
-                      action="/ECare/employee/getCustomersContracts"
-                      enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="passport" value="${customer.customerPassport}">
-                    <input type="submit" value="Edit customer's contracts">
-                </form>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Tariff</th>
+                        <th>Options</th>
+                        <th>Customer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="contract" items="${contracts}">
+                        <tr>
+                            <td><a href="contract/${contract.number}">${contract.number}</a></td>
+                            <td><a href="tariff/${contract.number}">${contract.tariff.name}</a></td>
+                            <td><a href="options/${contract.number}">Manage options</a></td>
+                            <td>
+                                <form id="customer" method="post"
+                                      action="/ECare/employee/editCustomer"
+                                      enctype="application/x-www-form-urlencoded">
+                                    <input type="hidden" name="passport" value="${contract.customer.customerPassport}"/>
+                                    <button class="btn btn-link" type="submit">${contract.customer.person.name} ${contract.customer.person.surname}</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
             <div class="container">
                 <p>${message}</p>
             </div>

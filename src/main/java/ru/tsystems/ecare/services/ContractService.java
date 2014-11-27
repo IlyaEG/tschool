@@ -9,11 +9,11 @@ public interface ContractService {
 
     void newContract(Contract newContract);
 
-    void setNumber(Contract contract, Integer number);
-
     Set<Integer> getAvailableNumbers();
 
     Contract findByNumber(int number);
+
+    Set<Contract> findAnyByNumber(int number);
 
     Set<Contract> getAllContracts();
 

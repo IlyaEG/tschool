@@ -16,6 +16,8 @@ public interface ContractDAO extends GenericDAO<Contract, Integer> {
 
     Contract findByNumber(int number);
 
+    Set<Contract> findAnyByNumber(int number);
+
     Set<Option> getOptions(Contract contract);
 
     void addOption(Contract contract, Option option);

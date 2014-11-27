@@ -24,37 +24,34 @@
         <div class="container">
             <h1 id="banner">All options</h1>
             <form id="newOption" method="post"
-                  action="newOption"
+                  action="/ECare/employee/option"
                   enctype="application/x-www-form-urlencoded">
                 <input type="submit" value="New option">
             </form>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Edit option relations</th>
-                        <th>Option name</th>
-                        <th>Option month rate</th>
-                        <th>Option connection price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="option" items="${options}">
+            <form method="post" action="/ECare/employee/removeOptions"
+                  enctype="application/x-www-form-urlencoded">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                <form id="edit${option.name}" method="post"
-                                      action="editOptionRelations"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="name" value="${option.id}">
-                                    <input type="submit" value="Edit option">
-                                </form>
-                            </td>
-                            <td>${option.name}</td>
-                            <td>${option.rate}</td>
-                            <td>${option.price}</td>
+                            <th>Remove</th>
+                            <th>Option name</th>
+                            <th>Option month rate</th>
+                            <th>Option connection price</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="option" items="${options}">
+                            <tr>
+                                <td><input type="checkbox" name="remove${option.name}" value="${option.id}"></td>
+                                <td><a href="/ECare/employee/option/${option.id}">${option.name}</a></td>
+                                <td>${option.rate}</td>
+                                <td>${option.price}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <button class="btn btn-danger"type="submit">Remove selected options</button>
+            </form>
         </div>
     </body>
 </html>

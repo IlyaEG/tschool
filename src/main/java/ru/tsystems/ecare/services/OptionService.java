@@ -22,4 +22,10 @@ public interface OptionService {
 
     Option findByName(String name);
 
+    Option findByID(int id);
+
+    void saveOption(Option option);
+
+    void independentOption(Option option);
+
 }

@@ -40,8 +40,8 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public Set<Option> getAvailableOptions() {
-        Set<Option> options = optionDAO.all();
+    public final Set<Option> getAvailableOptions(final Tariff tariff) {
+        Set<Option> options = tariffDAO.getOptions(tariff);
         return options;
     }
 

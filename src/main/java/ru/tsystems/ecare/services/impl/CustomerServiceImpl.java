@@ -18,6 +18,7 @@ import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.CustomerDAO;
 import ru.tsystems.ecare.persistence.dao.EmployeeDAO;
+import ru.tsystems.ecare.persistence.dao.PersonDAO;
 import ru.tsystems.ecare.persistence.dao.RoleDAO;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
@@ -40,6 +41,16 @@ public class CustomerServiceImpl implements CustomerService {
     private ContractDAO contractDAO;
     private RoleDAO roleDAO;
     private EmployeeDAO employeeDAO;
+    private PersonDAO personDAO;
+
+    public PersonDAO getPersonDAO() {
+        return personDAO;
+    }
+
+    @Autowired
+    public void setPersonDAO(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -120,24 +131,30 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void newCustomer(String name, String surname, String birthdate, String email,
+    public void saveCustomer(String name, String surname, String birthdate, String email,
             String password, String address, String passport) {
         try {
-            Customer newCustomer = new Customer();
-            Person newPerson = new Person();
-            newPerson.setAdress(address);
-            newPerson.setName(name);
-            newPerson.setSurname(surname);
+            Person person;
+            Customer customer = customerDAO.findByPassport(passport);
+            if (customer == null) {
+                customer = new Customer();
+                person = new Person();
+            } else {
+                person = customer.getPerson();
+            }
+            person.setAdress(address);
+            person.setName(name);
+            person.setSurname(surname);
             DateFormat birthdateFormat = new SimpleDateFormat("yyyy-mm-dd");
-            newPerson.setBirthdate(birthdateFormat.parse(birthdate));
-            newPerson.setEmail(email);
-            newPerson.setPassword(password);
-            newPerson.setRole(roleDAO.findByName("customer"));
-            newCustomer.setPerson(newPerson);
-            newCustomer.setCustomerPassport(passport);
-            newCustomer.setLocked(false);
+            person.setBirthdate(birthdateFormat.parse(birthdate));
+            person.setEmail(email);
+            person.setPassword(password);
+            person.setRole(roleDAO.findByName("customer"));
+            customer.setPerson(person);
+            customer.setCustomerPassport(passport);
+            customer.setLocked(false);
 
-            customerDAO.add(newCustomer);
+            customerDAO.update(customer);
         } catch (ParseException ex) {
             throw new ECareException(ex.getMessage());
         }
@@ -170,5 +187,17 @@ public class CustomerServiceImpl implements CustomerService {
             //todo log
         }
         return locked;
+    }
+
+    @Override
+    public final void deleteCustomer(final Customer c) {
+        Set<Contract> contracts = c.getContracts();
+        for (Contract contract : contracts) {
+            customerDAO.deleteContract(c, contract);
+        }
+        int id = c.getPersonId();
+//        customerDAO.remove(customerDAO.find(id));
+        personDAO.remove(personDAO.find(id));
+        
     }
 }

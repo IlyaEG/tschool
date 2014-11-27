@@ -25,7 +25,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Edit tariff</th>
                         <th>Tariff name</th>
                         <th>Tariff rate</th>
                     </tr>
@@ -33,20 +32,8 @@
                 <tbody>
                     <c:forEach var="tariff" items="${tariffs}">
                         <tr>
-                            <td>
-                                <form id="edit${tariff.name}" method="post"
-                                      action="editTariff"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="tariff" value="${tariff.id}">
-                                    <input type="submit" value="Edit tariff">
-                                </form>
-                            </td>
-                            <td>
-                                ${tariff.name}
-                            </td>
-                            <td>
-                                ${tariff.rate}
-                            </td>
+                            <td><a href="/ECare/employee/tariff/${tariff.id}">${tariff.name}</a></td>
+                            <td>${tariff.rate}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

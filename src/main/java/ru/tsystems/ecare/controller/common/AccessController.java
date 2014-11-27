@@ -47,7 +47,7 @@ public class AccessController {
                 && surname.length() > 0 && passport.length() > 0
                 && address.length() > 0) {
             //create new customer
-            customerService.newCustomer(name,
+            customerService.saveCustomer(name,
                     surname,
                     birthdate,
                     email,

@@ -91,12 +91,6 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void setNumber(Contract contract, Integer number) {
-        //TODO Auto-generated method stub
-        throw new ECareException("not implemented yet!");
-    }
-
-    @Override
     public Set<Integer> getAvailableNumbers() {
         Set<Integer> numbers = new HashSet<>();
         int maxNumber;
@@ -124,7 +118,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void save(Contract contract) {
-        contractDAO.add(contract);
+        contractDAO.update(contract);
     }
 
     @Override
@@ -134,6 +128,11 @@ public class ContractServiceImpl implements ContractService {
         if (newLocker != null) {
             contractDAO.lock(contract, newLocker);
         }
+    }
+
+    @Override
+    public Set<Contract> findAnyByNumber(int number) {
+        return contractDAO.findAnyByNumber(number);
     }
 
 }

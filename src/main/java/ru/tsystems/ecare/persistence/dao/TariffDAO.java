@@ -39,7 +39,7 @@ public interface TariffDAO extends GenericDAO<Tariff, Integer> {
      * Tries to get options list from tariff. Else throw {@code ECareException}.
      *
      * @param tariff Tariff to search options
-     * @return {@code List<Option>} if tariff has options.
+     * @return {@code Set<Option>} if tariff has options.
      */
     Set<Option> getOptions(Tariff tariff);
 

@@ -26,55 +26,46 @@
         <h1 id="banner">All customers</h1>
         <hr>
         <div class="container">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Edit customer's information</th>
-                        <th>Get customer's contracts</th>
-                        <th>Customer name</th>
-                        <th>Customer surname</th>
-                        <th>Customer passport</th>
-                        <th>Customer e-mail</th>
-                        <th>Locked</th>
-                        <th>Lock/Unlock</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="customer" items="${customers}">
+            <form method="post" action="/ECare/employee/removeCustomers"
+                  enctype="application/x-www-form-urlencoded">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                                <form id="edit${customer.personId}" method="post"
-                                      action="/ECare/employee/editCustomer"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="passport" value="${customer.customerPassport}">
-                                    <input type="submit" value="Edit customer">
-                                </form>
-                            </td>
-                            <td>
-                                <form id="editcontracts${customer.personId}" method="post"
-                                      action="/ECare/employee/getCustomersContracts"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="passport" value="${customer.customerPassport}">
-                                    <input type="submit" value="Edit customer's contracts">
-                                </form>
-                            </td>
-                            <td>${customer.person.name}</td>
-                            <td>${customer.person.surname}</td>
-                            <td>${customer.customerPassport}</td>
-                            <td>${customer.person.email}</td>
-                            <td>${customer.locked}</td>
-                            <td>
-                                <form id="lock${customer.personId}" method="post"
-                                      action="/ECare/employee/lockCustomer"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="passport" value="${customer.customerPassport}">
-                                    <input type="submit" value="Lock customer">
-                                </form>
-                            </td>
+                            <th>Remove</th>
+                            <th>Customer</th>
+                            <th>Customer e-mail</th>
+                            <th>Get customer's contracts</th>
+                            <th>Lock/Unlock</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="customer" items="${customers}">
+                            <tr>
+                                <td><input type="checkbox" name="remove${customer.customerPassport}" value="${customer.personId}"></td>
+                                <td>
+                                    <form id="customer" method="post"
+                                          action="/ECare/employee/editCustomer"
+                                          enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="passport" value="${customer.customerPassport}"/>
+                                        <button class="btn btn-link" type="submit">${customer.person.name} ${customer.person.surname}</button>
+                                    </form>
+                                </td>
+                                <td>${customer.person.email}</td>
+                                <td>
+                                    <form id="editcontracts${customer.personId}" method="post"
+                                          action="/ECare/employee/getCustomersContracts"
+                                          enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="passport" value="${customer.customerPassport}">
+                                        <button class="btn btn-link" type="submit">View customer's contracts</button>
+                                    </form>
+                                </td>
+                                <td><a href="/ECare/employee/lockCustomer/${customer.customerPassport}">${customer.locked}</a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <button class="btn btn-danger"type="submit">Remove selected customers</button>
+            </form>
         </div>
     </body>
 </html>

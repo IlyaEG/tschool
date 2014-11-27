@@ -33,7 +33,7 @@ CREATE TABLE `contract` (
   KEY `contract_tariff` (`tariff_id`),
   KEY `contract_customer_id` (`customer_id`),
   KEY `contract_locked_by` (`locked_by`),
-  CONSTRAINT `fk_contract_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`person_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contract_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_contract_locked_by` FOREIGN KEY (`locked_by`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_contract_tariff` FOREIGN KEY (`tariff_id`) REFERENCES `tariff` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -92,7 +92,7 @@ CREATE TABLE `customer` (
   UNIQUE KEY `customer_passport_UNIQUE` (`customer_passport`),
   UNIQUE KEY `UK_o0cl31ufkwyc47ntdqu6d4c48` (`customer_passport`),
   KEY `Customer_person_id` (`person_id`),
-  CONSTRAINT `fk_Customer_Person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Customer_Person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

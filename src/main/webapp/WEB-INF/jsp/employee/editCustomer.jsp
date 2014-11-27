@@ -32,7 +32,7 @@
                 <input type="text" id="surname" name="surname" value="${surname}"
                        class="form-control" placeholder="Surname" required>
                 <label for="birthdate" class="sr-only">Birthdate</label>
-                <input type="text" id="birthdate" name="birthdate" value="${birthbate}"
+                <input type="date" id="birthdate" name="birthdate" value="${birthdate}"
                        class="form-control" placeholder="YYYY-MM-DD" required>
                 <label for="passport" class="sr-only">Passport</label>
                 <input type="text" id="passport" name="passport" value="${passport}"
@@ -45,10 +45,26 @@
                 <label for="password" class="sr-only">Password</label>
                 <input type="password" id="password" name="password" value="${password}"
                        class="form-control" placeholder="Password" required>
+                <c:if test="${new > 0}">
+                    <select name="tariff" class="form-control">
+                        <c:forEach var="tariff" items="${availableTariffs}">
+                            <option value="${tariff.id}">
+                                ${tariff.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <select name="number" class="form-control">
+                        <c:forEach var="number" items="${availableNumbers}">
+                            <option value="${number}">
+                                ${number}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </c:if>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
             </form>
         </div> <!-- /container -->
         <p class="text-danger text-center">${message}</p>
-        
+
     </body>
 </html>

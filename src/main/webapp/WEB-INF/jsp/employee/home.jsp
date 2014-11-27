@@ -40,9 +40,9 @@
         <div class="col-lg-6">
             <h4>Manage tariffs and options</h4>
             <h5><a href="/ECare/employee/allTariffs">View all tariffs</a></h5>
-            <h5><a href="/ECare/employee/newTariff">Create new tariff</a></h5>
+            <h5><a href="/ECare/employee/tariff">Create new tariff</a></h5>
             <h5><a href="/ECare/employee/allOptions">View all options</a></h5>
-            <h5><a href="/ECare/employee/newOption">Create new option</a></h5>
+            <h5><a href="/ECare/employee/option">Create new option</a></h5>
         </div>
     </body>
 </html>

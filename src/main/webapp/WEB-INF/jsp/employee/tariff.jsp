@@ -20,9 +20,9 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
-        <h1 id="banner">Create new tariff</h1>
+        <h1 id="banner">Edit tariff</h1>
         <div class="container">
-            <form method="post" action="createTariff"
+            <form method="post" action="/ECare/employee/createTariff"
                   enctype="application/x-www-form-urlencoded"
                   class="form-horizontal">
                 <div class="control-group">
@@ -36,7 +36,7 @@
                     <label class="control-label" for="rate">Monthly rate</label>
                     <div class="controls">
                         <input type="number" id="rate" name="rate"
-                               placeholder="XX.XX" required>
+                               placeholder="0000.00" required>
                     </div>
                 </div>
                 <div class="control-group">
@@ -53,7 +53,7 @@
 
                         </c:forEach>
                         <button class="btn btn-primary" type="submit">
-                            Create new tariff
+                            Save tariff
                         </button>
                     </div>
                 </div>

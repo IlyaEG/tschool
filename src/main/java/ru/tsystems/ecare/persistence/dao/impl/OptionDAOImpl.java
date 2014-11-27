@@ -32,7 +32,17 @@ public class OptionDAOImpl extends HibernateDAO<Option, Integer>
             throw new ECareException("Option " + incompatiobleOption.getName()
                     + " not found!");
         }
+        if (storedMainOption.getOptionsForRelId2()
+                .contains(storedIncompatibleOption)
+                || storedMainOption.getOptionsForRelId1()
+                .contains(storedIncompatibleOption)) {
+            throw new ECareException("Options " + incompatiobleOption.getName()
+                    + " and " + mainOption.getName()
+                    + " are related!");
+        }
         if (!storedMainOption.getOptionsForIncompId2()
+                .add(storedIncompatibleOption)
+                || !storedMainOption.getOptionsForIncompId1()
                 .add(storedIncompatibleOption)) {
             throw new ECareException("Options " + incompatiobleOption.getName()
                     + " and " + mainOption.getName()
@@ -54,7 +64,17 @@ public class OptionDAOImpl extends HibernateDAO<Option, Integer>
             throw new ECareException("Option " + relatedOption.getName()
                     + " not found!");
         }
+        if (storedMainOption.getOptionsForIncompId2()
+                .contains(storedRelatedOption)
+                || storedMainOption.getOptionsForIncompId1()
+                .contains(storedRelatedOption)) {
+            throw new ECareException("Options " + relatedOption.getName()
+                    + " and " + mainOption.getName()
+                    + " are incompatible!");
+        }
         if (!storedMainOption.getOptionsForRelId2()
+                .add(storedRelatedOption)
+                || !storedMainOption.getOptionsForRelId1()
                 .add(storedRelatedOption)) {
             throw new ECareException("Options " + relatedOption.getName()
                     + " and " + mainOption.getName()
@@ -76,12 +96,10 @@ public class OptionDAOImpl extends HibernateDAO<Option, Integer>
             throw new ECareException("Option " + incompatiobleOption.getName()
                     + " not found!");
         }
-        if (!storedMainOption.getOptionsForIncompId2()
-                .remove(storedIncompatibleOption)) {
-            throw new ECareException("Options " + incompatiobleOption.getName()
-                    + " and " + mainOption.getName()
-                    + " are not incompatible!");
-        }
+        storedMainOption.getOptionsForIncompId2()
+                .remove(storedIncompatibleOption);
+        storedMainOption.getOptionsForIncompId1()
+                .remove(storedIncompatibleOption);
         update(storedMainOption);
     }
 
@@ -98,12 +116,10 @@ public class OptionDAOImpl extends HibernateDAO<Option, Integer>
             throw new ECareException("Option " + relatedOption.getName()
                     + " not found!");
         }
-        if (!storedMainOption.getOptionsForRelId2()
-                .remove(storedRelatedOption)) {
-            throw new ECareException("Options " + relatedOption.getName()
-                    + " and " + mainOption.getName()
-                    + " are not related!");
-        }
+        storedMainOption.getOptionsForRelId2()
+                .remove(storedRelatedOption);
+        storedMainOption.getOptionsForRelId1()
+                .remove(storedRelatedOption);
         update(storedMainOption);
     }
 

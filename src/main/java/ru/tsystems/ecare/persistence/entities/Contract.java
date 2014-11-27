@@ -1,6 +1,7 @@
 package ru.tsystems.ecare.persistence.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,10 @@ import javax.validation.constraints.Digits;
     @NamedQuery(
             name = "findContractByNumber",
             query = "from Contract c where c.number = :contractNumber"
+    ),
+    @NamedQuery(
+            name = "findAnyContractByNumber",
+            query = "from Contract c where c.number LIKE :contractNumber"
     )
 })
 @Entity
@@ -112,6 +117,25 @@ public class Contract implements java.io.Serializable {
 
     public void setOptions(Set<Option> options) {
         this.options = options;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.number);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contract other = (Contract) obj;
+        return Objects.equals(this.number, other.number);
     }
 
 }

@@ -223,6 +223,17 @@ public class EmployeeActionsController {
         return getAllCustomers(model);
     }
 
+    @RequestMapping("/removeContracts")
+    public final String removeContracts(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        Set<Contract> remove
+                = getContracts("remove", httpServletRequest);
+        for (Contract c : remove) {
+            contractService.deleteContract(c);
+        }
+        return getAllContracts(model);
+    }
+
     @RequestMapping("/option")
     public final String newOptionPage(final Model model,
             @RequestParam(required = false) String message) {
@@ -314,7 +325,7 @@ public class EmployeeActionsController {
     public final String getTariffPage(final Model model,
             @RequestParam(required = false) String message) {
         model.addAttribute("message", message);
-        model.addAttribute("options", optionService.getAllOptions());
+        model.addAttribute("availableOptions", optionService.getAllOptions());
         return "employee/tariff";
     }
 
@@ -323,7 +334,11 @@ public class EmployeeActionsController {
             @PathVariable("id") int id, Model model) {
         Tariff tariff = tariffService.findById(id);
         model.addAttribute("tariff", tariffService.findById(id));
-
+        Set<Option> availableOptions = optionService.getAllOptions();
+        for (Option o : tariff.getOptions()) {
+            availableOptions.remove(o);
+        }
+        model.addAttribute("availableOptions", availableOptions);
         return "employee/tariff";
     }
 
@@ -335,11 +350,22 @@ public class EmployeeActionsController {
             String name = httpServletRequest.getParameter("name");
             float rate = Float.
                     parseFloat(httpServletRequest.getParameter("rate"));
-            Tariff tariff = new Tariff(name, rate);
+            Tariff tariff;
             Set<Option> activeOptions
                     = getOptions("addOption", httpServletRequest);
-            tariff.setOptions(activeOptions);
-            tariffService.createTariff(tariff);
+            try {
+                int id = Integer.parseInt(
+                        httpServletRequest.getParameter("tariffId"));
+                tariff = tariffService.findById(id);
+                tariff.setName(name);
+                tariff.setRate(rate);
+                tariff.setOptions(activeOptions);
+                tariffService.updateTariff(tariff);
+            } catch (NumberFormatException nfe) {
+                tariff = new Tariff(name, rate);
+                tariff.setOptions(activeOptions);
+                tariffService.createTariff(tariff);
+            }
             Set<Tariff> tariffs = tariffService.getAvailableTariffs();
             model.addAttribute("tariffs", tariffs);
             return "employee/allTariffs";
@@ -358,12 +384,25 @@ public class EmployeeActionsController {
         Customer customer = customerService.
                 findByPassport(httpServletRequest.getParameter("passport"));
         model.addAttribute("customer", customer);
-        model.addAttribute("availableTariffs", tariffService.getAvailableTariffs());
+        model.addAttribute("availableTariffs",
+                tariffService.getAvailableTariffs());
+        model.addAttribute("availableNumbers",
+                contractService.getAvailableNumbers());
+        return "employee/newContract";
+    }
 
-//todo add page with new contract 
-
-
-        return "employee/customersTariff";
+    @RequestMapping("saveContract")
+    public final String saveContract(final Model model,
+            final HttpServletRequest httpServletRequest) {
+        String tariff = httpServletRequest.getParameter("tariff");
+        String number = httpServletRequest.getParameter("number");
+        Customer customer = customerService.
+                findByPassport(httpServletRequest.getParameter("passport"));
+        Contract contract = new Contract(customer,
+                tariffService.findById(Integer.parseInt(tariff)));
+        contract.setNumber(Integer.parseInt(number));
+        contractService.newContract(contract);
+        return getCustomersContracts(model, httpServletRequest);
     }
 
     @RequestMapping(value = "contractTariff/{number}")
@@ -422,8 +461,7 @@ public class EmployeeActionsController {
         for (Option o : rem) {
             activeOptions.remove(o);
         }
-        contract.setOptions(activeOptions);
-        contractService.save(contract);
+        contractService.setOptions(contract, activeOptions);
 
         Person customer = contract.getCustomer().getPerson();
         Set<Contract> contracts = customerService.
@@ -479,5 +517,35 @@ public class EmployeeActionsController {
             customerService.lockCustomer(customer);
         }
         return getAllCustomers(model);
+    }
+//todo lockContract
+//    @RequestMapping(value = "lockContract/{number}")
+//    public final String lockContract(
+//            @PathVariable("number") final int number,
+//            final Model model) {
+//        Contract contract = contractService.findByNumber(number);
+//        if (contractService.isLocked(contract)) {
+//            contractService.unlockCustomer(customer);
+//        } else {
+//            customerService.lockCustomer(customer);
+//        }
+//        return getAllCustomers(model);
+//    }
+
+    //get set of contracts from request with specified prefix
+    private Set<Contract> getContracts(final String prefix,
+            final HttpServletRequest httpServletRequest) {
+        Enumeration names = httpServletRequest.getParameterNames();
+        Set<Contract> contracts = new HashSet<>();
+        String temp;
+        while (names.hasMoreElements()) {
+            temp = (String) names.nextElement();
+            if (temp.length() > prefix.length()
+                    && temp.substring(0, prefix.length()).equals(prefix)) {
+                contracts.add(contractService.findByNumber(
+                        Integer.parseInt(temp.substring(prefix.length()))));
+            }
+        }
+        return contracts;
     }
 }

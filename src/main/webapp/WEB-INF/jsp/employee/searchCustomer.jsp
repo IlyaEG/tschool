@@ -30,38 +30,44 @@
                 <div class="input-group">
                     <span class="input-group-addon">Phone Number:</span>
                     <input type="text" class="form-control" name="number">
-                    <span class="input-group-addon">
-                        <button class="btn" type="submit">Search</button>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Search</button>
                     </span>
                 </div>
             </form>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>Tariff</th>
-                        <th>Options</th>
-                        <th>Customer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="contract" items="${contracts}">
+            <form method="post" action="/ECare/employee/removeContracts"
+                  enctype="application/x-www-form-urlencoded">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td><a href="contract/${contract.number}">${contract.number}</a></td>
-                            <td><a href="tariff/${contract.number}">${contract.tariff.name}</a></td>
-                            <td><a href="options/${contract.number}">Manage options</a></td>
-                            <td>
-                                <form id="customer" method="post"
-                                      action="/ECare/employee/editCustomer"
-                                      enctype="application/x-www-form-urlencoded">
-                                    <input type="hidden" name="passport" value="${contract.customer.customerPassport}"/>
-                                    <button class="btn btn-link" type="submit">${contract.customer.person.name} ${contract.customer.person.surname}</button>
-                                </form>
-                            </td>
+                            <th>Remove</th>
+                            <th>Number</th>
+                            <th>Tariff</th>
+                            <th>Options</th>
+                            <th>Customer</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="contract" items="${contracts}">
+                            <tr>
+                                <td><input type="checkbox" name="remove${contract.number}" value="${contract.number}"></td>
+                                <td>${contract.number}</td>
+                                <td><a href="contractTariff/${contract.number}">${contract.tariff.name}</a></td>
+                                <td><a href="contractOptions/${contract.number}">Manage options</a></td>
+                                <td>
+                                    <form id="customer" method="post"
+                                          action="/ECare/employee/editCustomer"
+                                          enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="passport" value="${contract.customer.customerPassport}"/>
+                                        <button class="btn btn-link" type="submit">${contract.customer.person.name} ${contract.customer.person.surname}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <button class="btn btn-danger"type="submit">Remove selected contracts</button>
+            </form>
             <div class="container">
                 <p>${message}</p>
             </div>

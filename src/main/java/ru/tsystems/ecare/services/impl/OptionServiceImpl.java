@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.persistence.dao.OptionDAO;
+import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.entities.Option;
+import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.OptionService;
 
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -19,6 +21,16 @@ public class OptionServiceImpl implements OptionService {
     // dependencies
     private SessionFactory sessionFactory;
     private OptionDAO optionDAO;
+    private TariffDAO tariffDAO;
+
+    public TariffDAO getTariffDAO() {
+        return tariffDAO;
+    }
+
+    @Autowired
+    public void setTariffDAO(TariffDAO tariffDAO) {
+        this.tariffDAO = tariffDAO;
+    }
 
     public final OptionDAO getOptionDAO() {
         return optionDAO;
@@ -71,6 +83,15 @@ public class OptionServiceImpl implements OptionService {
         optionDAO.setRelatedness(
                 findByName(mainOption),
                 findByName(relatedOption));
+        //update all tariffs
+        Set<Tariff> tariffs = tariffDAO.all();
+        for (Tariff tariff : tariffs) {
+            if (tariff.getOptions().contains(findByName(relatedOption))
+                    && !tariff.getOptions().
+                    contains(findByName(mainOption))) {
+                tariffDAO.addOption(tariff, findByName(mainOption));
+            }
+        }
     }
 
     @Override

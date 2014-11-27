@@ -49,7 +49,7 @@
                         <c:forEach var="contract" items="${contracts}">
                             <tr>
                                 <td><input type="checkbox" name="remove${contract.number}" value="${contract.number}"></td>
-                                <td><a href="/ECare/employee/contract/${contract.number}">${contract.number}</a></td>
+                                <td>${contract.number}</td>
                                 <td><a href="/ECare/employee/contractTariff/${contract.number}">${contract.tariff.name}</a></td>
                                 <td><a href="/ECare/employee/contractOptions/${contract.number}">Manage options</a></td>
                                 <td>

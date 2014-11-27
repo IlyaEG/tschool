@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="ru.tsystems.ecare.persistence.entities.Option" %>
+<%@page import="ru.tsystems.ecare.persistence.entities.Tariff" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,29 +30,34 @@
                     <label class="control-label" for="name">Tariff name</label>
                     <div class="controls">
                         <input type="text" id="name" name="name"
-                               placeholder="Tariff name" required>
+                               placeholder="Tariff name" required value="${tariff.name}">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="rate">Monthly rate</label>
                     <div class="controls">
                         <input type="number" id="rate" name="rate"
-                               placeholder="0000.00" required>
+                               placeholder="0000.00" required value="${tariff.rate}">
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <c:forEach var="option" items="${options}">
-
-
+                        <c:forEach var="option" items="${availableOptions}">
                             <label class="checkbox">
                                 <input type="checkbox"
                                        name="addOption${option.name}"
                                        value="${option.id}">${option.name}
                             </label>
-
-
                         </c:forEach>
+                        <c:forEach var="option" items="${tariff.options}">
+                            <label class="checkbox">
+                                <input type="checkbox"
+                                       checked="true"
+                                       name="addOption${option.name}"
+                                       value="${option.id}">${option.name}
+                            </label>
+                        </c:forEach>
+                        <input type="hidden" name="tariffId" value="${tariff.id}">
                         <button class="btn btn-primary" type="submit">
                             Save tariff
                         </button>

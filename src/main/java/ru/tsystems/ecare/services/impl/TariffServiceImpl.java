@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.OptionDAO;
 import ru.tsystems.ecare.persistence.dao.TariffDAO;
@@ -63,6 +64,16 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public void updateTariff(Tariff tariff) {
+        //check options relatedness
+        for (Option ao : tariff.getOptions()) {
+            //check if missed related options
+            for (Option ro : ao.getOptionsForRelId2()) {
+                if (!tariff.getOptions().contains(ro)) {
+                    throw new ECareException("Options " + ao.getName() + " and "
+                            + ro.getName() + " are related!");
+                }
+            }
+        }
         tariffDAO.update(tariff);
     }
 

@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
+import ru.tsystems.ecare.persistence.dao.OptionDAO;
 import ru.tsystems.ecare.persistence.dao.PersonDAO;
 import ru.tsystems.ecare.persistence.dao.RoleDAO;
 import ru.tsystems.ecare.persistence.entities.Contract;
+import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.services.ContractService;
 
@@ -25,6 +27,16 @@ public class ContractServiceImpl implements ContractService {
     private ContractDAO contractDAO;
     private RoleDAO roleDAO;
     private PersonDAO personDAO;
+    private OptionDAO optionDAO;
+
+    public OptionDAO getOptionDAO() {
+        return optionDAO;
+    }
+
+    @Autowired
+    public void setOptionDAO(OptionDAO optionDAO) {
+        this.optionDAO = optionDAO;
+    }
 
     public PersonDAO getPersonDAO() {
         return personDAO;
@@ -66,16 +78,6 @@ public class ContractServiceImpl implements ContractService {
         return sessionFactory.getCurrentSession();
     }
 
-//    @Override
-//    public void lockNumber() {
-//
-//		// dao
-//
-//        // dao.lockNumber
-//        // throw Exception
-//        //TODO Auto-generated method stub
-//        throw new ECareException("not implemented yet!");
-//    }
     @Override
     public void unlockNumber(int number, String userEmail) {
         Contract contract = contractDAO.findByNumber(number);
@@ -133,6 +135,36 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public Set<Contract> findAnyByNumber(int number) {
         return contractDAO.findAnyByNumber(number);
+    }
+
+    @Override
+    public final void setOptions(final Contract contract,
+            final Set<Option> activeOptions) {
+        //check incompatibility and relatedness
+        for (Option ao : activeOptions) {
+            //check if options are incompatible
+            for (Option io : ao.getOptionsForIncompId2()) {
+                if (activeOptions.contains(io)) {
+                    throw new ECareException("Options " + ao.getName() + " "
+                            + io.getName() + " are incompatible!");
+                }
+            }
+            //check if missed related options
+            for (Option ro : ao.getOptionsForRelId2()) {
+                if (!activeOptions.contains(ro)) {
+                    throw new ECareException("Options " + ao.getName() + " and "
+                                + ro.getName() + " are related!");
+                }
+            }
+        }
+        //save
+        contract.setOptions(activeOptions);
+        contractDAO.update(contract);
+    }
+
+    @Override
+    public void deleteContract(Contract c) {
+        contractDAO.remove(c);
     }
 
 }

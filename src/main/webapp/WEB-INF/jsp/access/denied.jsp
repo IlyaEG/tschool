@@ -11,5 +11,6 @@
         <hr/>
 
         <p class="message">Access denied!</p>
+        <a href="/ECare${role}" class="btn btn-default btn-lg" role="button">OK</a>
     </body>
 </html>

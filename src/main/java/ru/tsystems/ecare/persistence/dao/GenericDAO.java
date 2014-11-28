@@ -15,6 +15,8 @@ public interface GenericDAO<E, K> {
 
     void update(E entity);
 
+    void justUpdate(E entity);
+
     void remove(E entity);
 
     E find(K key);

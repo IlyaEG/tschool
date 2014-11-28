@@ -9,7 +9,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home page</title>
+        <title>Error page</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Custom styles for this template -->
@@ -23,18 +23,7 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
-        <h1 id="banner">Customer's control panel</h1>
-        <hr>
-
-        <p>You are currently logged-in as
-            <span id="username">${userName}</span>!
-        </p>
-        <div class="col-lg-6">
-            <h4>You can:</h4>
-            <h5><a href="/ECare/customer/allContracts">View all contracts</a></h5>
-            <h5><a href="/ECare/customer/allTariffs">View all available tariffs</a></h5>
-            <h5><a href="/ECare/customer/allOptions">View all available options</a></h5>
-        </div>
+        <h1 id="banner" class="text-danger text-center">Unrecoverable error!</h1>
         <div class="container">
             <p class="text-danger text-center">${message}</p>
         </div>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.tsystems.ecare.controller.common;
+package ru.tsystems.ecare.controller;
 
 /**
  * Is responsible for handling requests to common pages such as customer and

@@ -3,6 +3,7 @@
 <%@page import="ru.tsystems.ecare.persistence.entities.Person" %>
 <%@page import="ru.tsystems.ecare.persistence.entities.Contract" %>
 <%@page import="ru.tsystems.ecare.persistence.entities.Tariff" %>
+<%@page import="ru.tsystems.ecare.persistence.entities.Role" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,6 +41,7 @@
                         <tr>
                             <th>Remove</th>
                             <th>Number</th>
+                            <th>Locked</th>
                             <th>Tariff</th>
                             <th>Options</th>
                             <th>Customer</th>
@@ -50,6 +52,18 @@
                             <tr>
                                 <td><input type="checkbox" name="remove${contract.number}" value="${contract.number}"></td>
                                 <td>${contract.number}</td>
+                                <td>
+                                    <a href="/ECare/employee/lockContract/${contract.number}">
+                                        <c:choose>
+                                            <c:when test="${contract.lockedBy != null}">
+                                                By ${contract.lockedBy.name}
+                                            </c:when>
+                                            <c:otherwise>
+                                                Not locked
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </td>
                                 <td><a href="/ECare/employee/contractTariff/${contract.number}">${contract.tariff.name}</a></td>
                                 <td><a href="/ECare/employee/contractOptions/${contract.number}">Manage options</a></td>
                                 <td>

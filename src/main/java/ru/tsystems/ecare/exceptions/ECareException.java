@@ -1,4 +1,4 @@
-package ru.tsystems.ecare;
+package ru.tsystems.ecare.exceptions;
 
 /**
  * Exception that can occur in ECare System.

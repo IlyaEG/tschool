@@ -219,4 +219,36 @@ public class Option implements java.io.Serializable {
         return true;
     }
 
+    public final String relatedNames() {
+        StringBuilder names = new StringBuilder("");
+        for (Option option : optionsForRelId2) {
+            names.append(option.getName()).append(", ");
+        }
+        if (names.length() > 1) {
+            names.replace(names.lastIndexOf(" ") - 1, names.length() + 1, ".");
+        }
+        return names.toString();
+    }
+
+    public final String incompatibleNames() {
+        StringBuilder names = new StringBuilder("");
+        for (Option option : optionsForIncompId2) {
+            names.append(option.getName()).append(", ");
+        }
+        if (names.length() > 1) {
+            names.replace(names.lastIndexOf(" ") - 1, names.length() + 1, ".");
+        }
+        return names.toString();
+    }
+
+    public final String compatibleTariffs() {
+        StringBuilder names = new StringBuilder("");
+        for (Tariff tariff : tariffs) {
+            names.append(tariff.getName()).append(", ");
+        }
+        if (names.length() > 1) {
+            names.replace(names.lastIndexOf(" ") - 1, names.length() + 1, ".");
+        }
+        return names.toString();
+    }
 }

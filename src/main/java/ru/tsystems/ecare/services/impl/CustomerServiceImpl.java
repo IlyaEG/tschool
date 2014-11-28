@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tsystems.ecare.ECareException;
+import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.CustomerDAO;
 import ru.tsystems.ecare.persistence.dao.EmployeeDAO;
@@ -198,6 +198,19 @@ public class CustomerServiceImpl implements CustomerService {
         int id = c.getPersonId();
 //        customerDAO.remove(customerDAO.find(id));
         personDAO.remove(personDAO.find(id));
+
+    }
+
+    @Override
+    public final void changePassword(final Customer customer,
+            final String password) {
+        try {
+            Person person = customer.getPerson();
+            person.setPassword(password);
+            personDAO.update(person);
+        } catch (Exception e) {
+            throw new ECareException(e.getMessage());
+        }
         
     }
 }

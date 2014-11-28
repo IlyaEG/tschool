@@ -72,4 +72,9 @@ public class HibernateDAO<E, K extends Serializable>
         }
         return eSet;
     }
+
+    @Override
+    public void justUpdate(E entity) {
+        currentSession().update(entity);
+    }
 }

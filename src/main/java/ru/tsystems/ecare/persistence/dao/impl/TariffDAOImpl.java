@@ -3,7 +3,7 @@ package ru.tsystems.ecare.persistence.dao.impl;
 import java.util.Set;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-import ru.tsystems.ecare.ECareException;
+import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Tariff;

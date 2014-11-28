@@ -1,4 +1,4 @@
-package ru.tsystems.ecare.controller.employee;
+package ru.tsystems.ecare.controller;
 
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -66,11 +66,7 @@ public class EmployeeActionsController {
 
     @RequestMapping
     public final String getEmployeePage(final Model model) {
-        Authentication auth = SecurityContextHolder.
-                getContext().
-                getAuthentication();
-        String email = auth.getName(); //get logged in email
-        String userName = loginService.getNameByEmail(email);
+        String userName = loginService.getNameByEmail(getLogin());
         model.addAttribute("userName", userName);
         return "employee/home";
     }
@@ -84,7 +80,7 @@ public class EmployeeActionsController {
 
     @RequestMapping("/allContracts")
     public final String getAllContracts(final Model model) {
-        Set<Contract> contracts = contractService.getAllContracts();
+        Set<Contract> contracts = contractService.getAllContracts(getLogin());
         model.addAttribute("contracts", contracts);
         model.addAttribute("owners", "of all customers");
         return "employee/allContracts";
@@ -122,7 +118,8 @@ public class EmployeeActionsController {
             final HttpServletRequest request) {
         try {
             int number = Integer.parseInt(request.getParameter("number"));
-            Set<Contract> contracts = contractService.findAnyByNumber(number);
+            Set<Contract> contracts = contractService.
+                    findAnyByNumber(number, getLogin());
             model.addAttribute("contracts", contracts);
             return "employee/searchCustomer";
         } catch (NumberFormatException nfe) {
@@ -191,7 +188,7 @@ public class EmployeeActionsController {
                 Contract contract = new Contract(saved,
                         tariffService.findById(Integer.parseInt(tariff)));
                 contract.setNumber(Integer.parseInt(number));
-                contractService.newContract(contract);
+                contractService.newContract(contract, getLogin());
             } else {
                 //update old
                 customerService.saveCustomer(name, surname, birthdate, email,
@@ -229,7 +226,7 @@ public class EmployeeActionsController {
         Set<Contract> remove
                 = getContracts("remove", httpServletRequest);
         for (Contract c : remove) {
-            contractService.deleteContract(c);
+            contractService.deleteContract(c, getLogin());
         }
         return getAllContracts(model);
     }
@@ -401,17 +398,18 @@ public class EmployeeActionsController {
         Contract contract = new Contract(customer,
                 tariffService.findById(Integer.parseInt(tariff)));
         contract.setNumber(Integer.parseInt(number));
-        contractService.newContract(contract);
+        contractService.newContract(contract, getLogin());
         return getCustomersContracts(model, httpServletRequest);
     }
 
     @RequestMapping(value = "contractTariff/{number}")
     public final String getTariffChangingPage(
             @PathVariable("number") int number, final Model model) {
-        Contract contract = contractService.findByNumber(number);
+        Contract contract = contractService.findByNumber(number, getLogin());
         model.addAttribute("customer", contract.getCustomer());
         model.addAttribute("contract", contract);
-        model.addAttribute("availableTariffs", tariffService.getAvailableTariffs());
+        model.addAttribute("availableTariffs", tariffService.
+                getAvailableTariffs());
         return "employee/customersTariff";
     }
 
@@ -420,20 +418,20 @@ public class EmployeeActionsController {
             final HttpServletRequest httpServletRequest) {
         Contract contract = contractService.
                 findByNumber(Integer.parseInt(httpServletRequest.
-                                getParameter("number")));
+                                getParameter("number")), getLogin());
         Tariff newTariff = tariffService.
                 findById(Integer.parseInt(httpServletRequest.
                                 getParameter("tariff")));
         contract.setTariff(newTariff);
-        contractService.save(contract);
-        model.addAttribute("contracts", contractService.getAllContracts());
-        return "employee/allContracts";
+        contractService.save(contract, getLogin());
+        
+        return getAllContracts(model);
     }
 
     @RequestMapping(value = "contractOptions/{number}")
     public final String getContractOptionsPage(
             @PathVariable("number") int number, Model model) {
-        Contract contract = contractService.findByNumber(number);
+        Contract contract = contractService.findByNumber(number, getLogin());
         //set current contract
         model.addAttribute("contract", contract);
         //available options this contract's tariff excluding already added.
@@ -451,7 +449,7 @@ public class EmployeeActionsController {
             final HttpServletRequest httpServletRequest) {
         Contract contract = contractService.
                 findByNumber(Integer.parseInt(httpServletRequest.
-                                getParameter("number")));
+                                getParameter("number")), getLogin());
         Set<Option> add = getOptions("addOption", httpServletRequest);
         Set<Option> rem = getOptions("remOption", httpServletRequest);
         Set<Option> activeOptions = contract.getOptions();
@@ -461,7 +459,7 @@ public class EmployeeActionsController {
         for (Option o : rem) {
             activeOptions.remove(o);
         }
-        contractService.setOptions(contract, activeOptions);
+        contractService.setOptions(contract, activeOptions, getLogin());
 
         Person customer = contract.getCustomer().getPerson();
         Set<Contract> contracts = customerService.
@@ -518,19 +516,19 @@ public class EmployeeActionsController {
         }
         return getAllCustomers(model);
     }
-//todo lockContract
-//    @RequestMapping(value = "lockContract/{number}")
-//    public final String lockContract(
-//            @PathVariable("number") final int number,
-//            final Model model) {
-//        Contract contract = contractService.findByNumber(number);
-//        if (contractService.isLocked(contract)) {
-//            contractService.unlockCustomer(customer);
-//        } else {
-//            customerService.lockCustomer(customer);
-//        }
-//        return getAllCustomers(model);
-//    }
+
+    @RequestMapping(value = "lockContract/{number}")
+    public final String lockContract(
+            @PathVariable("number") final int number,
+            final Model model) {
+        Contract contract = contractService.findByNumber(number, getLogin());
+        if (contract.getLockedBy() != null) {
+            contractService.unlockNumber(contract.getNumber(), "a@ecare");
+        } else {
+            contractService.lockNumber(contract.getNumber(), "a@ecare");
+        }
+        return getAllContracts(model);
+    }
 
     //get set of contracts from request with specified prefix
     private Set<Contract> getContracts(final String prefix,
@@ -543,9 +541,17 @@ public class EmployeeActionsController {
             if (temp.length() > prefix.length()
                     && temp.substring(0, prefix.length()).equals(prefix)) {
                 contracts.add(contractService.findByNumber(
-                        Integer.parseInt(temp.substring(prefix.length()))));
+                        Integer.parseInt(temp.substring(prefix.length())),getLogin()));
             }
         }
         return contracts;
+    }
+
+    private String getLogin() {
+        Authentication auth = SecurityContextHolder.
+                getContext().
+                getAuthentication();
+        String email = auth.getName(); //get logged in email
+        return email;
     }
 }

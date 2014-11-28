@@ -30,4 +30,6 @@ public interface CustomerService {
 
     void deleteCustomer(Customer c);
 
+    void changePassword(Customer customer, String password);
+
 }

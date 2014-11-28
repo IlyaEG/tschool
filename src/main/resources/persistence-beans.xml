@@ -24,8 +24,14 @@
     <!-- data source for database -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- for tomcat -->
+        <!--
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        -->
+        <!-- for wildfly -->
         <property name="driverClassName"
                   value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" />
+
         <property name="url" value="jdbc:mysql://localhost/ECareDB" />
         <property name="username" value="root" />
         <property name="password" value="root" />

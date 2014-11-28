@@ -6,7 +6,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.tsystems.ecare.ECareException;
+import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.persistence.dao.ContractDAO;
 import ru.tsystems.ecare.persistence.dao.PersonDAO;
 import ru.tsystems.ecare.persistence.entities.Contract;
@@ -66,6 +66,10 @@ public class ContractDAOImpl extends HibernateDAO<Contract, Integer>
             throw new ECareException("Contract with number "
                     + contract.getNumber() + " not found!");
         }
+        if (storedContract.getLockedBy() != null) {
+            throw new ECareException("Contract with number "
+                    + contract.getNumber() + " locked!");
+        }
         storedContract.getOptions().add(option);
         update(storedContract);
     }
@@ -77,6 +81,10 @@ public class ContractDAOImpl extends HibernateDAO<Contract, Integer>
         if (storedContract == null) {
             throw new ECareException("Contract with number "
                     + contract.getNumber() + " not found!");
+        }
+        if (storedContract.getLockedBy() != null) {
+            throw new ECareException("Contract with number "
+                    + contract.getNumber() + " locked!");
         }
         storedContract.getOptions().remove(option);
         update(storedContract);
@@ -98,6 +106,10 @@ public class ContractDAOImpl extends HibernateDAO<Contract, Integer>
         if (storedContract == null) {
             throw new ECareException("Contract with number "
                     + contract.getNumber() + " not found!");
+        }
+        if (storedContract.getLockedBy() != null) {
+            throw new ECareException("Contract with number "
+                    + contract.getNumber() + " locked!");
         }
         storedContract.setTariff(tariff);
     }

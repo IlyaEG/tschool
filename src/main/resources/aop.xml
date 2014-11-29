@@ -14,4 +14,10 @@
         <aop:include name="daoAspect" />
     </aop:aspectj-autoproxy>
 
+    <bean id="controllerAspect" class="ru.tsystems.ecare.aspects.ControllerLoggingAspect" />
+    <aop:aspectj-autoproxy>
+        <aop:include name="controllerAspect" />
+    </aop:aspectj-autoproxy>
+
+
 </beans>

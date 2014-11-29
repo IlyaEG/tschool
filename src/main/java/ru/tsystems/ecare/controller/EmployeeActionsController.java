@@ -10,9 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Option;
@@ -553,5 +557,33 @@ public class EmployeeActionsController {
                 getAuthentication();
         String email = auth.getName(); //get logged in email
         return email;
+    }
+
+    /**
+     * Handles EcareException.
+     *
+     * @param e Thrown exception with error message
+     * @return binds message to model and returns customer/error
+     */
+    @ExceptionHandler(ECareException.class)
+    public final ModelAndView handleECareException(final ECareException e) {
+        ModelMap model = new ModelMap();
+        model.put("title", "Impossible action!");
+        model.put("message", e.getMessage());
+        return new ModelAndView("customer/error", model);
+    }
+
+    /**
+     * Handles Exception.
+     *
+     * @param e Thrown exception with error message
+     * @return binds message to model and returns customer/error
+     */
+    @ExceptionHandler(Exception.class)
+    public final ModelAndView handleException(final Exception e) {
+        ModelMap model = new ModelMap();
+        model.put("title", "Unrecoverable error!");
+        model.put("message", e.getMessage());
+        return new ModelAndView("customer/error", model);
     }
 }

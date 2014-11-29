@@ -59,5 +59,8 @@
                 <button class="btn btn-primary" type="submit">Set tariff</button>
             </form>
         </div>
+        <div class="container">
+            <p class="text-danger text-center">${message}</p>
+        </div>
     </body>
 </html>

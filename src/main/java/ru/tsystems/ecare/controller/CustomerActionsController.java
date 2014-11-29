@@ -152,16 +152,21 @@ public class CustomerActionsController {
     @RequestMapping(value = "changeTariff")
     public final String changeContractTariff(final Model model,
             final HttpServletRequest httpServletRequest) {
-        Contract contract = contractService.
-                findByNumber(Integer.parseInt(httpServletRequest.
-                                getParameter("number")), getLogin());
-        Tariff newTariff = tariffService.
-                findById(Integer.parseInt(httpServletRequest.
-                                getParameter("tariff")));
-        contract.setTariff(newTariff);
-        contractService.save(contract, getLogin());
-        
-        return getAllContracts(model);
+        int number = Integer.parseInt(httpServletRequest.
+                getParameter("number"));
+        try {
+            Contract contract = contractService.
+                    findByNumber(number, getLogin());
+            Tariff newTariff = tariffService.
+                    findById(Integer.parseInt(httpServletRequest.
+                                    getParameter("tariff")));
+            contract.setTariff(newTariff);
+            contractService.save(contract, getLogin());
+            return getAllContracts(model);
+        } catch (ECareException e) {
+            model.addAttribute("message", e.getMessage());
+            return getTariffChangingPage(number, model);
+        }
     }
 
     @RequestMapping(value = "contractOptions/{number}")
@@ -183,22 +188,28 @@ public class CustomerActionsController {
     @RequestMapping(value = "changeContractOptions")
     public final String changeContractOptions(final Model model,
             final HttpServletRequest httpServletRequest) {
-        Contract contract = contractService.
-                findByNumber(Integer.parseInt(httpServletRequest.
-                                getParameter("number")), getLogin());
-        Set<Option> add = getOptions("addOption", httpServletRequest);
-        Set<Option> rem = getOptions("remOption", httpServletRequest);
-        Set<Option> activeOptions = contract.getOptions();
-        for (Option o : add) {
-            activeOptions.add(o);
-        }
-        for (Option o : rem) {
-            activeOptions.remove(o);
-        }
-        contractService.setOptions(contract, activeOptions, getLogin());
+        int number = Integer.
+                parseInt(httpServletRequest.getParameter("number"));
+        try {
+            Contract contract
+                    = contractService.findByNumber(number, getLogin());
+            Set<Option> add = getOptions("addOption", httpServletRequest);
+            Set<Option> rem = getOptions("remOption", httpServletRequest);
+            Set<Option> activeOptions = contract.getOptions();
+            for (Option o : add) {
+                activeOptions.add(o);
+            }
+            for (Option o : rem) {
+                activeOptions.remove(o);
+            }
+            contractService.setOptions(contract, activeOptions, getLogin());
 
-        
-        return getAllContracts(model);
+            return getAllContracts(model);
+
+        } catch (ECareException e) {
+            model.addAttribute("message", e.getMessage());
+            return getContractOptionsPage(number, model);
+        }
     }
 
 //get set of options from request with specified prefix
@@ -266,6 +277,7 @@ public class CustomerActionsController {
     @ExceptionHandler(ECareException.class)
     public final ModelAndView handleECareException(final ECareException e) {
         ModelMap model = new ModelMap();
+        model.put("title", "Impossible action!");
         model.put("message", e.getMessage());
         return new ModelAndView("customer/error", model);
     }
@@ -279,6 +291,7 @@ public class CustomerActionsController {
     @ExceptionHandler(Exception.class)
     public final ModelAndView handleException(final Exception e) {
         ModelMap model = new ModelMap();
+        model.put("title", "Unrecoverable error!");
         model.put("message", e.getMessage());
         return new ModelAndView("customer/error", model);
     }

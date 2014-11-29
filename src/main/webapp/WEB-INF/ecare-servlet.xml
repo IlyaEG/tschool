@@ -24,7 +24,7 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
-
-    <!-- <import resource="classpath:aop.xml" /> -->
-
+<!--
+    <import resource="classpath:aop.xml" />
+-->
 </beans>

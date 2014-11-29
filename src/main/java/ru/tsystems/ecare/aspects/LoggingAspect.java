@@ -44,7 +44,7 @@ public class LoggingAspect {
     }
 
     @Before("controller() && methodPointcut() && requestMapping()")
-    public final void aroundControllerMethod(final JoinPoint joinPoint)
+    public final void beforeControllerMethod(final JoinPoint joinPoint)
             throws Throwable {
         LOGGER.info("Invoked: " + niceName(joinPoint));
     }
@@ -55,7 +55,7 @@ public class LoggingAspect {
     }
     
     @Before("service() && methodPointcut()")
-    public final void aroundServiceMethod(final JoinPoint joinPoint)
+    public final void beforeServiceMethod(final JoinPoint joinPoint)
             throws Throwable {
         LOGGER.info("Invoked: " + niceName(joinPoint));
     }
@@ -66,7 +66,7 @@ public class LoggingAspect {
     }
     
     @Before("repository() && methodPointcut()")
-    public final void aroundRepositoryMethod(final JoinPoint joinPoint)
+    public final void beforeRepositoryMethod(final JoinPoint joinPoint)
             throws Throwable {
         LOGGER.info("Invoked: " + niceName(joinPoint));
     }

@@ -100,11 +100,10 @@ public class EmployeeActionsController {
         return "employee/allContracts";
     }
 
-    @RequestMapping("/getCustomersContracts")
-    public final String getCustomersContracts(final Model model,
-            final HttpServletRequest httpServletRequest) {
-        String customersPassport = httpServletRequest.getParameter("passport");
-        Customer customer = customerService.findByPassport(customersPassport);
+    @RequestMapping("/getCustomersContracts/{id}")
+    public final String getCustomersContracts(@PathVariable("id") final int id,
+            final Model model) {
+        Customer customer = customerService.findByID(id);
         Set<Contract> contracts = customerService.getAllContracts(customer);
         model.addAttribute("contracts", contracts);
         model.addAttribute("customer", customer);
@@ -206,7 +205,8 @@ public class EmployeeActionsController {
                 && address.length() > 0) {
 
             //create new customer
-            if (tariff.length() > 0 && number.length() > 0) {
+            if (tariff != null && tariff.length() > 0
+                    && number != null && number.length() > 0) {
                 try {
                     customerService.saveCustomer(name, surname, birthdate, email,
                             password, address, passport);
@@ -233,7 +233,8 @@ public class EmployeeActionsController {
                     return "employee/editCustomer";
                 }
             }
-            return getCustomersContracts(model, httpServletRequest);
+            return getCustomersContracts(customerService.
+                    findByPassport(passport).getPersonId(), model);
 
         } else {
             model.addAttribute("message",
@@ -447,7 +448,7 @@ public class EmployeeActionsController {
                 tariffService.findById(Integer.parseInt(tariff)));
         contract.setNumber(Integer.parseInt(number));
         contractService.newContract(contract, getLogin());
-        return getCustomersContracts(model, httpServletRequest);
+        return getCustomersContracts(customer.getPersonId(), model);
     }
 
     @RequestMapping(value = "contractTariff/{number}")
@@ -496,7 +497,7 @@ public class EmployeeActionsController {
     public final String changeContractOptions(final Model model,
             final HttpServletRequest httpServletRequest) {
         int number = Integer.parseInt(httpServletRequest.
-                                getParameter("number"));
+                getParameter("number"));
         Contract contract = contractService.
                 findByNumber(number, getLogin());
         Set<Option> add = getOptions("addOption", httpServletRequest);
@@ -509,7 +510,7 @@ public class EmployeeActionsController {
             activeOptions.remove(o);
         }
         try {
-        contractService.setOptions(contract, activeOptions, getLogin());
+            contractService.setOptions(contract, activeOptions, getLogin());
         } catch (ECareException e) {
             model.addAttribute("message", e.getMessage());
             return getContractOptionsPage(number, model);

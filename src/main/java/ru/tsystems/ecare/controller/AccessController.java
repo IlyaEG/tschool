@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.services.CustomerService;
 
 /**
@@ -42,24 +43,30 @@ public class AccessController {
         String birthdate = httpServletRequest.getParameter("birthdate");
         String passport = httpServletRequest.getParameter("passport");
         String address = httpServletRequest.getParameter("address");
-
-        if (name.length() > 0 && email.length() > 0 && password.length() > 0
-                && surname.length() > 0 && passport.length() > 0
-                && address.length() > 0) {
+        String message;
+        try {
+            if (name.length() > 0 && email.length() > 0 && password.length() > 0
+                    && surname.length() > 0 && passport.length() > 0
+                    && address.length() > 0) {
             //create new customer
-            customerService.saveCustomer(name,
-                    surname,
-                    birthdate,
-                    email,
-                    password,
-                    address,
-                    passport);
-            String message = "Registration Success! Now you can login.";
-            return "redirect:/login?message=" + message;
-        } else {
-            String message = "Registration Failed!\nFill all fields properly.";
-            return "redirect:/registration?message=" + message;
+
+                customerService.saveCustomer(name,
+                        surname,
+                        birthdate,
+                        email,
+                        password,
+                        address,
+                        passport);
+                message = "Registration Success! Now you can login.";
+                return "redirect:/login?message=" + message;
+
+            } else {
+                message = "Registration Failed!\nFill all fields properly.";
+            }
+        } catch (ECareException e) {
+            message = e.getMessage();
         }
+        return "redirect:/registration?message=" + message;
     }
 
     @RequestMapping("/login")
@@ -92,5 +99,4 @@ public class AccessController {
         model.addAttribute("message", message);
         return "access/registration";
     }
-
 }

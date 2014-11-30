@@ -34,8 +34,16 @@ import ru.tsystems.ecare.persistence.entities.Person;
 @Transactional(readOnly = true)
 public class EcareUserDetailsService implements UserDetailsService {
 
-    @Autowired
     private PersonDAO personDAO;
+
+    public PersonDAO getPersonDAO() {
+        return personDAO;
+    }
+
+    @Autowired
+    public void setPersonDAO(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
 
     /**
      * Returns a populated {@link UserDetails} object. The userEmail is first

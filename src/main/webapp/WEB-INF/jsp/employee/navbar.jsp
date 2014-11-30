@@ -13,7 +13,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/ECare/employee/about">My info</a></li>
+                <li><a href="/ECare/employee/about">My info</a></li>
                 <li><a href="/ECare/employee/newCustomer">Register new customer</a></li>
                 <li><a href="/ECare/employee/searchCustomer">Search customer</a></li>
                 <li><a href="/ECare/employee/tariff">Create new tariff</a></li>

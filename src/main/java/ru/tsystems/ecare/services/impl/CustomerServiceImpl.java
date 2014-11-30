@@ -137,6 +137,11 @@ public class CustomerServiceImpl implements CustomerService {
             Person person;
             Customer customer = customerDAO.findByPassport(passport);
             if (customer == null) {
+                if (personDAO.findByEmail(email) != null) {
+                    throw new ECareException("Customer with same email ["
+                            + email + "]"
+                            + " is already registered in the system!");
+                }
                 customer = new Customer();
                 person = new Person();
             } else {
@@ -212,7 +217,7 @@ public class CustomerServiceImpl implements CustomerService {
         } catch (Exception e) {
             throw new ECareException(e.getMessage());
         }
-        
+
     }
 
     @Override

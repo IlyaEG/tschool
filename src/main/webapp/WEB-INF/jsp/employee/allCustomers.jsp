@@ -42,23 +42,9 @@
                         <c:forEach var="customer" items="${customers}">
                             <tr>
                                 <td><input type="checkbox" name="remove${customer.customerPassport}" value="${customer.personId}"></td>
-                                <td>
-                                    <form id="customer" method="post"
-                                          action="/ECare/employee/editCustomer"
-                                          enctype="application/x-www-form-urlencoded">
-                                        <input type="hidden" name="passport" value="${customer.customerPassport}"/>
-                                        <button class="btn btn-link" type="submit">${customer.person.name} ${customer.person.surname}</button>
-                                    </form>
-                                </td>
+                                <td><a href="/ECare/employee/editCustomer/${customer.personId}">${customer.person.name} ${customer.person.surname}</a></td>
                                 <td>${customer.person.email}</td>
-                                <td>
-                                    <form id="editcontracts${customer.personId}" method="post"
-                                          action="/ECare/employee/getCustomersContracts"
-                                          enctype="application/x-www-form-urlencoded">
-                                        <input type="hidden" name="passport" value="${customer.customerPassport}">
-                                        <button class="btn btn-link" type="submit">View customer's contracts</button>
-                                    </form>
-                                </td>
+                                <td><a href="/ECare/employee/getCustomersContracts/${customer.personId}">View customer's contracts</a></td>
                                 <td><a href="/ECare/employee/lockCustomer/${customer.customerPassport}">${customer.locked}</a></td>
                             </tr>
                         </c:forEach>

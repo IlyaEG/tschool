@@ -13,7 +13,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/ECare/customer/about">My info</a></li>
+                <li><a href="/ECare/customer/about">My info</a></li>
                 <li><a href="/ECare/customer/allContracts">My contracts</a></li>
                 <li><a href="/ECare/customer/allTariffs">All tariffs</a></li>
                 <li><a href="/ECare/customer/allOptions">All options</a></li>

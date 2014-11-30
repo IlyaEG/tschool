@@ -72,6 +72,9 @@ public class CustomerActionsController {
     public final String getCustomerPage(final Model model) {
         String email = getLogin();
         String userName = loginService.getNameByEmail(email);
+        model.addAttribute("locked",
+                String.valueOf(customerService.
+                        isLocked(loginService.findByEmail(email))));
         model.addAttribute("userName", userName);
         return "customer/home";
     }

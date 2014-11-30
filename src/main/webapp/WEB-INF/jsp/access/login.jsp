@@ -1,7 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
+<%@page language="java" contentType="text/html; charset=UTF-8"
+        pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,6 +31,10 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/ECare">ECare</a>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="login">Login</a></li>
+                        <li><a href="registration">Registration</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>

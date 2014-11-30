@@ -22,21 +22,35 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <jsp:include page="navbar.jsp" />
-        <h1 id="banner">Customer's control panel</h1>
-        <hr>
+        <c:choose>
+            <c:when test="${locked}">
+                <p>You are currently logged-in as
+                    <span id="username">${userName}</span>!
+                </p>
+                <div class="container">
+                    <h4>Your account is locked!</h4>
+                    <h4><a href="/ECare/logout">Logout</a></h4>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="navbar.jsp" />
+                <h1 id="banner">Customer's control panel</h1>
 
-        <p>You are currently logged-in as
-            <span id="username">${userName}</span>!
-        </p>
-        <div class="col-lg-6">
-            <h4>You can:</h4>
-            <h5><a href="/ECare/customer/allContracts">View all contracts</a></h5>
-            <h5><a href="/ECare/customer/allTariffs">View all available tariffs</a></h5>
-            <h5><a href="/ECare/customer/allOptions">View all available options</a></h5>
-        </div>
-        <div class="container">
-            <p class="text-danger text-center">${message}</p>
-        </div>
+                <hr>
+
+                <p>You are currently logged-in as
+                    <span id="username">${userName}</span>!
+                </p>
+                <div class="col-lg-6">
+                    <h4>You can:</h4>
+                    <h5><a href="/ECare/customer/allContracts">View all contracts</a></h5>
+                    <h5><a href="/ECare/customer/allTariffs">View all available tariffs</a></h5>
+                    <h5><a href="/ECare/customer/allOptions">View all available options</a></h5>
+                </div>
+                <div class="container">
+                    <p class="text-danger text-center">${message}</p>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

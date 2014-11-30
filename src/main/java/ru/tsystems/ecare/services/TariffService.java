@@ -20,6 +20,6 @@ public interface TariffService {
 
     void deleteTariff(Tariff oldTariff);
 
-    public Tariff findById(int id);
+    Tariff findById(int id);
 
 }

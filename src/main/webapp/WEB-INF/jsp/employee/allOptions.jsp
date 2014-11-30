@@ -37,6 +37,9 @@
                             <th>Option name</th>
                             <th>Option month rate</th>
                             <th>Option connection price</th>
+                            <th>Compatible Tariffs</th>
+                            <th>Related options</th>
+                            <th>Incompatible options</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +49,9 @@
                                 <td><a href="/ECare/employee/option/${option.id}">${option.name}</a></td>
                                 <td>${option.rate}</td>
                                 <td>${option.price}</td>
+                                <td>${option.compatibleTariffs()}</td>
+                                <td>${option.relatedNames()}</td>
+                                <td>${option.incompatibleNames()}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

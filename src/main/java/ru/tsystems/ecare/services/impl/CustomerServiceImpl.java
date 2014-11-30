@@ -190,13 +190,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public final void deleteCustomer(final Customer c) {
+    public final void deleteCustomer(final Integer customerId) {
+        Customer c = customerDAO.find(customerId);
         Set<Contract> contracts = c.getContracts();
         for (Contract contract : contracts) {
-            customerDAO.deleteContract(c, contract);
+            contractDAO.remove(contract);
         }
         int id = c.getPersonId();
-//        customerDAO.remove(customerDAO.find(id));
+        customerDAO.remove(customerDAO.find(id));
         personDAO.remove(personDAO.find(id));
 
     }
@@ -212,5 +213,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ECareException(e.getMessage());
         }
         
+    }
+
+    @Override
+    public Customer findByID(int id) {
+        Customer c = customerDAO.find(id);
+        if (c == null) {
+            throw new ECareException("Customer not found!");
+        }
+        return c;
     }
 }

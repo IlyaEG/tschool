@@ -26,9 +26,11 @@ public interface CustomerService {
 
     Customer findByPassport(String passport);
 
+    Customer findByID(int id);
+
     boolean isLocked(Customer toLock);
 
-    void deleteCustomer(Customer c);
+    void deleteCustomer(Integer customerId);
 
     void changePassword(Customer customer, String password);
 

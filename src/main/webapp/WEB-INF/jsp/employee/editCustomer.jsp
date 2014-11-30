@@ -45,7 +45,7 @@
                 <label for="password" class="sr-only">Password</label>
                 <input type="password" id="password" name="password" value="${password}"
                        class="form-control" placeholder="Password" required>
-                <c:if test="${new > 0}">
+                <c:if test="${availableTariffs != null}">
                     <select name="tariff" class="form-control">
                         <c:forEach var="tariff" items="${availableTariffs}">
                             <option value="${tariff.id}">

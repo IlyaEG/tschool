@@ -26,7 +26,6 @@ import org.springframework.stereotype.Controller;
 public class EcareAuthenticationSuccessHandler
         implements AuthenticationSuccessHandler {
 
-    //TODO protected Log logger = LogFactory.getLog(this.getClass());
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override

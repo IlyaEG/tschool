@@ -251,4 +251,28 @@ public class Option implements java.io.Serializable {
         }
         return names.toString();
     }
+
+    public final String fullInfo() {
+        StringBuilder names = new StringBuilder("");
+        if (optionsForIncompId2.size() > 0) {
+            names.append("Incompatible options: ");
+            for (Option option : optionsForIncompId2) {
+                names.append(option.getName()).append(", ");
+            }
+            if (names.length() > 1) {
+                names.replace(names.lastIndexOf(" ") - 1, names.length() + 1, ".");
+            }
+        }
+        if (optionsForRelId2.size() > 0) {
+            names.append(" Related options: ");
+            for (Option option : optionsForRelId2) {
+                names.append(option.getName()).append(", ");
+            }
+
+            if (names.length() > 1) {
+                names.replace(names.lastIndexOf(" ") - 1, names.length() + 1, ".");
+            }
+        }
+        return names.toString();
+    }
 }

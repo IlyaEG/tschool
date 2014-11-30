@@ -27,6 +27,7 @@
                     <tr>
                         <th>Tariff name</th>
                         <th>Tariff rate</th>
+                        <th>Tariff options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                         <tr>
                             <td><a href="/ECare/employee/tariff/${tariff.id}">${tariff.name}</a></td>
                             <td>${tariff.rate}</td>
+                            <td>${tariff.optionsNames()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

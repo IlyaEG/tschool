@@ -292,7 +292,7 @@ public class CustomerActionsController {
     public final ModelAndView handleException(final Exception e) {
         ModelMap model = new ModelMap();
         model.put("title", "Unrecoverable error!");
-        model.put("message",  e.getMessage() + "\n" + e.toString());
+        model.put("message", e.getMessage() + "\n" + e.toString());
         return new ModelAndView("customer/error", model);
     }
 }

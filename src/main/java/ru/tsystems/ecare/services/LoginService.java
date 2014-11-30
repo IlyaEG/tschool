@@ -14,4 +14,6 @@ public interface LoginService {
 
     Customer findByEmail(String email);
 
+    Person employee(String email);
+
 }

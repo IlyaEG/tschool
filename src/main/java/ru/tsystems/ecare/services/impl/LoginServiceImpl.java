@@ -91,4 +91,9 @@ public class LoginServiceImpl implements LoginService {
         return name;
     }
 
+    @Override
+    public Person employee(String email) {
+        return personDAO.findByEmail(email);
+    }
+
 }

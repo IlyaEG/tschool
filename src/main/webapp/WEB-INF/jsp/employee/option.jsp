@@ -42,19 +42,19 @@
                     <h2>Related options, check to add</h2>
                     <p>
                         <c:forEach var="option" items="${relatedOptions}">
-                            <input type="checkbox" name="related${option.name}" value="${option.id}" checked="true">${option.name}<br>
+                            <input type="checkbox" name="related${option.name}" value="${option.id}" checked="true">${option.name} <small>${option.fullInfo()}</small><br>
                         </c:forEach>
                         <c:forEach var="option" items="${availableOptions}">
-                            <input type="checkbox" name="related${option.name}" value="${option.id}">${option.name}<br>
+                            <input type="checkbox" name="related${option.name}" value="${option.id}">${option.name} <small>${option.fullInfo()}</small><br>
                         </c:forEach>
                     </p>
                     <h2>Incompatible options, check to add</h2>
                     <p>
                         <c:forEach var="option" items="${incompatibleOptions}">
-                            <input type="checkbox" name="incompatible${option.name}" value="${option.id}" checked="true">${option.name}<br>
+                            <input type="checkbox" name="incompatible${option.name}" value="${option.id}" checked="true">${option.name} <small>${option.fullInfo()}</small><br>
                         </c:forEach>
                         <c:forEach var="option" items="${availableOptions}">
-                            <input type="checkbox" name="incompatible${option.name}" value="${option.id}">${option.name}<br>
+                            <input type="checkbox" name="incompatible${option.name}" value="${option.id}">${option.name} <small>${option.fullInfo()}</small><br>
                         </c:forEach>
                     </p>
                 </div>

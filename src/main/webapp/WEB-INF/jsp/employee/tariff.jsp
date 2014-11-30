@@ -46,7 +46,7 @@
                             <label class="checkbox">
                                 <input type="checkbox"
                                        name="addOption${option.name}"
-                                       value="${option.id}">${option.name}
+                                       value="${option.id}">${option.name} <small>${option.fullInfo()}</small>
                             </label>
                         </c:forEach>
                         <c:forEach var="option" items="${tariff.options}">
@@ -54,7 +54,7 @@
                                 <input type="checkbox"
                                        checked="true"
                                        name="addOption${option.name}"
-                                       value="${option.id}">${option.name}
+                                       value="${option.id}">${option.name} <small>${option.fullInfo()}</small>
                             </label>
                         </c:forEach>
                         <input type="hidden" name="tariffId" value="${tariff.id}">

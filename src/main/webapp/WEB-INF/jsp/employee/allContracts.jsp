@@ -66,13 +66,7 @@
                                 </td>
                                 <td><a href="/ECare/employee/contractTariff/${contract.number}">${contract.tariff.name}</a></td>
                                 <td><a href="/ECare/employee/contractOptions/${contract.number}">Manage options</a></td>
-                                <td>
-                                    <form id="customer" method="post"
-                                          action="/ECare/employee/editCustomer"
-                                          enctype="application/x-www-form-urlencoded">
-                                        <input type="hidden" name="passport" value="${contract.customer.customerPassport}"/>
-                                        <button class="btn btn-link" type="submit">${contract.customer.person.name} ${contract.customer.person.surname}</button>
-                                    </form>
+                                <td><a href="/ECare/employee/editCustomer/${contract.customer.personId}">${contract.customer.person.name} ${contract.customer.person.surname}</a></td>
                                 </td>
                             </tr>
                         </c:forEach>

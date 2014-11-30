@@ -12,5 +12,6 @@
     <aop:aspectj-autoproxy />
     <bean id="loggingAspect" class="ru.tsystems.ecare.aspects.LoggingAspect" />
     
+    
 
 </beans>

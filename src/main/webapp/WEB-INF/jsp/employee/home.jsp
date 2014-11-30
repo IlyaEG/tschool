@@ -44,5 +44,8 @@
             <h5><a href="/ECare/employee/allOptions">View all options</a></h5>
             <h5><a href="/ECare/employee/option">Create new option</a></h5>
         </div>
+        <div class="container">
+            <p class="text-danger text-center">${message}</p>
+        </div>
     </body>
 </html>

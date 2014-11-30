@@ -41,7 +41,7 @@
             <form method="post" action="/ECare/employee/changeContractOptions">
                 <p>
                     <c:forEach var="option" items="${contract.options}">
-                        <input type="checkbox" name="remOption${option.name}" value="${option.id}">${option.name}<br>
+                        <input type="checkbox" name="remOption${option.name}" value="${option.id}">${option.name} <small>${option.fullInfo()}</small><br>
                     </c:forEach>
                 </p>
                 <input type="hidden" name="number" value="${contract.number}">
@@ -51,7 +51,7 @@
             <form method="post" action="/ECare/employee/changeContractOptions">
                 <p>
                     <c:forEach var="option" items="${availableOptions}">
-                        <input type="checkbox" name="addOption${option.name}" value="${option.id}">${option.name}<br>
+                        <input type="checkbox" name="addOption${option.name}" value="${option.id}">${option.name} <small>${option.fullInfo()}</small><br>
                     </c:forEach>
                 </p>
                 <input type="hidden" name="number" value="${contract.number}">

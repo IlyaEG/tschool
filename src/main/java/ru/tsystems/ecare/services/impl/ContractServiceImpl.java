@@ -117,9 +117,9 @@ public class ContractServiceImpl implements ContractService {
         try {
             maxNumber = contractDAO.getMaxumimumNumber();
         } catch (NullPointerException e) {
-            maxNumber = 1;
+            maxNumber = 5550000;
         }
-        for (int i = 0; i < 15; i++) {
+        for (int i = 1; i < 16; i++) {
             numbers.add(i + maxNumber);
         }
         return numbers;
@@ -140,8 +140,10 @@ public class ContractServiceImpl implements ContractService {
                     throw new ECareException("No contracts with this number!");
                 }
             }
+        } else {
+            throw new ECareException("Access denied!");
         }
-        throw new ECareException("Access denied!");
+        return null;
     }
 
     @Override
@@ -159,8 +161,10 @@ public class ContractServiceImpl implements ContractService {
                 }
                 return contracts;
             }
+        } else {
+            throw new ECareException("Access denied!");
         }
-        throw new ECareException("Access denied!");
+        return null;
     }
 
     @Override
@@ -214,8 +218,9 @@ public class ContractServiceImpl implements ContractService {
             } else {
                 throw new ECareException("No contracts with this number!");
             }
+        } else {
+            throw new ECareException("Access denied!");
         }
-        throw new ECareException("Access denied!");
     }
 
     @Override
@@ -274,8 +279,9 @@ public class ContractServiceImpl implements ContractService {
             if (user.getRole().getName().equalsIgnoreCase("employee")) {
                 contractDAO.remove(contract);
             }
+        } else {
+            throw new ECareException("Access denied!");
         }
-        throw new ECareException("Access denied!");
     }
 
 }

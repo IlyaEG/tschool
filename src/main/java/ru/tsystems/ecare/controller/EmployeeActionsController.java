@@ -75,6 +75,16 @@ public class EmployeeActionsController {
         return "employee/home";
     }
 
+    @RequestMapping("/about")
+    public final String editCustomer(final Model model) {
+        Person person = loginService.employee(getLogin());
+        if (person != null) {
+            model.addAttribute("person", person);
+            return "employee/about";
+        }
+        return getEmployeePage(model);
+    }
+
     @RequestMapping("/allCustomers")
     public final String getAllCustomers(final Model model) {
         Set<Customer> customers = customerService.getAllCustomers();
@@ -139,7 +149,6 @@ public class EmployeeActionsController {
 
     @RequestMapping("/newCustomer")
     public final String newCustomer(final Model model) {
-        model.addAttribute("new", "1");
         model.addAttribute("availableTariffs",
                 tariffService.getAvailableTariffs());
         model.addAttribute("availableNumbers",
@@ -147,12 +156,12 @@ public class EmployeeActionsController {
         return "employee/editCustomer";
     }
 
-    @RequestMapping("/editCustomer")
-    public final String editCustomer(final Model model,
-            final HttpServletRequest httpServletRequest) {
-        String passport = httpServletRequest.getParameter("passport");
-        if (passport.length() > 0) {
-            Customer customer = customerService.findByPassport(passport);
+    @RequestMapping("/editCustomer/{id}")
+    public final String editCustomer(
+            @PathVariable("id") final int id, final Model model) {
+
+        try {
+            Customer customer = customerService.findByID(id);
             if (customer != null) {
                 Person person = customer.getPerson();
                 model.addAttribute("name", person.getName());
@@ -164,6 +173,8 @@ public class EmployeeActionsController {
                 model.addAttribute("password", person.getPassword());
                 return "employee/editCustomer";
             }
+        } catch (ECareException e) {
+            model.addAttribute("message", e.getMessage());
         }
         return "employee";
     }
@@ -171,6 +182,7 @@ public class EmployeeActionsController {
     @RequestMapping("/saveCustomer")
     public final String saveCustomer(final Model model,
             final HttpServletRequest httpServletRequest) {
+
         String name = httpServletRequest.getParameter("name");
         String email = httpServletRequest.getParameter("email");
         String password = httpServletRequest.getParameter("password");
@@ -181,32 +193,49 @@ public class EmployeeActionsController {
         String tariff = httpServletRequest.getParameter("tariff");
         String number = httpServletRequest.getParameter("number");
 
+        model.addAttribute("name", name);
+        model.addAttribute("email", email);
+        model.addAttribute("surname", surname);
+        model.addAttribute("birthdate", birthdate);
+        model.addAttribute("passport", passport);
+        model.addAttribute("address", address);
+        model.addAttribute("password", password);
+
         if (name.length() > 0 && email.length() > 0 && password.length() > 0
                 && surname.length() > 0 && passport.length() > 0
                 && address.length() > 0) {
+
             //create new customer
             if (tariff.length() > 0 && number.length() > 0) {
-                customerService.saveCustomer(name, surname, birthdate, email,
-                        password, address, passport);
-                Customer saved = customerService.findByPassport(passport);
-                Contract contract = new Contract(saved,
-                        tariffService.findById(Integer.parseInt(tariff)));
-                contract.setNumber(Integer.parseInt(number));
-                contractService.newContract(contract, getLogin());
+                try {
+                    customerService.saveCustomer(name, surname, birthdate, email,
+                            password, address, passport);
+                    Customer saved = customerService.findByPassport(passport);
+                    Contract contract = new Contract(saved,
+                            tariffService.findById(Integer.parseInt(tariff)));
+                    contract.setNumber(Integer.parseInt(number));
+                    contractService.newContract(contract, getLogin());
+                } catch (Exception e) {
+                    model.addAttribute("message", e.getMessage());
+                    model.addAttribute("availableTariffs",
+                            tariffService.getAvailableTariffs());
+                    model.addAttribute("availableNumbers",
+                            contractService.getAvailableNumbers());
+                    return "employee/editCustomer";
+                }
             } else {
-                //update old
-                customerService.saveCustomer(name, surname, birthdate, email,
-                        password, address, passport);
+                try {
+                    //update old
+                    customerService.saveCustomer(name, surname, birthdate, email,
+                            password, address, passport);
+                } catch (Exception e) {
+                    model.addAttribute("message", e.getMessage());
+                    return "employee/editCustomer";
+                }
             }
             return getCustomersContracts(model, httpServletRequest);
+
         } else {
-            model.addAttribute("name", name);
-            model.addAttribute("email", email);
-            model.addAttribute("surname", surname);
-            model.addAttribute("birthdate", birthdate);
-            model.addAttribute("passport", passport);
-            model.addAttribute("address", address);
-            model.addAttribute("password", password);
             model.addAttribute("message",
                     "Registration Failed!\nFill all fields properly.");
             return "employee/editCustomer";
@@ -219,7 +248,7 @@ public class EmployeeActionsController {
         Set<Customer> remove
                 = getCustomers("remove", httpServletRequest);
         for (Customer c : remove) {
-            customerService.deleteCustomer(c);
+            customerService.deleteCustomer(c.getPersonId());
         }
         return getAllCustomers(model);
     }
@@ -250,10 +279,12 @@ public class EmployeeActionsController {
     public final String optionPage(
             @PathVariable("id") int id, final Model model) {
         Option option = optionService.findByID(id);
+
         model.addAttribute("option", option);
         model.addAttribute("relatedOptions", option.getOptionsForRelId2());
         model.addAttribute("incompatibleOptions",
                 option.getOptionsForIncompId2());
+
         Set<Option> availableOptions = optionService.getAllOptions();
         availableOptions.remove(option);
         for (Option o : option.getOptionsForRelId2()) {
@@ -323,7 +354,7 @@ public class EmployeeActionsController {
     }
 
     @RequestMapping("/tariff")
-    public final String getTariffPage(final Model model,
+    public final String getNewTariffPage(final Model model,
             @RequestParam(required = false) String message) {
         model.addAttribute("message", message);
         model.addAttribute("availableOptions", optionService.getAllOptions());
@@ -354,19 +385,32 @@ public class EmployeeActionsController {
             Tariff tariff;
             Set<Option> activeOptions
                     = getOptions("addOption", httpServletRequest);
+
             try {
+                // update tariff
                 int id = Integer.parseInt(
                         httpServletRequest.getParameter("tariffId"));
                 tariff = tariffService.findById(id);
                 tariff.setName(name);
                 tariff.setRate(rate);
                 tariff.setOptions(activeOptions);
-                tariffService.updateTariff(tariff);
+                try {
+                    tariffService.updateTariff(tariff);
+                } catch (ECareException e) {
+                    model.addAttribute("message", e.getMessage());
+                    return getTariffEditPage(id, model);
+                }
             } catch (NumberFormatException nfe) {
+                //tariff not found
                 tariff = new Tariff(name, rate);
                 tariff.setOptions(activeOptions);
-                tariffService.createTariff(tariff);
+                try {
+                    tariffService.createTariff(tariff);
+                } catch (ECareException e) {
+                    return getNewTariffPage(model, e.getMessage());
+                }
             }
+
             Set<Tariff> tariffs = tariffService.getAvailableTariffs();
             model.addAttribute("tariffs", tariffs);
             return "employee/allTariffs";
@@ -428,7 +472,7 @@ public class EmployeeActionsController {
                                 getParameter("tariff")));
         contract.setTariff(newTariff);
         contractService.save(contract, getLogin());
-        
+
         return getAllContracts(model);
     }
 
@@ -451,9 +495,10 @@ public class EmployeeActionsController {
     @RequestMapping(value = "changeContractOptions")
     public final String changeContractOptions(final Model model,
             final HttpServletRequest httpServletRequest) {
+        int number = Integer.parseInt(httpServletRequest.
+                                getParameter("number"));
         Contract contract = contractService.
-                findByNumber(Integer.parseInt(httpServletRequest.
-                                getParameter("number")), getLogin());
+                findByNumber(number, getLogin());
         Set<Option> add = getOptions("addOption", httpServletRequest);
         Set<Option> rem = getOptions("remOption", httpServletRequest);
         Set<Option> activeOptions = contract.getOptions();
@@ -463,8 +508,12 @@ public class EmployeeActionsController {
         for (Option o : rem) {
             activeOptions.remove(o);
         }
+        try {
         contractService.setOptions(contract, activeOptions, getLogin());
-
+        } catch (ECareException e) {
+            model.addAttribute("message", e.getMessage());
+            return getContractOptionsPage(number, model);
+        }
         Person customer = contract.getCustomer().getPerson();
         Set<Contract> contracts = customerService.
                 getAllContracts(contract.getCustomer());
@@ -545,7 +594,7 @@ public class EmployeeActionsController {
             if (temp.length() > prefix.length()
                     && temp.substring(0, prefix.length()).equals(prefix)) {
                 contracts.add(contractService.findByNumber(
-                        Integer.parseInt(temp.substring(prefix.length())),getLogin()));
+                        Integer.parseInt(temp.substring(prefix.length())), getLogin()));
             }
         }
         return contracts;
@@ -570,7 +619,7 @@ public class EmployeeActionsController {
         ModelMap model = new ModelMap();
         model.put("title", "Impossible action!");
         model.put("message", e.getMessage());
-        return new ModelAndView("customer/error", model);
+        return new ModelAndView("employee/error", model);
     }
 
     /**
@@ -584,6 +633,6 @@ public class EmployeeActionsController {
         ModelMap model = new ModelMap();
         model.put("title", "Unrecoverable error!");
         model.put("message", e.getMessage());
-        return new ModelAndView("customer/error", model);
+        return new ModelAndView("employee/error", model);
     }
 }

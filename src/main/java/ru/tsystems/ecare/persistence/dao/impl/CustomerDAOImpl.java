@@ -79,7 +79,7 @@ public class CustomerDAOImpl extends HibernateDAO<Customer, Integer>
         }
         update(storedCustomer);
     }
-
+//to remove
     @Override
     public final void deleteContract(final Customer customer,
             final Contract contract) {
@@ -88,6 +88,7 @@ public class CustomerDAOImpl extends HibernateDAO<Customer, Integer>
             throw new ECareException("Customer "
                     + customer.getPerson().getName() + "not found!");
         }
+
         if (!storedCustomer.getContracts().remove(contract)) {
             throw new ECareException("Contract " + contract.getNumber()
                     + " is not assigned to customer");

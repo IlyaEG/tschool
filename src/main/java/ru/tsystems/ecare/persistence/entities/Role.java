@@ -3,7 +3,6 @@ package ru.tsystems.ecare.persistence.entities;
 // Generated 15.10.2014 12:12:11 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;

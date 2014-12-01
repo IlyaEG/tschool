@@ -5,8 +5,6 @@
  */
 package ru.tsystems.ecare.services;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.ecare.persistence.dao.PersonDAO;
-import ru.tsystems.ecare.persistence.dao.impl.PersonDAOImpl;
 import ru.tsystems.ecare.persistence.entities.Person;
 
 /**
@@ -41,7 +38,7 @@ public class EcareUserDetailsService implements UserDetailsService {
     }
 
     @Autowired
-    public void setPersonDAO(PersonDAO personDAO) {
+    public final void setPersonDAO(final PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
@@ -52,11 +49,9 @@ public class EcareUserDetailsService implements UserDetailsService {
      *
      * @param userEmail
      * @return {@link User}
-     * @throws UsernameNotFoundException
      */
     @Override
-    public final UserDetails loadUserByUsername(final String userEmail)
-            throws UsernameNotFoundException {
+    public final UserDetails loadUserByUsername(final String userEmail) {
         Person domainUser = personDAO.findByEmail(userEmail);
 
         boolean enabled = true;

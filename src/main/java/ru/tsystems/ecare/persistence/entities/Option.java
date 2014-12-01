@@ -61,10 +61,12 @@ public class Option implements java.io.Serializable {
         this.price = price;
     }
 
-    public Option(String name, float rate, float price,
-            Set<Option> optionsForIncompId2, Set<Option> optionsForRelId2,
-            Set<Option> optionsForIncompId1, Set<Option> optionsForRelId1,
-            Set<Tariff> tariffs, Set<Contract> contracts) {
+    public Option(final String name, final float rate, final float price,
+            final Set<Option> optionsForIncompId2,
+            final Set<Option> optionsForRelId2,
+            final Set<Option> optionsForIncompId1,
+            final Set<Option> optionsForRelId1,
+            final Set<Tariff> tariffs, final Set<Contract> contracts) {
         this.name = name;
         this.rate = rate;
         this.price = price;
@@ -170,7 +172,7 @@ public class Option implements java.io.Serializable {
         return this.tariffs;
     }
 
-    public void setTariffs(Set<Tariff> tariffs) {
+    public void setTariffs(final Set<Tariff> tariffs) {
         this.tariffs = tariffs;
     }
 

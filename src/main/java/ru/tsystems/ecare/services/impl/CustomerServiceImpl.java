@@ -107,32 +107,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Set<Contract> getAllContracts(Customer customer) {
+    public Set<Contract> getAllContracts(final Customer customer) {
         return customerDAO.getContracts(customer);
     }
 
     @Override
-    public void lockCustomer(Customer toLock) {
+    public void lockCustomer(final Customer toLock) {
         toLock.setLocked(Boolean.TRUE);
         customerDAO.update(toLock);
     }
 
     @Override
-    public void unlockCustomer(Customer toUnlock) {
+    public void unlockCustomer(final Customer toUnlock) {
         toUnlock.setLocked(Boolean.FALSE);
         customerDAO.update(toUnlock);
     }
 
     @Override
-    public Customer findByNumber(Integer number) {
+    public Customer findByNumber(final Integer number) {
         Contract contract = contractDAO.findByNumber(number);
         Customer customer = contract.getCustomer();
         return customer;
     }
 
     @Override
-    public void saveCustomer(String name, String surname, String birthdate, String email,
-            String password, String address, String passport) {
+    public void saveCustomer(final String name, final String surname,
+            final String birthdate, final String email,
+            final String password, final String address,
+            final String passport) {
         try {
             Person person;
             Customer customer = customerDAO.findByPassport(passport);
@@ -166,13 +168,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByPassport(String passport) {
+    public Customer findByPassport(final String passport) {
         Customer customer = customerDAO.findByPassport(passport);
         return customer;
     }
 
     @Override
-    public void newEmployee(Role role, Person person) {
+    public final void newEmployee(final Role role, final Person person) {
         if (role.getName().equals(roleDAO.findByName("employee").getName())) {
 
             Employee employee = new Employee(person);
@@ -184,14 +186,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean isLocked(Customer toLock) {
-        boolean locked = false;
+    public final boolean isLocked(final Customer toLock) {
         try {
-            locked = customerDAO.lockStatus(toLock);
+            return customerDAO.lockStatus(toLock);
         } catch (NullPointerException e) {
-            //todo log
+            return false;
         }
-        return locked;
     }
 
     @Override
@@ -221,7 +221,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByID(int id) {
+    public final Customer findByID(final int id) {
         Customer c = customerDAO.find(id);
         if (c == null) {
             throw new ECareException("Customer not found!");

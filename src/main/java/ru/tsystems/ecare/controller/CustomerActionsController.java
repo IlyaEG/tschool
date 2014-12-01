@@ -14,13 +14,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.tsystems.ecare.exceptions.ECareException;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Customer;
 import ru.tsystems.ecare.persistence.entities.Option;
-import ru.tsystems.ecare.persistence.entities.Person;
 import ru.tsystems.ecare.persistence.entities.Tariff;
 import ru.tsystems.ecare.services.ContractService;
 import ru.tsystems.ecare.services.CustomerService;
@@ -44,27 +42,29 @@ public class CustomerActionsController {
     private LoginService loginService;
 
     @Autowired
-    public void setLoginService(LoginService loginService) {
+    public final void setLoginService(final LoginService loginService) {
         this.loginService = loginService;
     }
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public final void setCustomerService(
+            final CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @Autowired
-    public void setContractService(ContractService contractService) {
+    public final void setContractService(
+            final ContractService contractService) {
         this.contractService = contractService;
     }
 
     @Autowired
-    public void setTariffService(TariffService tariffService) {
+    public final void setTariffService(final TariffService tariffService) {
         this.tariffService = tariffService;
     }
 
     @Autowired
-    public void setOptionService(OptionService optionService) {
+    public final void setOptionService(final OptionService optionService) {
         this.optionService = optionService;
     }
 

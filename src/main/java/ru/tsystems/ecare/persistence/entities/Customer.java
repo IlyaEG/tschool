@@ -30,11 +30,14 @@ import org.hibernate.annotations.Parameter;
     ),
     @NamedQuery(
             name = "lockStatus",
-            query = "select locked from Customer c where c.customerPassport = :passport"
+            query = "select locked from Customer c"
+            + " where c.customerPassport = :passport"
     )
 })
 @Entity
-@Table(name = "customer", catalog = "ECareDB", uniqueConstraints = @UniqueConstraint(columnNames = "customer_passport"))
+@Table(name = "customer", catalog = "ECareDB",
+        uniqueConstraints
+        = @UniqueConstraint(columnNames = "customer_passport"))
 public class Customer implements java.io.Serializable {
 
     /**
@@ -86,7 +89,8 @@ public class Customer implements java.io.Serializable {
         this.person = person;
     }
 
-    @Column(name = "customer_passport", unique = true, nullable = false, length = 45)
+    @Column(name = "customer_passport",
+            unique = true, nullable = false, length = 45)
     public String getCustomerPassport() {
         return this.customerPassport;
     }

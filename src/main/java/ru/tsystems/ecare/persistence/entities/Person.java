@@ -63,7 +63,8 @@ public class Person implements java.io.Serializable {
     public Person() {
     }
 
-    public Person(Role role, String name, String surname, String password, String email) {
+    public Person(Role role, String name, String surname,
+            String password, String email) {
         this.role = role;
         this.name = name;
         this.surname = surname;
@@ -72,7 +73,8 @@ public class Person implements java.io.Serializable {
     }
 
     public Person(Role role, String name, String surname, String password,
-            String email, String adress, Date birthdate, Employee employee, Customer customer) {
+            String email, String adress, Date birthdate, Employee employee,
+            Customer customer) {
         this.role = role;
         this.name = name;
         this.surname = surname;

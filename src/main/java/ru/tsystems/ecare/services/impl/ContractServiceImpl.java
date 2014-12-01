@@ -17,7 +17,6 @@ import ru.tsystems.ecare.persistence.dao.TariffDAO;
 import ru.tsystems.ecare.persistence.entities.Contract;
 import ru.tsystems.ecare.persistence.entities.Option;
 import ru.tsystems.ecare.persistence.entities.Person;
-import ru.tsystems.ecare.persistence.entities.Role;
 import ru.tsystems.ecare.services.ContractService;
 
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -37,7 +36,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Autowired
-    public void setTariffDAO(TariffDAO tariffDAO) {
+    public final void setTariffDAO(final TariffDAO tariffDAO) {
         this.tariffDAO = tariffDAO;
     }
 
@@ -46,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Autowired
-    public void setOptionDAO(OptionDAO optionDAO) {
+    public final void setOptionDAO(final OptionDAO optionDAO) {
         this.optionDAO = optionDAO;
     }
 
@@ -55,17 +54,17 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Autowired
-    public void setPersonDAO(PersonDAO personDAO) {
+    public final void setPersonDAO(final PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public final void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Autowired
-    public void setContractDAO(ContractDAO contractDAO) {
+    public final void setContractDAO(final ContractDAO contractDAO) {
         this.contractDAO = contractDAO;
     }
 
@@ -91,7 +90,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void unlockNumber(int number, String userEmail) {
+    public void unlockNumber(int number, final String userEmail) {
         Contract contract = contractDAO.findByNumber(number);
         Person unLocker = personDAO.findByEmail(userEmail);
         if (unLocker != null) {
@@ -126,7 +125,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Contract findByNumber(int number, String userEmail) {
+    public Contract findByNumber(int number, final String userEmail) {
         Person user = personDAO.findByEmail(userEmail);
         if (user != null) {
             if (user.getRole().getName().equalsIgnoreCase("employee")) {
@@ -147,7 +146,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Set<Contract> getAllContracts(String userEmail) {
+    public Set<Contract> getAllContracts(final String userEmail) {
         Person user = personDAO.findByEmail(userEmail);
         if (user != null) {
             if (user.getRole().getName().equalsIgnoreCase("employee")) {
@@ -168,7 +167,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void save(Contract contract, String userEmail) {
+    public void save(Contract contract, final String userEmail) {
         Person user = personDAO.findByEmail(userEmail);
 
         if (user != null) {
@@ -192,7 +191,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void lockNumber(int number, String userEmail) {
+    public void lockNumber(int number, final String userEmail) {
         Contract contract = contractDAO.findByNumber(number);
         Person newLocker = personDAO.findByEmail(userEmail);
 
@@ -202,7 +201,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Set<Contract> findAnyByNumber(int number, String userEmail) {
+    public Set<Contract> findAnyByNumber(int number, final String userEmail) {
         Person user = personDAO.findByEmail(userEmail);
         if (user != null) {
             if (user.getRole().getName().equalsIgnoreCase("employee")) {
@@ -246,7 +245,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     private void setOptions(final Set<Option> activeOptions,
-            final Contract contract) throws ECareException {
+            final Contract contract) {
         //check incompatibility and relatedness
         for (Option ao : activeOptions) {
             //check if options are incompatible

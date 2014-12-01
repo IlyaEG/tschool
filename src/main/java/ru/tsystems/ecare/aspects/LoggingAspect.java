@@ -9,16 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.springframework.util.StopWatch;
 
 /**
- * Will log every invocation of methods in @Repository, @Controller or
- *
- * @Service annotated beans.
+ * LoogingAspect.
+ * Will log every invocation of methods in @Repository or @Service
+ * annotated beans.
  */
 @Aspect
 public class LoggingAspect {

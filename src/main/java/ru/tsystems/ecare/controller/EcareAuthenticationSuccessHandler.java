@@ -30,7 +30,8 @@ public class EcareAuthenticationSuccessHandler
 
     @Override
     public final void onAuthenticationSuccess(HttpServletRequest request,
-            HttpServletResponse response, Authentication authentication) throws IOException {
+            HttpServletResponse response, Authentication authentication)
+            throws IOException {
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
@@ -42,7 +43,7 @@ public class EcareAuthenticationSuccessHandler
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-            //todo logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            //Response has already been committed. Unable to redirect to targetUrl
             return;
         }
 
@@ -63,7 +64,8 @@ public class EcareAuthenticationSuccessHandler
         throw new IllegalStateException();
     }
 
-    protected final void clearAuthenticationAttributes(HttpServletRequest request) {
+    protected final void clearAuthenticationAttributes(
+            HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return;

@@ -44,27 +44,29 @@ public class EmployeeActionsController {
     private LoginService loginService;
 
     @Autowired
-    public void setLoginService(LoginService loginService) {
+    public final void setLoginService(final LoginService loginService) {
         this.loginService = loginService;
     }
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public final void setCustomerService(
+            final CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @Autowired
-    public void setContractService(ContractService contractService) {
+    public final void setContractService(
+            final ContractService contractService) {
         this.contractService = contractService;
     }
 
     @Autowired
-    public void setTariffService(TariffService tariffService) {
+    public final void setTariffService(final TariffService tariffService) {
         this.tariffService = tariffService;
     }
 
     @Autowired
-    public void setOptionService(OptionService optionService) {
+    public final void setOptionService(final OptionService optionService) {
         this.optionService = optionService;
     }
 
@@ -607,7 +609,8 @@ public class EmployeeActionsController {
             if (temp.length() > prefix.length()
                     && temp.substring(0, prefix.length()).equals(prefix)) {
                 contracts.add(contractService.findByNumber(
-                        Integer.parseInt(temp.substring(prefix.length())), getLogin()));
+                        Integer.parseInt(temp.substring(
+                                        prefix.length())), getLogin()));
             }
         }
         return contracts;

@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
 
 /**
  * Option entity
@@ -40,7 +41,9 @@ public class Option implements java.io.Serializable {
     private static final long serialVersionUID = 2859805760076315787L;
     private Integer id;
     private String name;
+    @Min(0)
     private float rate;
+    @Min(0)
     private float price;
     private Set<Option> optionsForIncompId2 = new HashSet<>(0);
     private Set<Option> optionsForRelId2 = new HashSet<>(0);

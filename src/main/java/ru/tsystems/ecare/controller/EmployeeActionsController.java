@@ -301,46 +301,55 @@ public class EmployeeActionsController {
     @RequestMapping("/saveOption")
     public final String saveOption(final Model model,
             final HttpServletRequest httpServletRequest) {
-        Option option = new Option(
-                httpServletRequest.getParameter("name"),
-                Float.parseFloat(httpServletRequest.getParameter("rate")),
-                Float.parseFloat(httpServletRequest.getParameter("price")));
-        optionService.createOption(option);
-        Set<Option> related
-                = getOptions("related", httpServletRequest);
-        for (Option o : related) {
-            optionService.setRelatedness(option.getName(), o.getName());
+        try {
+            Option option = new Option(
+                    httpServletRequest.getParameter("name"),
+                    Float.parseFloat(httpServletRequest.getParameter("rate")),
+                    Float.parseFloat(httpServletRequest.getParameter("price")));
+            optionService.createOption(option);
+            Set<Option> related
+                    = getOptions("related", httpServletRequest);
+            for (Option o : related) {
+                optionService.setRelatedness(option.getName(), o.getName());
+            }
+            Set<Option> incompatible
+                    = getOptions("incompatible", httpServletRequest);
+            for (Option o : incompatible) {
+                optionService.setIncompatibility(option.getName(), o.getName());
+            }
+            return getAllOptions(model);
+        } catch (Exception e) {
+            return newOptionPage(model, e.getMessage());
         }
-        Set<Option> incompatible
-                = getOptions("incompatible", httpServletRequest);
-        for (Option o : incompatible) {
-            optionService.setIncompatibility(option.getName(), o.getName());
-        }
-        return getAllOptions(model);
     }
 
     @RequestMapping("/saveOption/{id}")
     public final String saveOption(@PathVariable("id") int id,
             final Model model, final HttpServletRequest httpServletRequest) {
-        Option option = optionService.findByID(id);
-        option.setName(httpServletRequest.getParameter("name"));
-        option.setRate(
-                Float.parseFloat(httpServletRequest.getParameter("rate")));
-        option.setPrice(
-                Float.parseFloat(httpServletRequest.getParameter("price")));
-        optionService.saveOption(option);
-        optionService.independentOption(option);
-        Set<Option> related
-                = getOptions("related", httpServletRequest);
-        for (Option o : related) {
-            optionService.setRelatedness(option.getName(), o.getName());
+        try {
+            Option option = optionService.findByID(id);
+            option.setName(httpServletRequest.getParameter("name"));
+            option.setRate(
+                    Float.parseFloat(httpServletRequest.getParameter("rate")));
+            option.setPrice(
+                    Float.parseFloat(httpServletRequest.getParameter("price")));
+            optionService.saveOption(option);
+            optionService.independentOption(option);
+            Set<Option> related
+                    = getOptions("related", httpServletRequest);
+            for (Option o : related) {
+                optionService.setRelatedness(option.getName(), o.getName());
+            }
+            Set<Option> incompatible
+                    = getOptions("incompatible", httpServletRequest);
+            for (Option o : incompatible) {
+                optionService.setIncompatibility(option.getName(), o.getName());
+            }
+            return getAllOptions(model);
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return optionPage(id, model);
         }
-        Set<Option> incompatible
-                = getOptions("incompatible", httpServletRequest);
-        for (Option o : incompatible) {
-            optionService.setIncompatibility(option.getName(), o.getName());
-        }
-        return getAllOptions(model);
     }
 
     @RequestMapping("/removeOptions")
@@ -383,6 +392,9 @@ public class EmployeeActionsController {
             String name = httpServletRequest.getParameter("name");
             float rate = Float.
                     parseFloat(httpServletRequest.getParameter("rate"));
+            if (rate < 0) {
+                throw new NumberFormatException("Rate should be positive!");
+            }
             Tariff tariff;
             Set<Option> activeOptions
                     = getOptions("addOption", httpServletRequest);

@@ -60,6 +60,7 @@
                 </div>
                 <input type="submit" value="Save option"/>
             </form>
+            <p class="text-danger text-center">${message}</p>
         </div>
     </body>
 </html>

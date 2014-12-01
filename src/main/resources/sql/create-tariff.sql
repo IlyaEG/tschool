@@ -1,6 +1,0 @@
-USE `ECareDB`;
-LOCK TABLES `tariff` WRITE;
-/*!40000 ALTER TABLE `tariff` DISABLE KEYS */;
-INSERT INTO `tariff` VALUES (101,'test-tariff',2.2);
-/*!40000 ALTER TABLE `tariff` ENABLE KEYS */;
-UNLOCK TABLES;

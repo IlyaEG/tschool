@@ -16,6 +16,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:persistence-beans.xml
+            classpath:controllers.xml
             /WEB-INF/spring-security.xml
             /WEB-INF/ecare-servlet.xml
         </param-value>

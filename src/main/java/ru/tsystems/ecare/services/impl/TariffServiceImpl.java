@@ -20,14 +20,46 @@ import ru.tsystems.ecare.services.TariffService;
 public class TariffServiceImpl implements TariffService {
 
     // dependencies
-    @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
     private TariffDAO tariffDAO;
-    @Autowired
     private ContractDAO contractDAO;
-    @Autowired
     private OptionDAO optionDAO;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public TariffDAO getTariffDAO() {
+        return tariffDAO;
+    }
+
+    @Autowired
+    public void setTariffDAO(TariffDAO tariffDAO) {
+        this.tariffDAO = tariffDAO;
+    }
+
+    public ContractDAO getContractDAO() {
+        return contractDAO;
+    }
+
+    @Autowired
+    public void setContractDAO(ContractDAO contractDAO) {
+        this.contractDAO = contractDAO;
+    }
+
+    public OptionDAO getOptionDAO() {
+        return optionDAO;
+    }
+
+    @Autowired
+    public void setOptionDAO(OptionDAO optionDAO) {
+        this.optionDAO = optionDAO;
+    }
 
     @Override
     public Set<Tariff> getAvailableTariffs() {
